@@ -1,0 +1,77 @@
+{
+  "project_info": {
+    "project_number": "778870458297",
+    "firebase_url": "https://amesa-13419.firebaseio.com",
+    "project_id": "amesa-13419",
+    "storage_bucket": "amesa-13419.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:778870458297:android:84f71d8dc67bd2572dd868",
+        "android_client_info": {
+          "package_name": "br.com.egueiber.amesaadm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "778870458297-9fi0n5q1hi0vggjsdiip1pbr9l7hqhvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPf8SvpTZiWTjLiItpq4d0JczmHm1j-S0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "778870458297-9fi0n5q1hi0vggjsdiip1pbr9l7hqhvu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:778870458297:android:acb26c860516793b2dd868",
+        "android_client_info": {
+          "package_name": "com.example.alisa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "778870458297-ms1ldj35iu8t622tjj9ukc0pae0dteh6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.alisa",
+            "certificate_hash": "94732868660f6c8bb9ee00b418c39b42c3c903f3"
+          }
+        },
+        {
+          "client_id": "778870458297-9fi0n5q1hi0vggjsdiip1pbr9l7hqhvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPf8SvpTZiWTjLiItpq4d0JczmHm1j-S0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "778870458297-9fi0n5q1hi0vggjsdiip1pbr9l7hqhvu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

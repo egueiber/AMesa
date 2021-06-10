@@ -7,6 +7,7 @@ import 'package:amesaadm/views/Products/products_screen.dart';
 import 'package:amesaadm/views/home/home_screen.dart';
 import 'package:amesaadm/models/user_manager.dart';
 import 'package:amesaadm/views/admin_users/admin_users_screen.dart';
+import 'package:amesaadm/views/questionariomanager/questionariopesquisa.dart';
 
 class BaseScreen extends StatelessWidget {
   final PageController pageController = PageController();
@@ -23,6 +24,7 @@ class BaseScreen extends StatelessWidget {
             children: <Widget>[
               HomeScreen(),
               ProductsScreen(),
+              QuestionarioPesquisa(),
               Scaffold(
                 drawer: CustomDrawer(),
                 appBar: AppBar(

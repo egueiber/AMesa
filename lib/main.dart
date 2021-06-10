@@ -1,3 +1,4 @@
+import 'package:amesaadm/models/questionario.dart';
 import 'package:flutter/material.dart';
 import 'package:amesaadm/models/user_manager.dart';
 import 'package:amesaadm/views/Base/base_screen.dart';
@@ -14,6 +15,7 @@ import 'package:amesaadm/models/home_manager.dart';
 import 'package:amesaadm/models/admin_users_manager.dart';
 import 'package:amesaadm/views/edit_products/edit_product_screen.dart';
 import 'package:amesaadm/views/select_product/select_product_screen.dart';
+import 'package:amesaadm/views/questionario/questionarioscreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -83,6 +85,10 @@ class MyApp extends StatelessWidget {
                       builder: (_) =>
                           ProductScreen(settings.arguments as Product));
                 //ProductScreen(settings.arguments as Product));
+                case '/questionario':
+                  return MaterialPageRoute(
+                      builder: (_) => QuestionarioScreen(
+                          settings.arguments as Questionario));
                 default:
                   return (MaterialPageRoute(builder: (_) => BaseScreen()));
               }

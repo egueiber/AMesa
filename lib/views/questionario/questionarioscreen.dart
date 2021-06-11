@@ -42,7 +42,7 @@ class QuestionarioScreen extends StatelessWidget {
         body: ListView(
           children: <Widget>[
             AspectRatio(
-              aspectRatio: 1,
+              aspectRatio: 4,
               child: Carousel(
                 images: questionario.images.map((url) {
                   return NetworkImage(url);
@@ -59,11 +59,6 @@ class QuestionarioScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  Text(
-                    questionario.titulo,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                  ),
-
                   Padding(
                     padding: const EdgeInsets.only(top: 16, bottom: 8),
                     child: Text(
@@ -74,6 +69,19 @@ class QuestionarioScreen extends StatelessWidget {
                   ),
                   Text(
                     questionario.titulo,
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16, bottom: 8),
+                    child: Text(
+                      'Descricao',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  Text(
+                    questionario.descricao,
                     style: const TextStyle(fontSize: 16),
                   ),
                   Padding(

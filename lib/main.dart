@@ -9,11 +9,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:amesaadm/models/product.dart';
 import 'package:amesaadm/models/cart_manager.dart';
 import 'package:amesaadm/models/product_manager.dart';
+import 'package:amesaadm/models/questionariomanager.dart';
 import 'package:amesaadm/views/Product/product_screen.dart';
 import 'package:amesaadm/views/cart/cart_screen.dart';
 import 'package:amesaadm/models/home_manager.dart';
 import 'package:amesaadm/models/admin_users_manager.dart';
 import 'package:amesaadm/views/edit_products/edit_product_screen.dart';
+import 'package:amesaadm/views/questionario/edit/editquestionario.dart';
 import 'package:amesaadm/views/select_product/select_product_screen.dart';
 import 'package:amesaadm/views/questionario/questionarioscreen.dart';
 
@@ -34,6 +36,10 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider(
             create: (_) => ProductManager(),
+            lazy: false,
+          ),
+          ChangeNotifierProvider(
+            create: (_) => QuestionarioManager(),
             lazy: false,
           ),
           ChangeNotifierProvider(
@@ -80,6 +86,10 @@ class MyApp extends StatelessWidget {
                   return MaterialPageRoute(
                       builder: (_) =>
                           EditProductScreen(settings.arguments as Product));
+                case '/edit_questionario':
+                  return MaterialPageRoute(
+                      builder: (_) => EditQuestionarioScreen(
+                          settings.arguments as Questionario));
                 case '/product':
                   return MaterialPageRoute(
                       builder: (_) =>

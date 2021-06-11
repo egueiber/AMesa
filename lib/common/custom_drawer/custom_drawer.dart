@@ -27,7 +27,7 @@ class CustomDrawer extends StatelessWidget {
               CustomDrawerHeader(),
               DrawerTile(Icons.home, 'Inicio', 0),
               DrawerTile(Icons.list, 'Produtos', 1),
-              DrawerTile(Icons.playlist_add, 'Meus Pedidos', 2),
+              DrawerTile(Icons.question_answer_sharp, 'Questionários', 2),
               DrawerTile(Icons.location_on, 'Instituição', 3),
               Consumer<UserManager>(
                 builder: (_, userManager, __) {

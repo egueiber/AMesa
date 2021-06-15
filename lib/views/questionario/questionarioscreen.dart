@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:amesaadm/models/questionario.dart';
 import 'package:amesaadm/models/user_manager.dart';
 import 'package:provider/provider.dart';
+import 'edit/componentes/questaowidget.dart';
 
 class QuestionarioScreen extends StatelessWidget {
   const QuestionarioScreen(this.questionario);
@@ -71,7 +72,6 @@ class QuestionarioScreen extends StatelessWidget {
                     questionario.titulo,
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                   ),
-
                   Padding(
                     padding: const EdgeInsets.only(top: 16, bottom: 8),
                     child: Text(
@@ -92,14 +92,13 @@ class QuestionarioScreen extends StatelessWidget {
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                   ),
-                  // TODO: verificar se aproveito para as questões
-                  /*Wrap(
+                  Wrap(
                     spacing: 8,
                     runSpacing: 8,
-                    children: product.sizes.map((s) {
-                      return SizeWidget(size: s);
+                    children: questionario.questoes.map((q) {
+                      return QuestaoWidget(questao: q);
                     }).toList(),
-                  ),*/
+                  ),
                   const SizedBox(
                     height: 20,
                   ),

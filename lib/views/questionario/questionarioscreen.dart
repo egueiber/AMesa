@@ -17,7 +17,7 @@ class QuestionarioScreen extends StatelessWidget {
       value: questionario,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(questionario.descricao),
+          title: Text(questionario.titulo),
           centerTitle: true,
           actions: <Widget>[
             Consumer<UserManager>(
@@ -27,7 +27,7 @@ class QuestionarioScreen extends StatelessWidget {
                     icon: Icon(Icons.edit),
                     onPressed: () {
                       Navigator.of(context).pushReplacementNamed(
-                          '/edit_questionario',
+                          '/edit_questionarios',
                           arguments: questionario);
                     },
                   );

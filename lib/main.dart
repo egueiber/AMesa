@@ -86,7 +86,7 @@ class MyApp extends StatelessWidget {
                   return MaterialPageRoute(
                       builder: (_) =>
                           EditProductScreen(settings.arguments as Product));
-                case '/edit_questionario':
+                case '/edit_questionarios':
                   return MaterialPageRoute(
                       builder: (_) => EditQuestionarioScreen(
                           settings.arguments as Questionario));

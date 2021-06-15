@@ -21,7 +21,7 @@ class QuestionarioListTile extends StatelessWidget {
           child: Row(
             children: <Widget>[
               AspectRatio(
-                aspectRatio: 1,
+                aspectRatio: 2,
                 child: Image.network(questionario.images.first),
               ),
               const SizedBox(
@@ -33,7 +33,7 @@ class QuestionarioListTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      questionario.descricao,
+                      questionario.titulo,
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w800,

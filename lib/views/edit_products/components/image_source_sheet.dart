@@ -16,7 +16,7 @@ class ImageSourceSheet extends StatelessWidget {
         sourcePath: path,
         aspectRatio: const CropAspectRatio(ratioX: 1.0, ratioY: 1.0),
         androidUiSettings: AndroidUiSettings(
-          toolbarTitle: 'Editar Imagem A',
+          toolbarTitle: 'Editar Imagem ',
           toolbarColor: Theme.of(context).primaryColor,
           toolbarWidgetColor: Colors.white,
         ),

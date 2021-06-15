@@ -49,7 +49,7 @@ class EditQuestionarioScreen extends StatelessWidget {
                         if (titulo.length < 6) return 'Título muito curto';
                         return null;
                       },
-                      onSaved: (titulo) => questionario.descricao = titulo,
+                      onSaved: (titulo) => questionario.titulo = titulo,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 16),

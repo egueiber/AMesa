@@ -1,3 +1,4 @@
+import 'package:amesaadm/models/questao.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:io';
@@ -5,8 +6,10 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:uuid/uuid.dart';
 
 class Questionario extends ChangeNotifier {
-  Questionario({this.id, this.titulo, this.descricao, this.images}) {
+  Questionario(
+      {this.id, this.titulo, this.descricao, this.images, this.questoes}) {
     images = images ?? [];
+    questoes = questoes ?? [];
   }
   Questionario.fromDocument(DocumentSnapshot document) {
     id = document.id;
@@ -15,6 +18,9 @@ class Questionario extends ChangeNotifier {
     descricao = item['descricao'] as String;
     // images = List<String>.from(item['images']);
     images = List<String>.from(item['images'] as List<dynamic>);
+    questoes = (item['questoes'] as List<dynamic> ?? [])
+        .map((s) => Questao.fromMap(s as Map<String, dynamic>))
+        .toList();
   }
 
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -26,6 +32,7 @@ class Questionario extends ChangeNotifier {
   String descricao;
   bool ativo = true;
   List<String> images;
+  List<Questao> questoes;
 
   List<dynamic> newImages;
 
@@ -36,13 +43,24 @@ class Questionario extends ChangeNotifier {
     notifyListeners();
   }
 
+  Questao _selectedQuestao;
+  Questao get selectedQuestao => _selectedQuestao;
+  set selectedQuestao(Questao value) {
+    _selectedQuestao = value;
+    notifyListeners();
+  }
+
+  List<Map<String, dynamic>> exportQuestaoList() {
+    return questoes.map((questao) => questao.toMap()).toList();
+  }
+
   Future<void> save() async {
     loading = true;
-
     final Map<String, dynamic> data = {
       'titulo': titulo,
       'descricao': descricao,
       'ativo': ativo,
+      'questoes': exportQuestaoList(),
     };
 
     if (id == null) {
@@ -51,6 +69,14 @@ class Questionario extends ChangeNotifier {
     } else {
       await firestoreRef.update(data);
     }
+
+    /* Questao findQuestao(String descricao) {
+      try {
+        return questoes.firstWhere((s) => s.descricao == descricao);
+      } catch (e) {
+        return null;
+      }
+    }*/
 
     final List<String> updateImages = [];
 
@@ -90,6 +116,7 @@ class Questionario extends ChangeNotifier {
       titulo: titulo,
       descricao: descricao,
       images: List.from(images),
+      questoes: questoes.map((questao) => questao.clone()).toList(),
     );
   }
 

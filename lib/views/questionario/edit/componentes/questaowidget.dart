@@ -9,39 +9,46 @@ class QuestaoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final product = context.watch<Questionario>();
+    final questionario = context.watch<Questionario>();
     //final selected = questao == questionario.selectedQuestao;
 
     Color color;
-    color = Colors.red.withAlpha(50);
+    color = Colors.black;
     return GestureDetector(
       onTap: () {
-        product.selectedQuestao = questao;
+        questionario.selectedQuestao = questao;
       },
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: color),
+      child: Card(
+        /* decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(width: 3.0, color: Colors.lightBlue.shade900),
+            // bottom: BorderSide(width: 3.0, color: Colors.lightBlue.shade900),
+          ),
+        ),*/
+        shape: StadiumBorder(
+          side: BorderSide(
+            color: Colors.black,
+            width: 2.0,
+          ),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Container(
-              color: color,
-              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-              child: Text(
-                questao.descricao,
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-            Container(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 questao.numero.toStringAsFixed(0),
-                style: TextStyle(
-                  color: color,
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
               ),
-            )
+            ),
+            Container(
+              //color: color,
+              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+              child: Text(
+                questao.descricao,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+              ),
+            ),
           ],
         ),
       ),

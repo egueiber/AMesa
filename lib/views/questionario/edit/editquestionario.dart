@@ -37,14 +37,22 @@ class EditQuestionarioScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Text(
+                        'Título',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ),
                     TextFormField(
                       initialValue: questionario.titulo,
                       decoration: const InputDecoration(
                         hintText: 'Título',
-                        border: InputBorder.none,
+                        //border: InputBorder.none,
                       ),
                       style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
                       validator: (titulo) {
                         if (titulo.length < 6) return 'Título muito curto';
                         return null;
@@ -56,14 +64,16 @@ class EditQuestionarioScreen extends StatelessWidget {
                       child: Text(
                         'Descrição',
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     ),
                     TextFormField(
                       initialValue: questionario.descricao,
                       style: const TextStyle(fontSize: 16),
                       decoration: const InputDecoration(
-                          hintText: 'Descrição', border: InputBorder.none),
+                        hintText: 'Descrição',
+                        //border: InputBorder.none
+                      ),
                       maxLines: null,
                       validator: (desc) {
                         if (desc.length < 8) return 'Descrição muito curta';

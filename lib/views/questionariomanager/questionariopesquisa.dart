@@ -98,14 +98,14 @@ class QuestionarioPesquisa extends StatelessWidget {
               });
         },
       ),
-      floatingActionButton: FloatingActionButton(
+      /* floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,
         foregroundColor: Theme.of(context).primaryColor,
         onPressed: () {
           Navigator.of(context).pushNamed('/cart');
         },
         child: Icon(Icons.shopping_cart),
-      ),
+      ),*/
     );
   }
 }

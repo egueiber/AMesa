@@ -65,31 +65,45 @@ class QuestionarioScreen extends StatelessWidget {
                     child: Text(
                       'Título',
                       style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Text(
                     questionario.titulo,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 16, bottom: 8),
                     child: Text(
-                      'Descricao',
+                      'Descrição',
                       style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Text(
                     questionario.descricao,
-                    style: const TextStyle(fontSize: 16),
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.w400),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16, bottom: 8),
+                    child: Text(
+                      'Ativo',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Text(
+                    questionario.ativo.toString(),
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.w400),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 16, bottom: 8),
                     child: Text(
                       'Questões',
                       style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Wrap(

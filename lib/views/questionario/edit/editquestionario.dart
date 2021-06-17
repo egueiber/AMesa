@@ -31,6 +31,14 @@ class EditQuestionarioScreen extends StatelessWidget {
           key: formKey,
           child: ListView(
             children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(top: 16, bottom: 8),
+                child: Text(
+                  'Imagem Questionário',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ),
               ImagesForm(questionario),
               Padding(
                 padding: const EdgeInsets.all(16),

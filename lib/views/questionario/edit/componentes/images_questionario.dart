@@ -29,7 +29,7 @@ class ImagesForm extends StatelessWidget {
         return Column(
           children: <Widget>[
             AspectRatio(
-              aspectRatio: 3,
+              aspectRatio: 2,
               child: Carousel(
                 images: state.value.map<Widget>((image) {
                   return Stack(
@@ -38,7 +38,7 @@ class ImagesForm extends StatelessWidget {
                       if (image is String)
                         Image.network(
                           image,
-                          fit: BoxFit.cover,
+                          fit: BoxFit.contain,
                         )
                       else
                         Image.file(

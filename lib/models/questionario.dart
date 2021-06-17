@@ -122,6 +122,6 @@ class Questionario extends ChangeNotifier {
 
   @override
   String toString() {
-    return 'Questionario{id: $id, name: $titulo, description: $descricao, images: $images, newImages: $newImages}';
+    return 'Questionario{id: $id, name: $titulo, description: $descricao, images: $images, questoes: $questoes, newImages: $newImages}';
   }
 }

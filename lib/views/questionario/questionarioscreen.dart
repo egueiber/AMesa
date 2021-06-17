@@ -42,8 +42,18 @@ class QuestionarioScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         body: ListView(
           children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(top: 16, bottom: 8),
+              child: Text(
+                'Imagem Questionário',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ),
+            //  SizedBox(
+
             AspectRatio(
-              aspectRatio: 4,
+              aspectRatio: 2,
               child: Carousel(
                 images: questionario.images.map((url) {
                   return NetworkImage(url);
@@ -53,8 +63,12 @@ class QuestionarioScreen extends StatelessWidget {
                 dotBgColor: Colors.transparent,
                 dotColor: primaryColor,
                 autoplay: false,
+                boxFit: BoxFit.contain,
+                borderRadius: true,
+                radius: Radius.circular(2),
               ),
             ),
+            // ),
             Padding(
               padding: const EdgeInsets.all(16),
               child: Column(

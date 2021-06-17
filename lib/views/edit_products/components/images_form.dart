@@ -30,7 +30,7 @@ class ImagesForm extends StatelessWidget {
         return Column(
           children: <Widget>[
             AspectRatio(
-              aspectRatio: 1,
+              aspectRatio: 3,
               child: Carousel(
                 images: state.value.map<Widget>((image) {
                   return Stack(

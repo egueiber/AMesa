@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:amesaadm/models/questao.dart';
-import 'package:amesaadm/models/questionario.dart';
+//import 'package:amesaadm/models/questionario.dart';
+import 'package:amesaadm/models/alternativa.dart';
 import 'package:provider/provider.dart';
-import 'package:amesaadm/views/questionario/edit/componentes/alternativawidget.dart';
 
-class QuestaoWidget extends StatelessWidget {
-  const QuestaoWidget({this.questao});
-  final Questao questao;
+class AlternativaWidget extends StatelessWidget {
+  const AlternativaWidget({this.alternativa});
+  final Alternativa alternativa;
 
   @override
   Widget build(BuildContext context) {
-    final questionario = context.watch<Questionario>();
+    //final questionarioao = context.watch<Questao>();
     //final selected = questao == questionario.selectedQuestao;
 
     //Color color;
     // color = Colors.black;
     return GestureDetector(
       onTap: () {
-        questionario.selectedQuestao = questao;
+        //questao.selectedAlternativa = alternativa;
       },
       child: Card(
         /* decoration: BoxDecoration(
@@ -32,13 +32,13 @@ class QuestaoWidget extends StatelessWidget {
             width: 2.0,
           ),
         ),
-        child: Wrap(
-          // mainAxisSize: MainAxisSize.min,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                questao.numero.toStringAsFixed(0),
+                alternativa.ordem.toStringAsFixed(0),
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
               ),
             ),
@@ -46,19 +46,9 @@ class QuestaoWidget extends StatelessWidget {
               //color: color,
               padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
               child: Text(
-                questao.descricao,
+                alternativa.descricao,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
               ),
-            ),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: questao.alternativas.map((q) {
-                return AlternativaWidget(alternativa: q);
-              }).toList(),
-            ),
-            const SizedBox(
-              height: 20,
             ),
           ],
         ),

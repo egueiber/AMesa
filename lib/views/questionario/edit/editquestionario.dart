@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:amesaadm/models/questionario.dart';
 import 'package:amesaadm/models/questionariomanager.dart';
 import 'package:amesaadm/views/questionario/edit/componentes/images_questionario.dart';
-//import 'package:amesaadm/views/edit_products/components/sizes_form.dart';
+import 'package:amesaadm/views/questionario/edit/componentes/questaoform.dart';
 import 'package:provider/provider.dart';
 
 class EditQuestionarioScreen extends StatelessWidget {
@@ -89,7 +89,7 @@ class EditQuestionarioScreen extends StatelessWidget {
                       },
                       onSaved: (desc) => questionario.descricao = desc,
                     ),
-                    //   SizesForm(questionario),
+                    QuestaoForm(questionario),
                     const SizedBox(
                       height: 20,
                     ),

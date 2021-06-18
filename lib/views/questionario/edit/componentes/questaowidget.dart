@@ -26,12 +26,19 @@ class QuestaoWidget extends StatelessWidget {
             // bottom: BorderSide(width: 3.0, color: Colors.lightBlue.shade900),
           ),
         ),*/
-        shape: StadiumBorder(
-          side: BorderSide(
+
+        shape: BeveledRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        /*
+        StadiumBorder(
+          side: BorderSide.none
+          /* (
             color: Colors.black,
             width: 2.0,
-          ),
-        ),
+          )*/
+          ,
+        ),*/
         child: Wrap(
           // mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -51,8 +58,8 @@ class QuestaoWidget extends StatelessWidget {
               ),
             ),
             Wrap(
-              spacing: 8,
-              runSpacing: 8,
+              //spacing: 8,
+              //runSpacing: 8,
               children: questao.alternativas.map((q) {
                 return AlternativaWidget(alternativa: q);
               }).toList(),

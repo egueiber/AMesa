@@ -121,8 +121,8 @@ class QuestionarioScreen extends StatelessWidget {
                     ),
                   ),
                   Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
+                    //spacing: 8,
+                    //runSpacing: 8,
                     children: questionario.questoes.map((q) {
                       return QuestaoWidget(questao: q);
                     }).toList(),

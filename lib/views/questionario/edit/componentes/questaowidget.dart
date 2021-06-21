@@ -11,36 +11,15 @@ class QuestaoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final questionario = context.watch<Questionario>();
-    //final selected = questao == questionario.selectedQuestao;
-
-    //Color color;
-    // color = Colors.black;
     return GestureDetector(
       onTap: () {
         questionario.selectedQuestao = questao;
       },
       child: Card(
-        /* decoration: BoxDecoration(
-          border: Border(
-            top: BorderSide(width: 3.0, color: Colors.lightBlue.shade900),
-            // bottom: BorderSide(width: 3.0, color: Colors.lightBlue.shade900),
-          ),
-        ),*/
-
         shape: BeveledRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
-        /*
-        StadiumBorder(
-          side: BorderSide.none
-          /* (
-            color: Colors.black,
-            width: 2.0,
-          )*/
-          ,
-        ),*/
         child: Wrap(
-          // mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16),

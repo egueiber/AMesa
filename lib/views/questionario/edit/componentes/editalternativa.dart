@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:amesaadm/models/questao.dart';
+import 'package:amesaadm/models/alternativa.dart';
 import 'package:amesaadm/common/custom_icon_button.dart';
-import 'package:amesaadm/views/questionario/edit/componentes/alternativaform.dart';
 
-class EditQuestao extends StatelessWidget {
-  const EditQuestao(
-      {Key key, this.questao, this.onRemove, this.onMoveUp, this.onMoveDown})
+class EditAlternativa extends StatelessWidget {
+  const EditAlternativa(
+      {Key key,
+      this.alternativa,
+      this.onRemove,
+      this.onMoveUp,
+      this.onMoveDown})
       : super(key: key);
 
-  final Questao questao;
+  final Alternativa alternativa;
   final VoidCallback onRemove;
   final VoidCallback onMoveUp;
   final VoidCallback onMoveDown;
@@ -21,7 +24,7 @@ class EditQuestao extends StatelessWidget {
         Expanded(
           flex: 30,
           child: TextFormField(
-            initialValue: questao.descricao,
+            initialValue: alternativa.descricao,
             decoration: const InputDecoration(
               labelText: 'Descrição',
               isDense: true,
@@ -30,7 +33,7 @@ class EditQuestao extends StatelessWidget {
               if (descricao.isEmpty) return 'Inválido';
               return null;
             },
-            onChanged: (descricao) => questao.descricao = descricao,
+            onChanged: (descricao) => alternativa.descricao = descricao,
           ),
         ),
         const SizedBox(
@@ -40,17 +43,18 @@ class EditQuestao extends StatelessWidget {
           flex: 30,
           child: TextFormField(
             textAlign: TextAlign.right,
-            initialValue: questao.numero?.toString(),
+            initialValue: alternativa.pontuacao?.toString(),
             decoration: const InputDecoration(
               labelText: 'Número',
               isDense: true,
             ),
             keyboardType: TextInputType.number,
-            validator: (numero) {
-              if (int.tryParse(numero) == null) return 'Inválido';
+            validator: (pontuacao) {
+              if (int.tryParse(pontuacao) == null) return 'Inválido';
               return null;
             },
-            onChanged: (numero) => questao.numero = int.tryParse(numero),
+            onChanged: (pontuacao) =>
+                alternativa.pontuacao = int.tryParse(pontuacao),
           ),
         ),
         const SizedBox(
@@ -70,8 +74,7 @@ class EditQuestao extends StatelessWidget {
           iconData: Icons.arrow_drop_down,
           color: Colors.black,
           onTap: onMoveDown,
-        ),
-        Expanded(flex: 90, child: AlternativaForm(questao))
+        )
       ],
     ));
   }

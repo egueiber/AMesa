@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:amesaadm/models/alternativa.dart';
 import 'package:amesaadm/models/questao.dart';
-import 'package:amesaadm/models/questionario.dart';
-import 'package:amesaadm/views/questionario/edit/componentes/editquestao.dart';
+import 'package:amesaadm/views/questionario/edit/componentes/editalternativa.dart';
 import 'package:amesaadm/common/custom_icon_button.dart';
 
-class QuestaoForm extends StatelessWidget {
-  const QuestaoForm(this.questionario);
+class AlternativaForm extends StatelessWidget {
+  const AlternativaForm(this.questao);
 
-  final Questionario questionario;
+  final Questao questao;
 
   @override
   Widget build(BuildContext context) {
-    return FormField<List<Questao>>(
-      initialValue: questionario.questoes,
-      validator: (questoes) {
-        if (questoes.isEmpty) return 'Insira ao menos uma questão!';
+    return FormField<List<Alternativa>>(
+      initialValue: questao.alternativas,
+      validator: (alternativas) {
+        if (alternativas.isEmpty) return 'Insira ao menos uma alterantiva!';
         return null;
       },
       builder: (state) {
@@ -24,7 +24,7 @@ class QuestaoForm extends StatelessWidget {
               children: <Widget>[
                 Expanded(
                   child: Text(
-                    'Questoes',
+                    'Alternativas',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                   ),
                 ),
@@ -32,34 +32,34 @@ class QuestaoForm extends StatelessWidget {
                   iconData: Icons.add,
                   color: Colors.black,
                   onTap: () {
-                    state.value.add(Questao());
+                    state.value.add(Alternativa());
                     state.didChange(state.value);
                   },
                 )
               ],
             ),
             Wrap(
-              children: state.value.map((questao) {
-                return EditQuestao(
-                  key: ObjectKey(questao),
-                  questao: questao,
+              children: state.value.map((alternativa) {
+                return EditAlternativa(
+                  key: ObjectKey(alternativa),
+                  alternativa: alternativa,
                   onRemove: () {
-                    state.value.remove(questao);
+                    state.value.remove(alternativa);
                     state.didChange(state.value);
                   },
-                  onMoveUp: questao != state.value.first
+                  onMoveUp: alternativa != state.value.first
                       ? () {
-                          final index = state.value.indexOf(questao);
-                          state.value.remove(questao);
-                          state.value.insert(index - 1, questao);
+                          final index = state.value.indexOf(alternativa);
+                          state.value.remove(alternativa);
+                          state.value.insert(index - 1, alternativa);
                           state.didChange(state.value);
                         }
                       : null,
-                  onMoveDown: questao != state.value.last
+                  onMoveDown: alternativa != state.value.last
                       ? () {
-                          final index = state.value.indexOf(questao);
-                          state.value.remove(questao);
-                          state.value.insert(index + 1, questao);
+                          final index = state.value.indexOf(alternativa);
+                          state.value.remove(alternativa);
+                          state.value.insert(index + 1, alternativa);
                           state.didChange(state.value);
                         }
                       : null,
@@ -78,7 +78,7 @@ class QuestaoForm extends StatelessWidget {
                 ),
               )
           ],
-        );
+        ); //
       },
     );
   }

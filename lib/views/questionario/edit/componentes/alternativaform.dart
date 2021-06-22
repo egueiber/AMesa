@@ -18,68 +18,72 @@ class AlternativaForm extends StatelessWidget {
         return null;
       },
       builder: (state) {
-        return Container(
+        return Card(
+            shape: RoundedRectangleBorder(
+                side: new BorderSide(color: Colors.blueGrey, width: 2.0),
+                borderRadius: BorderRadius.circular(4.0)),
             child: Column(
-          children: <Widget>[
-            Row(
               children: <Widget>[
-                Expanded(
-                  child: Text(
-                    'Alternativas',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                  ),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Text(
+                        'Alternativas',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                    CustomIconButton(
+                      iconData: Icons.add,
+                      color: Colors.black,
+                      onTap: () {
+                        state.value.add(Alternativa());
+                        state.didChange(state.value);
+                      },
+                    )
+                  ],
                 ),
-                CustomIconButton(
-                  iconData: Icons.add,
-                  color: Colors.black,
-                  onTap: () {
-                    state.value.add(Alternativa());
-                    state.didChange(state.value);
-                  },
-                )
+                Wrap(
+                  children: state.value.map((alternativa) {
+                    return EditAlternativa(
+                      key: ObjectKey(alternativa),
+                      alternativa: alternativa,
+                      onRemove: () {
+                        state.value.remove(alternativa);
+                        state.didChange(state.value);
+                      },
+                      onMoveUp: alternativa != state.value.first
+                          ? () {
+                              final index = state.value.indexOf(alternativa);
+                              state.value.remove(alternativa);
+                              state.value.insert(index - 1, alternativa);
+                              state.didChange(state.value);
+                            }
+                          : null,
+                      onMoveDown: alternativa != state.value.last
+                          ? () {
+                              final index = state.value.indexOf(alternativa);
+                              state.value.remove(alternativa);
+                              state.value.insert(index + 1, alternativa);
+                              state.didChange(state.value);
+                            }
+                          : null,
+                    );
+                  }).toList(),
+                ),
+                if (state.hasError)
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      state.errorText,
+                      style: const TextStyle(
+                        color: Colors.red,
+                        fontSize: 12,
+                      ),
+                    ),
+                  )
               ],
-            ),
-            Wrap(
-              children: state.value.map((alternativa) {
-                return EditAlternativa(
-                  key: ObjectKey(alternativa),
-                  alternativa: alternativa,
-                  onRemove: () {
-                    state.value.remove(alternativa);
-                    state.didChange(state.value);
-                  },
-                  onMoveUp: alternativa != state.value.first
-                      ? () {
-                          final index = state.value.indexOf(alternativa);
-                          state.value.remove(alternativa);
-                          state.value.insert(index - 1, alternativa);
-                          state.didChange(state.value);
-                        }
-                      : null,
-                  onMoveDown: alternativa != state.value.last
-                      ? () {
-                          final index = state.value.indexOf(alternativa);
-                          state.value.remove(alternativa);
-                          state.value.insert(index + 1, alternativa);
-                          state.didChange(state.value);
-                        }
-                      : null,
-                );
-              }).toList(),
-            ),
-            if (state.hasError)
-              Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  state.errorText,
-                  style: const TextStyle(
-                    color: Colors.red,
-                    fontSize: 12,
-                  ),
-                ),
-              )
-          ],
-        )); //
+            )); //
       },
     );
   }

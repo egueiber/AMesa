@@ -15,27 +15,31 @@ class EditQuestao extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(children: <Widget>[
-      Row(children: <Widget>[
-        Expanded(
-          flex: 1,
-          child: TextFormField(
-            initialValue: questao.descricao,
-            decoration: const InputDecoration(
-              labelText: 'Descrição',
-              isDense: true,
+    return Card(
+        margin: const EdgeInsets.only(top: 10, left: 8),
+        child: Wrap(children: <Widget>[
+          Row(children: <Widget>[
+            Expanded(
+              flex: 1,
+              child: TextFormField(
+                initialValue: questao.descricao,
+                decoration: const InputDecoration(
+                  labelText: 'Descrição questão',
+                  isDense: true,
+                  labelStyle:
+                      TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                validator: (descricao) {
+                  if (descricao.isEmpty) return 'Inválido';
+                  return null;
+                },
+                onChanged: (descricao) => questao.descricao = descricao,
+              ),
             ),
-            validator: (descricao) {
-              if (descricao.isEmpty) return 'Inválido';
-              return null;
-            },
-            onChanged: (descricao) => questao.descricao = descricao,
-          ),
-        ),
-        const SizedBox(
-          width: 4,
-        ),
-        /*
+            const SizedBox(
+              width: 4,
+            ),
+            /*
       Expanded(
         flex: 10,
         child: TextFormField(
@@ -53,31 +57,31 @@ class EditQuestao extends StatelessWidget {
           onChanged: (numero) => questao.numero = int.tryParse(numero),
         ),
       ),*/
-        const SizedBox(
-          width: 4,
-        ),
-        CustomIconButton(
-          iconData: Icons.remove,
-          color: Colors.red,
-          onTap: onRemove,
-        ),
-        CustomIconButton(
-          iconData: Icons.arrow_drop_up,
-          color: Colors.black,
-          onTap: onMoveUp,
-        ),
-        CustomIconButton(
-          iconData: Icons.arrow_drop_down,
-          color: Colors.black,
-          onTap: onMoveDown,
-        ),
+            const SizedBox(
+              width: 4,
+            ),
+            CustomIconButton(
+              iconData: Icons.remove,
+              color: Colors.red,
+              onTap: onRemove,
+            ),
+            CustomIconButton(
+              iconData: Icons.arrow_drop_up,
+              color: Colors.black,
+              onTap: onMoveUp,
+            ),
+            CustomIconButton(
+              iconData: Icons.arrow_drop_down,
+              color: Colors.black,
+              onTap: onMoveDown,
+            ),
 
-        /*Expanded(
+            /*Expanded(
         flex: 10,
         child: AlternativaForm(questao),
       )*/
-      ]),
-      AlternativaForm(questao),
-    ]);
+          ]),
+          AlternativaForm(questao),
+        ]));
   }
 }

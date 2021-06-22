@@ -28,9 +28,9 @@ class EditAlternativa extends StatelessWidget {
               child: TextFormField(
                 initialValue: alternativa.descricao,
                 decoration: const InputDecoration(
-                  labelText: 'Descrição',
-                  isDense: true,
-                ),
+                    labelText: 'Descrição alternativa:',
+                    isDense: true,
+                    labelStyle: TextStyle(fontSize: 18)),
                 validator: (descricao) {
                   if (descricao.isEmpty) return 'Inválido';
                   return null;

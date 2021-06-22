@@ -1,8 +1,6 @@
 class Alternativa {
-  Alternativa(
-      {this.ordem, this.descricao, this.imagem, this.correta, this.pontuacao});
+  Alternativa({this.descricao, this.imagem, this.correta, this.pontuacao});
   Alternativa.fromMap(Map<String, dynamic> map) {
-    ordem = map['ordem'] as num;
     descricao = map['descricao'] as String;
     imagem = map['imagem'] as String;
     correta = map['correta'] as bool;
@@ -10,7 +8,7 @@ class Alternativa {
   }
 
   String descricao;
-  num ordem = 0;
+
   String imagem = 'Link';
   bool correta = true;
   num pontuacao = 1;
@@ -18,7 +16,6 @@ class Alternativa {
   Alternativa clone() {
     return Alternativa(
       descricao: descricao,
-      ordem: ordem,
       imagem: imagem,
       correta: correta,
       pontuacao: pontuacao,
@@ -27,7 +24,6 @@ class Alternativa {
 
   Map<String, dynamic> toMap() {
     return {
-      'ordem': ordem,
       'descricao': descricao,
       'imagem': imagem,
       'correta': correta,
@@ -37,6 +33,6 @@ class Alternativa {
 
   @override
   String toString() {
-    return 'Alternativa{ordem: $ordem, descricao: $descricao, imagem: $imagem, correta: $correta, pontuacao: $pontuacao}';
+    return 'Alternativa{descricao: $descricao, imagem: $imagem, correta: $correta, pontuacao: $pontuacao}';
   }
 }

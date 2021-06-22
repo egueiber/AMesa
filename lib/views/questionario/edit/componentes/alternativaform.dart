@@ -18,7 +18,7 @@ class AlternativaForm extends StatelessWidget {
         return null;
       },
       builder: (state) {
-        return Flexible(
+        return Container(
             child: Column(
           children: <Widget>[
             Row(

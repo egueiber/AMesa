@@ -19,64 +19,65 @@ class EditAlternativa extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+        margin: const EdgeInsets.only(top: 10, left: 8),
         child: Row(
-      mainAxisSize: MainAxisSize.max,
-      children: <Widget>[
-        Expanded(
-          flex: 10,
-          child: TextFormField(
-            initialValue: alternativa.descricao,
-            decoration: const InputDecoration(
-              labelText: 'Descrição',
-              isDense: true,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            Expanded(
+              flex: 10,
+              child: TextFormField(
+                initialValue: alternativa.descricao,
+                decoration: const InputDecoration(
+                  labelText: 'Descrição',
+                  isDense: true,
+                ),
+                validator: (descricao) {
+                  if (descricao.isEmpty) return 'Inválido';
+                  return null;
+                },
+                onChanged: (descricao) => alternativa.descricao = descricao,
+              ),
             ),
-            validator: (descricao) {
-              if (descricao.isEmpty) return 'Inválido';
-              return null;
-            },
-            onChanged: (descricao) => alternativa.descricao = descricao,
-          ),
-        ),
-        /*const SizedBox(
+            /*const SizedBox(
           width: 4,
         ),*/
-        Expanded(
-          flex: 30,
-          child: TextFormField(
-            textAlign: TextAlign.right,
-            initialValue: alternativa.pontuacao?.toString(),
-            decoration: const InputDecoration(
-              labelText: 'Número',
-              isDense: true,
+            Expanded(
+              flex: 4,
+              child: TextFormField(
+                textAlign: TextAlign.right,
+                initialValue: alternativa.pontuacao?.toString(),
+                decoration: const InputDecoration(
+                  labelText: 'Pontuação',
+                  isDense: true,
+                ),
+                keyboardType: TextInputType.number,
+                validator: (pontuacao) {
+                  if (int.tryParse(pontuacao) == null) return 'Inválido';
+                  return null;
+                },
+                onChanged: (pontuacao) =>
+                    alternativa.pontuacao = int.tryParse(pontuacao),
+              ),
             ),
-            keyboardType: TextInputType.number,
-            validator: (pontuacao) {
-              if (int.tryParse(pontuacao) == null) return 'Inválido';
-              return null;
-            },
-            onChanged: (pontuacao) =>
-                alternativa.pontuacao = int.tryParse(pontuacao),
-          ),
-        ),
-        const SizedBox(
-          width: 4,
-        ),
-        CustomIconButton(
-          iconData: Icons.remove,
-          color: Colors.red,
-          onTap: onRemove,
-        ),
-        CustomIconButton(
-          iconData: Icons.arrow_drop_up,
-          color: Colors.black,
-          onTap: onMoveUp,
-        ),
-        CustomIconButton(
-          iconData: Icons.arrow_drop_down,
-          color: Colors.black,
-          onTap: onMoveDown,
-        )
-      ],
-    ));
+            const SizedBox(
+              width: 4,
+            ),
+            CustomIconButton(
+              iconData: Icons.remove,
+              color: Colors.red,
+              onTap: onRemove,
+            ),
+            CustomIconButton(
+              iconData: Icons.arrow_drop_up,
+              color: Colors.black,
+              onTap: onMoveUp,
+            ),
+            CustomIconButton(
+              iconData: Icons.arrow_drop_down,
+              color: Colors.black,
+              onTap: onMoveDown,
+            )
+          ],
+        ));
   }
 }

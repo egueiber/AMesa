@@ -25,7 +25,7 @@ class QuestaoForm extends StatelessWidget {
                 Expanded(
                   child: Text(
                     'Questoes',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                 ),
                 CustomIconButton(
@@ -40,30 +40,36 @@ class QuestaoForm extends StatelessWidget {
             ),
             Wrap(
               children: state.value.map((questao) {
-                return EditQuestao(
-                  key: ObjectKey(questao),
-                  questao: questao,
-                  onRemove: () {
-                    state.value.remove(questao);
-                    state.didChange(state.value);
-                  },
-                  onMoveUp: questao != state.value.first
-                      ? () {
-                          final index = state.value.indexOf(questao);
-                          state.value.remove(questao);
-                          state.value.insert(index - 1, questao);
-                          state.didChange(state.value);
-                        }
-                      : null,
-                  onMoveDown: questao != state.value.last
-                      ? () {
-                          final index = state.value.indexOf(questao);
-                          state.value.remove(questao);
-                          state.value.insert(index + 1, questao);
-                          state.didChange(state.value);
-                        }
-                      : null,
-                );
+                return Card(
+                    shadowColor: Color.fromARGB(10, 20, 30, 40),
+                    shape: RoundedRectangleBorder(
+                        side:
+                            new BorderSide(color: Colors.blueGrey, width: 2.0),
+                        borderRadius: BorderRadius.circular(4.0)),
+                    child: EditQuestao(
+                      key: ObjectKey(questao),
+                      questao: questao,
+                      onRemove: () {
+                        state.value.remove(questao);
+                        state.didChange(state.value);
+                      },
+                      onMoveUp: questao != state.value.first
+                          ? () {
+                              final index = state.value.indexOf(questao);
+                              state.value.remove(questao);
+                              state.value.insert(index - 1, questao);
+                              state.didChange(state.value);
+                            }
+                          : null,
+                      onMoveDown: questao != state.value.last
+                          ? () {
+                              final index = state.value.indexOf(questao);
+                              state.value.remove(questao);
+                              state.value.insert(index + 1, questao);
+                              state.didChange(state.value);
+                            }
+                          : null,
+                    ));
               }).toList(),
             ),
             if (state.hasError)

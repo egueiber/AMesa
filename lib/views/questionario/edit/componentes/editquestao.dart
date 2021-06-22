@@ -15,11 +15,10 @@ class EditQuestao extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        child: Row(
-      children: <Widget>[
+    return Wrap(children: <Widget>[
+      Row(children: <Widget>[
         Expanded(
-          flex: 30,
+          flex: 1,
           child: TextFormField(
             initialValue: questao.descricao,
             decoration: const InputDecoration(
@@ -36,23 +35,24 @@ class EditQuestao extends StatelessWidget {
         const SizedBox(
           width: 4,
         ),
-        Expanded(
-          flex: 30,
-          child: TextFormField(
-            textAlign: TextAlign.right,
-            initialValue: questao.numero?.toString(),
-            decoration: const InputDecoration(
-              labelText: 'Número',
-              isDense: true,
-            ),
-            keyboardType: TextInputType.number,
-            validator: (numero) {
-              if (int.tryParse(numero) == null) return 'Inválido';
-              return null;
-            },
-            onChanged: (numero) => questao.numero = int.tryParse(numero),
+        /*
+      Expanded(
+        flex: 10,
+        child: TextFormField(
+          textAlign: TextAlign.right,
+          initialValue: questao.numero?.toString(),
+          decoration: const InputDecoration(
+            labelText: 'Número',
+            isDense: true,
           ),
+          keyboardType: TextInputType.number,
+          validator: (numero) {
+            if (int.tryParse(numero) == null) return 'Inválido';
+            return null;
+          },
+          onChanged: (numero) => questao.numero = int.tryParse(numero),
         ),
+      ),*/
         const SizedBox(
           width: 4,
         ),
@@ -71,8 +71,13 @@ class EditQuestao extends StatelessWidget {
           color: Colors.black,
           onTap: onMoveDown,
         ),
-        Expanded(flex: 90, child: AlternativaForm(questao))
-      ],
-    ));
+
+        /*Expanded(
+        flex: 10,
+        child: AlternativaForm(questao),
+      )*/
+      ]),
+      AlternativaForm(questao),
+    ]);
   }
 }

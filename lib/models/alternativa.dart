@@ -10,8 +10,8 @@ class Alternativa {
   }
 
   String descricao;
-  num ordem;
-  String imagem;
+  num ordem = 0;
+  String imagem = 'Link';
   bool correta = true;
   num pontuacao = 1;
 

@@ -18,7 +18,8 @@ class AlternativaForm extends StatelessWidget {
         return null;
       },
       builder: (state) {
-        return Column(
+        return Flexible(
+            child: Column(
           children: <Widget>[
             Row(
               children: <Widget>[
@@ -78,7 +79,7 @@ class AlternativaForm extends StatelessWidget {
                 ),
               )
           ],
-        ); //
+        )); //
       },
     );
   }

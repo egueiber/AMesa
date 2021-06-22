@@ -42,7 +42,7 @@ class AlternativaWidget extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 2),
               child: Text(
-                alternativa.ordem.toStringAsFixed(0),
+                alternativa.ordem?.toStringAsFixed(0),
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
               ),
             ),

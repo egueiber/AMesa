@@ -20,9 +20,10 @@ class EditAlternativa extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
         child: Row(
+      mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         Expanded(
-          flex: 30,
+          flex: 10,
           child: TextFormField(
             initialValue: alternativa.descricao,
             decoration: const InputDecoration(
@@ -36,9 +37,9 @@ class EditAlternativa extends StatelessWidget {
             onChanged: (descricao) => alternativa.descricao = descricao,
           ),
         ),
-        const SizedBox(
+        /*const SizedBox(
           width: 4,
-        ),
+        ),*/
         Expanded(
           flex: 30,
           child: TextFormField(

@@ -16,6 +16,9 @@ class EditQuestao extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+        elevation: 30,
+        shadowColor: Colors.yellow[200],
+        color: Colors.yellow[170],
         margin: const EdgeInsets.only(top: 10, left: 8),
         child: Wrap(children: <Widget>[
           Row(children: <Widget>[

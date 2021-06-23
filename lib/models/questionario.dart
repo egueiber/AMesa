@@ -7,7 +7,12 @@ import 'package:uuid/uuid.dart';
 
 class Questionario extends ChangeNotifier {
   Questionario(
-      {this.id, this.titulo, this.descricao, this.images, this.questoes}) {
+      {this.id,
+      this.titulo,
+      this.descricao,
+      this.images,
+      this.ativo,
+      this.questoes}) {
     images = images ?? [];
     questoes = questoes ?? [];
   }
@@ -16,6 +21,7 @@ class Questionario extends ChangeNotifier {
     var item = document.data() as Map;
     titulo = item['titulo'] as String;
     descricao = item['descricao'] as String;
+    ativo = item['ativo'] as bool;
     // images = List<String>.from(item['images']);
     images = List<String>.from(item['images'] as List<dynamic>);
     questoes = (item['questoes'] as List<dynamic> ?? [])
@@ -30,7 +36,7 @@ class Questionario extends ChangeNotifier {
   String id;
   String titulo;
   String descricao;
-  bool ativo = true;
+  bool ativo;
   List<String> images;
   List<Questao> questoes;
 
@@ -114,6 +120,7 @@ class Questionario extends ChangeNotifier {
     return Questionario(
       id: id,
       titulo: titulo,
+      ativo: ativo,
       descricao: descricao,
       images: List.from(images),
       questoes: questoes.map((questao) => questao.clone()).toList(),
@@ -122,6 +129,6 @@ class Questionario extends ChangeNotifier {
 
   @override
   String toString() {
-    return 'Questionario{id: $id, name: $titulo, description: $descricao, images: $images, questoes: $questoes, newImages: $newImages}';
+    return 'Questionario{id: $id, name: $titulo, description: $descricao, ativo: $ativo, images: $images, questoes: $questoes, newImages: $newImages}';
   }
 }

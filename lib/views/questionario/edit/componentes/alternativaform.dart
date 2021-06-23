@@ -19,6 +19,7 @@ class AlternativaForm extends StatelessWidget {
       },
       builder: (state) {
         return Card(
+            color: Colors.green[100],
             shape: RoundedRectangleBorder(
                 side: new BorderSide(color: Colors.blueGrey, width: 2.0),
                 borderRadius: BorderRadius.circular(4.0)),

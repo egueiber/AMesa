@@ -2,28 +2,23 @@ import 'dart:io';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:amesaadm/models/questionario.dart';
-import 'package:amesaadm/views/edit_products/components/image_source_sheet.dart';
+import 'package:amesaadm/models/alternativa.dart';
+import 'package:amesaadm/views/questionario/edit/componentes/images_source_sheet_alt.dart';
 
-class ImagesForm extends StatelessWidget {
-  const ImagesForm(this.questionario);
+class ImagesAlternativa extends StatelessWidget {
+  const ImagesAlternativa(this.alternativa);
 
-  final Questionario questionario;
+  final Alternativa alternativa;
 
   @override
   Widget build(BuildContext context) {
     return FormField<List<dynamic>>(
-      initialValue: List.from(questionario.images),
+      initialValue: List.from(alternativa.images),
       validator: (images) {
-        if (images.isEmpty) {
-          return 'Insira ao menos uma imagem';
-        }
-        /* else {
-          questionario.newImages = images;
-        }*/
+        if (images.isEmpty) return 'Insira ao menos uma imagem';
         return null;
       },
-      onSaved: (images) => questionario.newImages = images,
+      onSaved: (images) => alternativa.newImages = images,
       builder: (state) {
         void onImageSelected(File file) {
           state.value.add(file);
@@ -31,14 +26,15 @@ class ImagesForm extends StatelessWidget {
           Navigator.of(context).pop();
         }
 
-        return Column(
+        return Wrap(
+          //TODO: teste, era uma column
           children: <Widget>[
             AspectRatio(
-              aspectRatio: 2,
+              aspectRatio: 3,
               child: Carousel(
                 images: state.value.map<Widget>((image) {
                   return Stack(
-                    fit: StackFit.expand,
+                    fit: StackFit.loose,
                     children: <Widget>[
                       if (image is String)
                         Image.network(
@@ -74,19 +70,19 @@ class ImagesForm extends StatelessWidget {
                         if (Platform.isAndroid)
                           showModalBottomSheet(
                               context: context,
-                              builder: (_) => ImageSourceSheet(
+                              builder: (_) => ImageSourceSheetAlt(
                                     onImageSelected: onImageSelected,
                                   ));
                         else
                           showCupertinoModalPopup(
                               context: context,
-                              builder: (_) => ImageSourceSheet(
+                              builder: (_) => ImageSourceSheetAlt(
                                     onImageSelected: onImageSelected,
                                   ));
                       },
                     ),
                   )),
-                dotSize: 4,
+                dotSize: 5,
                 dotSpacing: 15,
                 dotBgColor: Colors.transparent,
                 dotColor: Theme.of(context).primaryColor,

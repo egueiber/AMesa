@@ -67,13 +67,14 @@ class Questionario extends ChangeNotifier {
       'descricao': descricao,
       'ativo': ativo,
       'questoes': exportQuestaoList(),
+      // 'images': List.from(images)
     };
 
     if (id == null) {
       final doc = await firestore.collection('questionarios').add(data);
       id = doc.id;
     } else {
-      await firestoreRef.update(data);
+      await firestoreRef.update(data); //TODO: remover este comentario
     }
 
     /* Questao findQuestao(String descricao) {

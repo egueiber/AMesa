@@ -1,3 +1,4 @@
+import 'package:amesaadm/views/questionario/edit/componentes/images_alternativa.dart';
 import 'package:flutter/material.dart';
 import 'package:amesaadm/models/alternativa.dart';
 import 'package:amesaadm/common/custom_icon_button.dart';
@@ -20,11 +21,29 @@ class EditAlternativa extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
         margin: const EdgeInsets.only(top: 10, left: 8),
-        child: Row(
+        child: Column(
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            Expanded(
-              flex: 10,
+            Container(
+                child: Row(children: <Widget>[
+              CustomIconButton(
+                iconData: Icons.remove,
+                color: Colors.red,
+                onTap: onRemove,
+              ),
+              CustomIconButton(
+                iconData: Icons.arrow_drop_up,
+                color: Colors.black,
+                onTap: onMoveUp,
+              ),
+              CustomIconButton(
+                iconData: Icons.arrow_drop_down,
+                color: Colors.black,
+                onTap: onMoveDown,
+              )
+            ])),
+            Container(
+              // flex: 10,
               child: TextFormField(
                 initialValue: alternativa.descricao,
                 decoration: const InputDecoration(
@@ -38,13 +57,10 @@ class EditAlternativa extends StatelessWidget {
                 onChanged: (descricao) => alternativa.descricao = descricao,
               ),
             ),
-            /*const SizedBox(
-          width: 4,
-        ),*/
-            Expanded(
-              flex: 4,
+            Container(
+              //flex: 4,
               child: TextFormField(
-                textAlign: TextAlign.right,
+                textAlign: TextAlign.left,
                 initialValue: alternativa.pontuacao?.toString(),
                 decoration: const InputDecoration(
                   labelText: 'Pontuação',
@@ -62,21 +78,7 @@ class EditAlternativa extends StatelessWidget {
             const SizedBox(
               width: 4,
             ),
-            CustomIconButton(
-              iconData: Icons.remove,
-              color: Colors.red,
-              onTap: onRemove,
-            ),
-            CustomIconButton(
-              iconData: Icons.arrow_drop_up,
-              color: Colors.black,
-              onTap: onMoveUp,
-            ),
-            CustomIconButton(
-              iconData: Icons.arrow_drop_down,
-              color: Colors.black,
-              onTap: onMoveDown,
-            )
+            Wrap(children: <Widget>[ImagesAlternativa(alternativa)]),
           ],
         ));
   }

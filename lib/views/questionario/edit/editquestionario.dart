@@ -39,12 +39,13 @@ class EditQuestionarioScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ),
-              ImagesForm(questionario),
+              //TODO: images form estava aqui
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
+                    ImagesForm(questionario),
                     Padding(
                       padding: const EdgeInsets.only(top: 16),
                       child: Text(
@@ -89,18 +90,19 @@ class EditQuestionarioScreen extends StatelessWidget {
                       },
                       onSaved: (desc) => questionario.descricao = desc,
                     ),
-                    CheckboxListTile(
+                    /*CheckboxListTile(
                         controlAffinity: ListTileControlAffinity.leading,
                         title: Text('Ativo'),
                         value: questionario.ativo,
                         selected: questionario.ativo,
                         onChanged: (value) {
                           questionario.ativo = value;
-                        }),
-                    Card(
+                        }),*/
+                    QuestaoForm(questionario),
+                    /*Card(
                         color: Colors.yellow[170],
                         elevation: 30,
-                        child: QuestaoForm(questionario)),
+                        child: QuestaoForm(questionario)),*/
                     const SizedBox(
                       height: 20,
                     ),

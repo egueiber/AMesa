@@ -27,7 +27,6 @@ class ImagesAlternativa extends StatelessWidget {
         }
 
         return Wrap(
-          //TODO: teste, era uma column
           children: <Widget>[
             AspectRatio(
               aspectRatio: 3,

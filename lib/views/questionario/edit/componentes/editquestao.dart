@@ -84,8 +84,7 @@ class EditQuestao extends StatelessWidget {
         child: AlternativaForm(questao),
       )*/
           ]),
-          AlternativaForm(
-              questao), //TODO: quanto comentada esta linha chama o onsaved do questionario.
+          AlternativaForm(questao),
         ]));
   }
 }

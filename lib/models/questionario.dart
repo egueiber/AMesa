@@ -74,7 +74,7 @@ class Questionario extends ChangeNotifier {
       final doc = await firestore.collection('questionarios').add(data);
       id = doc.id;
     } else {
-      await firestoreRef.update(data); //TODO: remover este comentario
+      await firestoreRef.update(data);
     }
 
     /* Questao findQuestao(String descricao) {

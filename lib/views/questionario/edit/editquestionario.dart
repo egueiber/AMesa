@@ -39,7 +39,7 @@ class EditQuestionarioScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ),
-              //TODO: images form estava aqui
+              // images form estava aqui e o método on save não funcionava
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(

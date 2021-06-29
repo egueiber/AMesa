@@ -33,6 +33,9 @@ class Questionario extends ChangeNotifier {
   final FirebaseStorage storage = FirebaseStorage.instance;
   DocumentReference get firestoreRef => firestore.doc('questionarios/$id');
   Reference get storageRef => storage.ref().child('questionarios').child(id);
+  Reference get storageRefAlt =>
+      storage.ref().child('questionarios/alternativas').child(id);
+
   String id;
   String titulo;
   String descricao;
@@ -53,6 +56,15 @@ class Questionario extends ChangeNotifier {
   Questao get selectedQuestao => _selectedQuestao;
   set selectedQuestao(Questao value) {
     _selectedQuestao = value;
+    notifyListeners();
+  }
+
+  // bool get questionarioativo => _ativo;
+  bool _qativo;
+  bool get qAtivo => _qativo;
+  set qAtivo(bool valor) {
+    _qativo = valor;
+    ativo = valor;
     notifyListeners();
   }
 
@@ -109,12 +121,47 @@ class Questionario extends ChangeNotifier {
         }
       }
     }
-
+    await atzImg(); //para atualizar as imagens das alternativas.
     await firestoreRef.update({'images': updateImages});
+    await firestoreRef.update({'questoes': exportQuestaoList()});
 
     images = updateImages;
 
+    //atualiza as imagens das alternativas
+
     loading = false;
+  }
+
+  Future<void> atzImg() async {
+    List<String> updateImagesAlt = [];
+    for (final q in this.questoes) {
+      for (final alter in q.alternativas) {
+        for (final newImage in alter.newImages) {
+          if (alter.images.contains(newImage)) {
+            updateImagesAlt.add(newImage as String);
+          } else {
+            final UploadTask task =
+                storageRefAlt.child(Uuid().v1()).putFile(newImage as File);
+            final TaskSnapshot snapshot = await task;
+            final String url = await snapshot.ref.getDownloadURL();
+            updateImagesAlt.add(url);
+          }
+        }
+
+        for (final image in alter.images) {
+          if (!alter.newImages.contains(image)) {
+            try {
+              final ref = storage.refFromURL(image);
+              await ref.delete();
+            } catch (e) {
+              debugPrint('Falha ao deletar $image');
+            }
+          }
+        }
+        alter.images = updateImagesAlt;
+        updateImagesAlt = [];
+      }
+    }
   }
 
   Questionario clone() {

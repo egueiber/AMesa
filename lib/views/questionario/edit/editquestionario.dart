@@ -90,6 +90,18 @@ class EditQuestionarioScreen extends StatelessWidget {
                       },
                       onSaved: (desc) => questionario.descricao = desc,
                     ),
+                    Consumer<Questionario>(builder: (_, questionario, __) {
+                      return (CheckboxListTile(
+                        title: Text("Ativo", textAlign: TextAlign.left),
+                        // key: Key('questionarioativo'),
+                        value: questionario.ativo,
+                        onChanged: (valor) {
+                          questionario.qAtivo = valor;
+                        },
+                        controlAffinity: ListTileControlAffinity
+                            .leading, //  <-- leading Checkbox
+                      ));
+                    }),
                     /*CheckboxListTile(
                         controlAffinity: ListTileControlAffinity.leading,
                         title: Text('Ativo'),

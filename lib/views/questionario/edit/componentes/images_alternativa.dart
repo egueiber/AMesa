@@ -46,22 +46,44 @@ class ImagesAlternativa extends StatelessWidget {
                           fit: BoxFit.cover,
                         ),
                       Align(
-                        alignment: Alignment.topRight,
+                        alignment: Alignment.bottomRight,
                         child: IconButton(
-                          icon: Icon(Icons.remove),
+                          icon: Icon(Icons.remove_circle),
                           color: Colors.red,
                           onPressed: () {
                             state.value.remove(image);
                             state.didChange(state.value);
                           },
                         ),
-                      )
+                      ),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: IconButton(
+                          icon: Icon(Icons.add_circle),
+                          color: Colors.blue,
+                          onPressed: () {
+                            if (Platform.isAndroid)
+                              showModalBottomSheet(
+                                  context: context,
+                                  builder: (_) => ImageSourceSheetAlt(
+                                        onImageSelected: onImageSelected,
+                                      ));
+                            else
+                              showCupertinoModalPopup(
+                                  context: context,
+                                  builder: (_) => ImageSourceSheetAlt(
+                                        onImageSelected: onImageSelected,
+                                      ));
+                          },
+                        ),
+                      ),
                     ],
                   );
                 }).toList()
                   ..add(Material(
                     color: Colors.grey[100],
                     child: IconButton(
+                      alignment: Alignment.topRight,
                       icon: Icon(Icons.add_a_photo),
                       color: Theme.of(context).primaryColor,
                       iconSize: 50,

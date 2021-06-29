@@ -1,6 +1,9 @@
-class Alternativa {
+import 'package:flutter/cupertino.dart';
+
+class Alternativa extends ChangeNotifier {
   Alternativa({this.descricao, this.correta, this.pontuacao, this.images}) {
     images = images ?? [];
+    correta = correta ?? true;
   }
   Alternativa.fromMap(Map<String, dynamic> map) {
     descricao = map['descricao'] as String;
@@ -15,6 +18,14 @@ class Alternativa {
   bool correta = true;
   num pontuacao = 1;
   //String newImagem;
+
+  bool _aCorreta;
+  bool get aCorreta => _aCorreta;
+  set qCorreta(bool valor) {
+    _aCorreta = valor;
+    correta = valor;
+    notifyListeners();
+  }
 
   Alternativa clone() {
     return Alternativa(

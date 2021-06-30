@@ -36,9 +36,9 @@ class QuestaoForm extends StatelessWidget {
                     state.value.add(Questao());
                     state.didChange(state.value);
 
-                    FocusScopeNode ultimo =
-                        node.ancestors.elementAt(node.children.length);
-                    ultimo.nextFocus();
+                    /* FocusScopeNode ultimo =
+                        node.ancestors.elementAt(node.children.length - 1);
+                    ultimo.nextFocus();*/
                     //node.nextFocus();
                     //Focus.of(context)
                     // FocusScope.of(state.context).nextFocus();

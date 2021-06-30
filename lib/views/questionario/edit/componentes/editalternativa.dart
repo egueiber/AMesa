@@ -5,7 +5,7 @@ import 'package:amesaadm/common/custom_icon_button.dart';
 import 'package:provider/provider.dart';
 
 class EditAlternativa extends StatelessWidget {
-  const EditAlternativa(
+  EditAlternativa(
       {Key key,
       this.alternativa,
       this.onRemove,
@@ -17,7 +17,7 @@ class EditAlternativa extends StatelessWidget {
   final VoidCallback onRemove;
   final VoidCallback onMoveUp;
   final VoidCallback onMoveDown;
-
+  final focusAlternativa = FocusNode();
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
@@ -65,6 +65,8 @@ class EditAlternativa extends StatelessWidget {
                   // flex: 10,
                   child: TextFormField(
                     //autofocus: true,
+                    autofocus: true,
+                    focusNode: focusAlternativa,
                     initialValue: alternativa.descricao,
                     decoration: const InputDecoration(
                         labelText: 'Descrição alternativa:',

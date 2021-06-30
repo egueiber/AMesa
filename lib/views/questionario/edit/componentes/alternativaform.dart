@@ -11,7 +11,6 @@ class AlternativaForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final node = FocusScope.of(context);
     return FormField<List<Alternativa>>(
       initialValue: questao.alternativas,
       validator: (alternativas) {
@@ -41,9 +40,6 @@ class AlternativaForm extends StatelessWidget {
                       onTap: () {
                         state.value.add(Alternativa());
                         state.didChange(state.value);
-                        /* FocusScopeNode ultimo =
-                            node.ancestors.elementAt(node.children.length - 1);
-                        ultimo.nextFocus();*/
                       },
                     )
                   ],

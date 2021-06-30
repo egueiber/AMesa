@@ -10,7 +10,6 @@ class QuestaoForm extends StatelessWidget {
   final ScrollController controller = ScrollController();
   @override
   Widget build(BuildContext context) {
-    final node = FocusScope.of(context);
     return FormField<List<Questao>>(
       initialValue: questionario.questoes,
       validator: (questoes) {
@@ -35,14 +34,6 @@ class QuestaoForm extends StatelessWidget {
                   onTap: () {
                     state.value.add(Questao());
                     state.didChange(state.value);
-
-                    /* FocusScopeNode ultimo =
-                        node.ancestors.elementAt(node.children.length - 1);
-                    ultimo.nextFocus();*/
-                    //node.nextFocus();
-                    //Focus.of(context)
-                    // FocusScope.of(state.context).nextFocus();
-                    // controller.jumpTo(controller.position.maxScrollExtent);
                   },
                 )
               ],

@@ -30,6 +30,9 @@ class EditQuestionarioScreen extends StatelessWidget {
         body: Form(
           key: formKey,
           child: ListView(
+            shrinkWrap: true,
+            reverse: false,
+            // reverse: true,
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(top: 16, bottom: 8),

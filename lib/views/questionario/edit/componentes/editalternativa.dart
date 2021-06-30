@@ -23,7 +23,7 @@ class EditAlternativa extends StatelessWidget {
     return ChangeNotifierProvider.value(
         value: alternativa,
         child: Card(
-            margin: const EdgeInsets.only(top: 10, left: 8),
+            margin: const EdgeInsets.only(top: 10, left: 4),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
@@ -46,8 +46,10 @@ class EditAlternativa extends StatelessWidget {
                   )
                 ])),
                 Container(
+                  alignment: Alignment.centerLeft,
                   child: Consumer<Alternativa>(builder: (_, alternativa, __) {
                     return (CheckboxListTile(
+                      // autofocus: true,
                       title: Text("Correto", textAlign: TextAlign.left),
                       // key: Key('questionarioativo'),
                       value: alternativa.correta,
@@ -62,6 +64,7 @@ class EditAlternativa extends StatelessWidget {
                 Container(
                   // flex: 10,
                   child: TextFormField(
+                    //autofocus: true,
                     initialValue: alternativa.descricao,
                     decoration: const InputDecoration(
                         labelText: 'Descrição alternativa:',

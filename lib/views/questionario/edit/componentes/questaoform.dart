@@ -5,12 +5,12 @@ import 'package:amesaadm/views/questionario/edit/componentes/editquestao.dart';
 import 'package:amesaadm/common/custom_icon_button.dart';
 
 class QuestaoForm extends StatelessWidget {
-  const QuestaoForm(this.questionario);
-
+  QuestaoForm(this.questionario);
   final Questionario questionario;
-
+  final ScrollController controller = ScrollController();
   @override
   Widget build(BuildContext context) {
+    final node = FocusScope.of(context);
     return FormField<List<Questao>>(
       initialValue: questionario.questoes,
       validator: (questoes) {
@@ -21,6 +21,7 @@ class QuestaoForm extends StatelessWidget {
         return Column(
           children: <Widget>[
             Row(
+              // verticalDirection: VerticalDirection.down,
               children: <Widget>[
                 Expanded(
                   child: Text(
@@ -34,6 +35,14 @@ class QuestaoForm extends StatelessWidget {
                   onTap: () {
                     state.value.add(Questao());
                     state.didChange(state.value);
+
+                    FocusScopeNode ultimo =
+                        node.ancestors.elementAt(node.children.length);
+                    ultimo.nextFocus();
+                    //node.nextFocus();
+                    //Focus.of(context)
+                    // FocusScope.of(state.context).nextFocus();
+                    // controller.jumpTo(controller.position.maxScrollExtent);
                   },
                 )
               ],

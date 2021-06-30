@@ -29,11 +29,11 @@ class ImagesAlternativa extends StatelessWidget {
         return Wrap(
           children: <Widget>[
             AspectRatio(
-              aspectRatio: 3,
+              aspectRatio: 2,
               child: Carousel(
                 images: state.value.map<Widget>((image) {
                   return Stack(
-                    fit: StackFit.loose,
+                    // fit: StackFit.expand,
                     children: <Widget>[
                       if (image is String)
                         Image.network(
@@ -45,38 +45,43 @@ class ImagesAlternativa extends StatelessWidget {
                           image as File,
                           fit: BoxFit.cover,
                         ),
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: IconButton(
-                          icon: Icon(Icons.remove_circle),
-                          color: Colors.red,
-                          onPressed: () {
-                            state.value.remove(image);
-                            state.didChange(state.value);
-                          },
+                      Column(children: <Widget>[
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: IconButton(
+                            iconSize: 30,
+                            icon: Icon(Icons.add_circle),
+                            color: Colors.blue,
+                            onPressed: () {
+                              if (Platform.isAndroid)
+                                showModalBottomSheet(
+                                    context: context,
+                                    builder: (_) => ImageSourceSheetAlt(
+                                          onImageSelected: onImageSelected,
+                                        ));
+                              else
+                                showCupertinoModalPopup(
+                                    context: context,
+                                    builder: (_) => ImageSourceSheetAlt(
+                                          onImageSelected: onImageSelected,
+                                        ));
+                            },
+                          ),
                         ),
-                      ),
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: IconButton(
-                          icon: Icon(Icons.add_circle),
-                          color: Colors.blue,
-                          onPressed: () {
-                            if (Platform.isAndroid)
-                              showModalBottomSheet(
-                                  context: context,
-                                  builder: (_) => ImageSourceSheetAlt(
-                                        onImageSelected: onImageSelected,
-                                      ));
-                            else
-                              showCupertinoModalPopup(
-                                  context: context,
-                                  builder: (_) => ImageSourceSheetAlt(
-                                        onImageSelected: onImageSelected,
-                                      ));
-                          },
+                        //const SizedBox(height: 32),
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: IconButton(
+                            iconSize: 30,
+                            icon: Icon(Icons.remove_circle),
+                            color: Colors.red,
+                            onPressed: () {
+                              state.value.remove(image);
+                              state.didChange(state.value);
+                            },
+                          ),
                         ),
-                      ),
+                      ]),
                     ],
                   );
                 }).toList()

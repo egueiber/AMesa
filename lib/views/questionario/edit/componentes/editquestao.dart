@@ -4,7 +4,7 @@ import 'package:amesaadm/common/custom_icon_button.dart';
 import 'package:amesaadm/views/questionario/edit/componentes/alternativaform.dart';
 
 class EditQuestao extends StatelessWidget {
-  const EditQuestao(
+  EditQuestao(
       {Key key, this.questao, this.onRemove, this.onMoveUp, this.onMoveDown})
       : super(key: key);
 
@@ -12,7 +12,7 @@ class EditQuestao extends StatelessWidget {
   final VoidCallback onRemove;
   final VoidCallback onMoveUp;
   final VoidCallback onMoveDown;
-
+  final focusQuestao = FocusNode();
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -25,6 +25,10 @@ class EditQuestao extends StatelessWidget {
             Expanded(
               flex: 1,
               child: TextFormField(
+                autofocus: true,
+                focusNode: focusQuestao,
+                minLines: 1,
+                maxLines: 4,
                 initialValue: questao.descricao,
                 decoration: const InputDecoration(
                   labelText: 'Descrição questão',
@@ -42,24 +46,6 @@ class EditQuestao extends StatelessWidget {
             const SizedBox(
               width: 4,
             ),
-            /*
-      Expanded(
-        flex: 10,
-        child: TextFormField(
-          textAlign: TextAlign.right,
-          initialValue: questao.numero?.toString(),
-          decoration: const InputDecoration(
-            labelText: 'Número',
-            isDense: true,
-          ),
-          keyboardType: TextInputType.number,
-          validator: (numero) {
-            if (int.tryParse(numero) == null) return 'Inválido';
-            return null;
-          },
-          onChanged: (numero) => questao.numero = int.tryParse(numero),
-        ),
-      ),*/
             const SizedBox(
               width: 4,
             ),
@@ -78,11 +64,6 @@ class EditQuestao extends StatelessWidget {
               color: Colors.black,
               onTap: onMoveDown,
             ),
-
-            /*Expanded(
-        flex: 10,
-        child: AlternativaForm(questao),
-      )*/
           ]),
           AlternativaForm(questao),
         ]));

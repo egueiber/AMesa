@@ -1,4 +1,7 @@
+import 'package:amesaadm/models/aluno.dart';
 import 'package:amesaadm/models/questionario.dart';
+import 'package:amesaadm/models/alunosmanager.dart';
+import 'package:amesaadm/views/aluno/alunoscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:amesaadm/models/user_manager.dart';
 import 'package:amesaadm/views/Base/base_screen.dart';
@@ -57,10 +60,14 @@ class MyApp extends StatelessWidget {
             lazy: false,
             update: (_, userManager, adminUsersManager) =>
                 adminUsersManager..updateUser(userManager),
-          )
+          ),
+          ChangeNotifierProvider(
+            create: (_) => AlunoManager(),
+            lazy: false,
+          ),
         ],
         child: MaterialApp(
-            title: 'Sistema t1',
+            title: 'Lição ',
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
                 primaryColor: const Color.fromARGB(255, 4, 125, 141),
@@ -94,7 +101,10 @@ class MyApp extends StatelessWidget {
                   return MaterialPageRoute(
                       builder: (_) =>
                           ProductScreen(settings.arguments as Product));
-                //ProductScreen(settings.arguments as Product));
+
+                case '/aluno':
+                  return MaterialPageRoute(
+                      builder: (_) => AlunoScreen(settings.arguments as Aluno));
                 case '/questionario':
                   return MaterialPageRoute(
                       builder: (_) => QuestionarioScreen(

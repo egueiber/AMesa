@@ -1,3 +1,4 @@
+import 'package:amesaadm/views/aluno_lista/alunosscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:amesaadm/models/page_manager.dart';
 //import 'package:amesaadm/views/Login/login_screen.dart';
@@ -25,6 +26,7 @@ class BaseScreen extends StatelessWidget {
               HomeScreen(),
               ProductsScreen(),
               QuestionarioPesquisa(),
+              AlunosScreen(),
               Scaffold(
                 drawer: CustomDrawer(),
                 appBar: AppBar(

@@ -28,7 +28,7 @@ class CustomDrawer extends StatelessWidget {
               DrawerTile(Icons.home, 'Inicio', 0),
               DrawerTile(Icons.list, 'Produtos', 1),
               DrawerTile(Icons.question_answer_sharp, 'Questionários', 2),
-              DrawerTile(Icons.location_on, 'Instituição', 3),
+              DrawerTile(Icons.person, 'Alunos', 3),
               Consumer<UserManager>(
                 builder: (_, userManager, __) {
                   if (userManager.adminEnabled) {

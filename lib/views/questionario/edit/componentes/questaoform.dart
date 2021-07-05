@@ -8,6 +8,7 @@ class QuestaoForm extends StatelessWidget {
   QuestaoForm(this.questionario);
   final Questionario questionario;
   final ScrollController controller = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return FormField<List<Questao>>(
@@ -48,6 +49,7 @@ class QuestaoForm extends StatelessWidget {
                     child: EditQuestao(
                   key: ObjectKey(questao),
                   questao: questao,
+                  indice: state.value.indexOf(questao) + 1,
                   onRemove: () {
                     state.value.remove(questao);
                     state.didChange(state.value);

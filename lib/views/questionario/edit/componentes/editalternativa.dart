@@ -46,22 +46,6 @@ class EditAlternativa extends StatelessWidget {
                   )
                 ])),
                 Container(
-                  alignment: Alignment.centerLeft,
-                  child: Consumer<Alternativa>(builder: (_, alternativa, __) {
-                    return (CheckboxListTile(
-                      // autofocus: true,
-                      title: Text("Correto", textAlign: TextAlign.left),
-                      // key: Key('questionarioativo'),
-                      value: alternativa.correta,
-                      onChanged: (valor) {
-                        alternativa.qCorreta = valor;
-                      },
-                      controlAffinity: ListTileControlAffinity
-                          .leading, //  <-- leading Checkbox
-                    ));
-                  }),
-                ),
-                Container(
                   // flex: 10,
                   child: TextFormField(
                     //autofocus: true,
@@ -96,6 +80,22 @@ class EditAlternativa extends StatelessWidget {
                     onChanged: (pontuacao) =>
                         alternativa.pontuacao = int.tryParse(pontuacao),
                   ),
+                ),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Consumer<Alternativa>(builder: (_, alternativa, __) {
+                    return (CheckboxListTile(
+                      // autofocus: true,
+                      title: Text("Correto", textAlign: TextAlign.left),
+                      // key: Key('questionarioativo'),
+                      value: alternativa.correta,
+                      onChanged: (valor) {
+                        alternativa.qCorreta = valor;
+                      },
+                      controlAffinity: ListTileControlAffinity
+                          .leading, //  <-- leading Checkbox
+                    ));
+                  }),
                 ),
                 const SizedBox(
                   width: 4,

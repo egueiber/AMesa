@@ -105,19 +105,7 @@ class EditQuestionarioScreen extends StatelessWidget {
                             .leading, //  <-- leading Checkbox
                       ));
                     }),
-                    /*CheckboxListTile(
-                        controlAffinity: ListTileControlAffinity.leading,
-                        title: Text('Ativo'),
-                        value: questionario.ativo,
-                        selected: questionario.ativo,
-                        onChanged: (value) {
-                          questionario.ativo = value;
-                        }),*/
                     QuestaoForm(questionario),
-                    /*Card(
-                        color: Colors.yellow[170],
-                        elevation: 30,
-                        child: QuestaoForm(questionario)),*/
                     const SizedBox(
                       height: 20,
                     ),

@@ -5,7 +5,12 @@ import 'package:amesaadm/views/questionario/edit/componentes/alternativaform.dar
 
 class EditQuestao extends StatelessWidget {
   EditQuestao(
-      {Key key, this.questao, this.onRemove, this.onMoveUp, this.onMoveDown})
+      {Key key,
+      this.questao,
+      this.indice,
+      this.onRemove,
+      this.onMoveUp,
+      this.onMoveDown})
       : super(key: key);
 
   final Questao questao;
@@ -13,6 +18,8 @@ class EditQuestao extends StatelessWidget {
   final VoidCallback onMoveUp;
   final VoidCallback onMoveDown;
   final focusQuestao = FocusNode();
+  final int indice;
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -22,6 +29,10 @@ class EditQuestao extends StatelessWidget {
         margin: const EdgeInsets.only(top: 10, left: 8),
         child: Wrap(children: <Widget>[
           Row(children: <Widget>[
+            SizedBox(
+              width: 20,
+              child: Text(indice.toString() + '. '),
+            ),
             Expanded(
               flex: 1,
               child: TextFormField(
@@ -42,9 +53,6 @@ class EditQuestao extends StatelessWidget {
                 },
                 onChanged: (descricao) => questao.descricao = descricao,
               ),
-            ),
-            const SizedBox(
-              width: 4,
             ),
             const SizedBox(
               width: 4,

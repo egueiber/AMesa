@@ -39,13 +39,13 @@ class AlternativaWidget extends StatelessWidget {
         child: Row(
           //mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Container(
+            /* Container(
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 2),
               child: Text(
                 alternativa.pontuacao?.toStringAsFixed(0),
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
               ),
-            ),
+            ), */
             Container(
               //color: color,
               padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),

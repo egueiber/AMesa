@@ -15,6 +15,7 @@ class Questionario extends ChangeNotifier {
       this.questoes}) {
     images = images ?? [];
     questoes = questoes ?? [];
+    ativo = ativo ?? true;
   }
   Questionario.fromDocument(DocumentSnapshot document) {
     id = document.id;

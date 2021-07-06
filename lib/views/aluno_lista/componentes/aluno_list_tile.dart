@@ -39,7 +39,7 @@ class AlunoListTile extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      aluno.email,
+                      aluno.email ?? '',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w800,

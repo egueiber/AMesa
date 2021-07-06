@@ -2,8 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Aluno extends ChangeNotifier {
-  Aluno({this.id, this.nome, this.turma, this.email}) {
+  Aluno({this.id, this.nome, this.turma, this.email, this.ativo}) {
+    nome = nome ?? '';
+    email = email ?? '';
     turma = turma ?? '';
+    ativo = ativo ?? true;
   }
 
   Aluno.fromDocument(DocumentSnapshot document) {
@@ -12,6 +15,7 @@ class Aluno extends ChangeNotifier {
     nome = item['nome'] as String;
     turma = item['turma'] as String;
     email = item['email'] as String;
+    ativo = item['ativo'] as bool;
   }
 
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -21,17 +25,29 @@ class Aluno extends ChangeNotifier {
   String nome;
   String turma;
   String email;
+  bool ativo;
+
+  bool _loading = false;
+  bool get loading => _loading;
+  set loading(bool value) {
+    _loading = value;
+    notifyListeners();
+  }
+
+  bool _qativo;
+  bool get qAtivo => _qativo;
+  set qAtivo(bool valor) {
+    _qativo = valor;
+    ativo = valor;
+    notifyListeners();
+  }
 
   Aluno clone() {
-    return Aluno(nome: nome, turma: turma, email: email);
+    return Aluno(id: id, nome: nome, turma: turma, email: email, ativo: ativo);
   }
 
   Map<String, dynamic> toMap() {
-    return {
-      'nome': nome,
-      'turma': turma,
-      'email': email,
-    };
+    return {'nome': nome, 'turma': turma, 'email': email, 'ativo': ativo};
   }
 
   Future<void> save() async {
@@ -41,6 +57,7 @@ class Aluno extends ChangeNotifier {
       'nome': nome,
       'turma': turma,
       'email': email,
+      'ativo': ativo
     };
 
     if (id == null) {
@@ -53,6 +70,6 @@ class Aluno extends ChangeNotifier {
 
   @override
   String toString() {
-    return 'Aluno{nome: $nome, turma: $turma, email: $email}';
+    return 'Aluno{id: $id, nome: $nome, turma: $turma, email: $email, ativo: $ativo}';
   }
 }

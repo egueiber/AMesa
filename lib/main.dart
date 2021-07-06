@@ -2,6 +2,7 @@ import 'package:amesaadm/models/aluno.dart';
 import 'package:amesaadm/models/questionario.dart';
 import 'package:amesaadm/models/alunosmanager.dart';
 import 'package:amesaadm/views/aluno/alunoscreen.dart';
+import 'package:amesaadm/views/aluno/edit/editaluno.dart';
 import 'package:flutter/material.dart';
 import 'package:amesaadm/models/user_manager.dart';
 import 'package:amesaadm/views/Base/base_screen.dart';
@@ -93,6 +94,10 @@ class MyApp extends StatelessWidget {
                   return MaterialPageRoute(
                       builder: (_) =>
                           EditProductScreen(settings.arguments as Product));
+                case '/edit_aluno':
+                  return MaterialPageRoute(
+                      builder: (_) =>
+                          EditAlunoScreen(settings.arguments as Aluno));
                 case '/edit_questionarios':
                   return MaterialPageRoute(
                       builder: (_) => EditQuestionarioScreen(

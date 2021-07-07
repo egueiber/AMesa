@@ -21,21 +21,20 @@ class TurmaManager extends ChangeNotifier {
 
   List<Turma> get filteredProducts {
     final List<Turma> filteredTurmas = [];
-
     if (search.isEmpty) {
       filteredTurmas.addAll(allTurmas);
     } else {
       filteredTurmas.addAll(allTurmas
           .where((a) => a.sigla.toLowerCase().contains(search.toLowerCase())));
     }
-
+    filteredTurmas.sort((a, b) =>
+        a.descricao.toLowerCase().compareTo(b.descricao.toLowerCase()));
     return filteredTurmas;
   }
 
   Future<void> _loadAllTurmas() async {
     final QuerySnapshot snapTurmas = await firestore.collection('turmas').get();
     allTurmas = snapTurmas.docs.map((d) => Turma.fromDocument(d)).toList();
-
     notifyListeners();
   }
 

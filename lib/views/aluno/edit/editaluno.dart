@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:amesaadm/models/aluno.dart';
 import 'package:amesaadm/models/alunosmanager.dart';
 import 'package:provider/provider.dart';
+import 'package:amesaadm/models/turmasmanager.dart';
 
 class EditAlunoScreen extends StatelessWidget {
   EditAlunoScreen(Aluno p)
@@ -11,7 +12,7 @@ class EditAlunoScreen extends StatelessWidget {
 
   final Aluno aluno;
   final bool editing;
-
+  String siglasel;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -63,28 +64,6 @@ class EditAlunoScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: 16),
                       child: Text(
-                        'Turma',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    TextFormField(
-                      initialValue: aluno.turma,
-                      style: const TextStyle(fontSize: 16),
-                      decoration: const InputDecoration(
-                        hintText: 'Turma',
-                        //border: InputBorder.none
-                      ),
-                      maxLines: null,
-                      validator: (turma) {
-                        if (turma.length < 1) return 'Turma muito curta';
-                        return null;
-                      },
-                      onSaved: (turma) => aluno.turma = turma,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16),
-                      child: Text(
                         'E-mail',
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
@@ -106,6 +85,32 @@ class EditAlunoScreen extends StatelessWidget {
                       },
                       onSaved: (email) => aluno.email = email,
                     ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Text(
+                        'Turma',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Consumer<TurmaManager>(builder: (_, turmasmanager, __) {
+                      return (DropdownButtonFormField(
+                          hint: Text('Escolha uma turma'),
+                          value: aluno.turma == '' ? 'S1TB21' : aluno.turma,
+                          items: turmasmanager.allTurmas.map((dynamic val) {
+                            return DropdownMenuItem<dynamic>(
+                              value: val.sigla,
+                              child: new Text(
+                                val.sigla,
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (newValue) {
+                            aluno.turma = newValue;
+                            aluno.qAtivo = true;
+                          },
+                          onSaved: (value) => aluno.turma = value));
+                    }),
                     Consumer<Aluno>(builder: (_, aluno, __) {
                       return (CheckboxListTile(
                         title: Text("Ativo", textAlign: TextAlign.left),

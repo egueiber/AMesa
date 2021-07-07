@@ -20,7 +20,8 @@ class AlunoManager extends ChangeNotifier {
   }
 
   List<Aluno> get filteredProducts {
-    final List<Aluno> filteredAlunos = [];
+    List<Aluno> filteredAlunos = [];
+    List<Aluno> filteredAlunosorder = [];
 
     if (search.isEmpty) {
       filteredAlunos.addAll(allAlunos);
@@ -28,7 +29,8 @@ class AlunoManager extends ChangeNotifier {
       filteredAlunos.addAll(allAlunos
           .where((a) => a.nome.toLowerCase().contains(search.toLowerCase())));
     }
-
+    filteredAlunos
+        .sort((a, b) => a.nome.toLowerCase().compareTo(b.nome.toLowerCase()));
     return filteredAlunos;
   }
 

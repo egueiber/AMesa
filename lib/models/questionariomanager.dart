@@ -28,6 +28,8 @@ class QuestionarioManager extends ChangeNotifier {
       filteredQuestionarios.addAll(allQuestionarios
           .where((p) => p.titulo.toLowerCase().contains(search.toLowerCase())));
     }
+    filteredQuestionarios.sort(
+        (a, b) => a.titulo.toLowerCase().compareTo(b.titulo.toLowerCase()));
 
     return filteredQuestionarios;
   }

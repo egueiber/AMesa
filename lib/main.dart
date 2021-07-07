@@ -1,8 +1,13 @@
 import 'package:amesaadm/models/aluno.dart';
+import 'package:amesaadm/models/turma.dart';
 import 'package:amesaadm/models/questionario.dart';
 import 'package:amesaadm/models/alunosmanager.dart';
 import 'package:amesaadm/views/aluno/alunoscreen.dart';
 import 'package:amesaadm/views/aluno/edit/editaluno.dart';
+import 'package:amesaadm/models/turmasmanager.dart';
+import 'package:amesaadm/views/turma/turmascreen.dart';
+import 'package:amesaadm/views/turma/edit/editturma.dart';
+
 import 'package:flutter/material.dart';
 import 'package:amesaadm/models/user_manager.dart';
 import 'package:amesaadm/views/Base/base_screen.dart';
@@ -66,6 +71,10 @@ class MyApp extends StatelessWidget {
             create: (_) => AlunoManager(),
             lazy: false,
           ),
+          ChangeNotifierProvider(
+            create: (_) => TurmaManager(),
+            lazy: false,
+          ),
         ],
         child: MaterialApp(
             title: 'Lição ',
@@ -94,6 +103,10 @@ class MyApp extends StatelessWidget {
                   return MaterialPageRoute(
                       builder: (_) =>
                           EditProductScreen(settings.arguments as Product));
+                case '/edit_turma':
+                  return MaterialPageRoute(
+                      builder: (_) =>
+                          EditTurmaScreen(settings.arguments as Turma));
                 case '/edit_aluno':
                   return MaterialPageRoute(
                       builder: (_) =>
@@ -106,6 +119,9 @@ class MyApp extends StatelessWidget {
                   return MaterialPageRoute(
                       builder: (_) =>
                           ProductScreen(settings.arguments as Product));
+                case '/turma':
+                  return MaterialPageRoute(
+                      builder: (_) => TurmaScreen(settings.arguments as Turma));
 
                 case '/aluno':
                   return MaterialPageRoute(

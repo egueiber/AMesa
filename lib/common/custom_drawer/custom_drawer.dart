@@ -29,6 +29,7 @@ class CustomDrawer extends StatelessWidget {
               DrawerTile(Icons.list, 'Produtos', 1),
               DrawerTile(Icons.question_answer_sharp, 'Questionários', 2),
               DrawerTile(Icons.person, 'Alunos', 3),
+              DrawerTile(Icons.group, 'Turmas', 4),
               Consumer<UserManager>(
                 builder: (_, userManager, __) {
                   if (userManager.adminEnabled) {
@@ -42,7 +43,7 @@ class CustomDrawer extends StatelessWidget {
                         ),
                         DrawerTile(
                           Icons.settings,
-                          'Pedidos',
+                          'PeTurma',
                           5,
                         ),
                       ],

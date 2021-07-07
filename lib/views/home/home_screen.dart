@@ -33,11 +33,11 @@ class HomeScreen extends StatelessWidget {
                   centerTitle: true,
                 ),
                 actions: <Widget>[
-                  IconButton(
+                  /* IconButton(
                     icon: Icon(Icons.shopping_cart),
                     color: Colors.white,
                     onPressed: () => Navigator.of(context).pushNamed('/cart'),
-                  ),
+                  ), */
                   Consumer2<UserManager, HomeManager>(
                     builder: (_, userManager, homeManager, __) {
                       if (userManager.adminEnabled && !homeManager.loading) {

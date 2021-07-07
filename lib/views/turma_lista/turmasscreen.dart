@@ -1,21 +1,21 @@
 import 'package:amesaadm/common/custom_drawer/custom_drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:amesaadm/models/alunosmanager.dart';
-import 'package:amesaadm/views/aluno_lista/componentes/aluno_list_tile.dart';
+import 'package:amesaadm/models/turmasmanager.dart';
+import 'package:amesaadm/views/turma_lista/componentes/turma_list_tile.dart';
 import 'package:provider/provider.dart';
 import 'package:amesaadm/views/questionariomanager/componentes/pesquisa.dart';
 import 'package:amesaadm/models/user_manager.dart';
 
-class AlunosScreen extends StatelessWidget {
+class TurmasScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: CustomDrawer(),
       appBar: AppBar(
-        title: Consumer<AlunoManager>(
-          builder: (_, alunoManager, __) {
-            if (alunoManager.search.isEmpty) {
-              return const Text('Alunos');
+        title: Consumer<TurmaManager>(
+          builder: (_, turmaManager, __) {
+            if (turmaManager.search.isEmpty) {
+              return const Text('Turmas');
             } else {
               return LayoutBuilder(
                 builder: (_, constraints) {
@@ -23,15 +23,15 @@ class AlunosScreen extends StatelessWidget {
                     onTap: () async {
                       final search = await showDialog<String>(
                           context: context,
-                          builder: (_) => PesquisaDialogo(alunoManager.search));
+                          builder: (_) => PesquisaDialogo(turmaManager.search));
                       if (search != null) {
-                        alunoManager.search = search;
+                        turmaManager.search = search;
                       }
                     },
                     child: Container(
                         width: constraints.biggest.width,
                         child: Text(
-                          alunoManager.search,
+                          turmaManager.search,
                           textAlign: TextAlign.center,
                         )),
                   );
@@ -42,17 +42,17 @@ class AlunosScreen extends StatelessWidget {
         ),
         centerTitle: true,
         actions: <Widget>[
-          Consumer<AlunoManager>(
-            builder: (_, alunoManager, __) {
-              if (alunoManager.search.isEmpty) {
+          Consumer<TurmaManager>(
+            builder: (_, turmaManager, __) {
+              if (turmaManager.search.isEmpty) {
                 return IconButton(
                   icon: Icon(Icons.search),
                   onPressed: () async {
                     final search = await showDialog<String>(
                         context: context,
-                        builder: (_) => PesquisaDialogo(alunoManager.search));
+                        builder: (_) => PesquisaDialogo(turmaManager.search));
                     if (search != null) {
-                      alunoManager.search = search;
+                      turmaManager.search = search;
                     }
                   },
                 );
@@ -60,7 +60,7 @@ class AlunosScreen extends StatelessWidget {
                 return IconButton(
                   icon: Icon(Icons.close),
                   onPressed: () async {
-                    alunoManager.search = '';
+                    turmaManager.search = '';
                   },
                 );
               }
@@ -73,7 +73,7 @@ class AlunosScreen extends StatelessWidget {
                   icon: Icon(Icons.add),
                   onPressed: () {
                     Navigator.of(context).pushNamed(
-                      '/edit_aluno',
+                      '/edit_turma',
                     );
                   },
                 );
@@ -84,14 +84,14 @@ class AlunosScreen extends StatelessWidget {
           )
         ],
       ),
-      body: Consumer<AlunoManager>(
-        builder: (_, alunoManager, __) {
-          final filteredAlunos = alunoManager.filteredProducts;
+      body: Consumer<TurmaManager>(
+        builder: (_, turmaManager, __) {
+          final filteredTurmas = turmaManager.filteredProducts;
           return ListView.builder(
               padding: const EdgeInsets.all(4),
-              itemCount: filteredAlunos.length,
+              itemCount: filteredTurmas.length,
               itemBuilder: (_, index) {
-                return AlunoListTile(filteredAlunos[index]);
+                return TurmaListTile(filteredTurmas[index]);
               });
         },
       ),

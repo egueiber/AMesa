@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:amesaadm/models/aluno.dart';
+import 'package:amesaadm/models/turma.dart';
 import 'package:amesaadm/models/user_manager.dart';
 import 'package:provider/provider.dart';
 //import 'edit/componentes/questaowidget.dart';
 
-class AlunoScreen extends StatelessWidget {
-  const AlunoScreen(this.aluno);
+class TurmaScreen extends StatelessWidget {
+  const TurmaScreen(this.turma);
 
-  final Aluno aluno;
+  final Turma turma;
 
   @override
   Widget build(BuildContext context) {
     //final primaryColor = Theme.of(context).primaryColor;
 
     return ChangeNotifierProvider.value(
-      value: aluno,
+      value: turma,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(aluno.nome),
+          title: Text(turma.sigla),
           centerTitle: true,
           actions: <Widget>[
             Consumer<UserManager>(
@@ -26,8 +26,8 @@ class AlunoScreen extends StatelessWidget {
                   return IconButton(
                     icon: Icon(Icons.edit),
                     onPressed: () {
-                      Navigator.of(context).pushReplacementNamed('/edit_aluno',
-                          arguments: aluno);
+                      Navigator.of(context).pushReplacementNamed('/edit_turma',
+                          arguments: turma);
                     },
                   );
                 } else {
@@ -50,38 +50,43 @@ class AlunoScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 16, bottom: 8),
                     child: Text(
-                      'Nome',
+                      'Sigla',
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Text(
-                    aluno.nome,
+                    turma.sigla,
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 16, bottom: 8),
                     child: Text(
-                      'Turma',
+                      'Descrição',
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Text(
-                    aluno.turma,
+                    turma.descricao,
                     style: const TextStyle(
                         fontSize: 18, fontWeight: FontWeight.w400),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 16, bottom: 8),
                     child: Text(
-                      'e-mail',
+                      'ano',
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Text(
-                    aluno.email.toString(),
+                    turma.ano.toString(),
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.w400),
+                  ),
+                  Text(
+                    turma.ativo ? 'Ativo' : 'Inativo',
                     style: const TextStyle(
                         fontSize: 18, fontWeight: FontWeight.w400),
                   ),

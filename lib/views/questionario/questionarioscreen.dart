@@ -24,14 +24,24 @@ class QuestionarioScreen extends StatelessWidget {
             Consumer<UserManager>(
               builder: (_, userManager, __) {
                 if (userManager.adminEnabled) {
-                  return IconButton(
-                    icon: Icon(Icons.edit),
-                    onPressed: () {
-                      Navigator.of(context).pushReplacementNamed(
-                          '/edit_questionarios',
-                          arguments: questionario);
-                    },
-                  );
+                  return Row(children: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.edit),
+                      onPressed: () {
+                        Navigator.of(context).pushReplacementNamed(
+                            '/edit_questionarios',
+                            arguments: questionario);
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.group_add),
+                      onPressed: () {
+                        Navigator.of(context).pushReplacementNamed(
+                            '/edit_questionarios',
+                            arguments: questionario);
+                      },
+                    )
+                  ]);
                 } else {
                   return Container();
                 }

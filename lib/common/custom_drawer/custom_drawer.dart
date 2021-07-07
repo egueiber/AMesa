@@ -26,10 +26,11 @@ class CustomDrawer extends StatelessWidget {
             children: <Widget>[
               CustomDrawerHeader(),
               DrawerTile(Icons.home, 'Inicio', 0),
-              DrawerTile(Icons.list, 'Produtos', 1),
-              DrawerTile(Icons.question_answer_sharp, 'Questionários', 2),
-              DrawerTile(Icons.person, 'Alunos', 3),
-              DrawerTile(Icons.group, 'Turmas', 4),
+              //   DrawerTile(Icons.list, 'Produtos', 1),
+
+              DrawerTile(Icons.person, 'Alunos', 1),
+              DrawerTile(Icons.group, 'Turmas', 2),
+              DrawerTile(Icons.question_answer_sharp, 'Atividades', 3),
               Consumer<UserManager>(
                 builder: (_, userManager, __) {
                   if (userManager.adminEnabled) {
@@ -41,11 +42,11 @@ class CustomDrawer extends StatelessWidget {
                           'Usuários',
                           4,
                         ),
-                        DrawerTile(
+                        /*   DrawerTile(
                           Icons.settings,
                           'PeTurma',
                           5,
-                        ),
+                        ), */
                       ],
                     );
                   } else {

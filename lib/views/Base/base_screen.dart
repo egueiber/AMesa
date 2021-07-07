@@ -6,7 +6,7 @@ import 'package:amesaadm/models/page_manager.dart';
 //import 'package:amesaadm/views/Login/login_screen.dart';
 import 'package:amesaadm/common/custom_drawer/custom_drawer.dart';
 import 'package:provider/provider.dart';
-import 'package:amesaadm/views/Products/products_screen.dart';
+//import 'package:amesaadm/views/Products/products_screen.dart';
 import 'package:amesaadm/views/home/home_screen.dart';
 import 'package:amesaadm/models/user_manager.dart';
 import 'package:amesaadm/views/admin_users/admin_users_screen.dart';
@@ -26,22 +26,11 @@ class BaseScreen extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             children: <Widget>[
               HomeScreen(),
-              ProductsScreen(),
-              QuestionarioPesquisa(),
+              //  ProductsScreen(),
+
               AlunosScreen(),
               TurmasScreen(),
-              Scaffold(
-                drawer: CustomDrawer(),
-                appBar: AppBar(
-                  title: const Text('Home3'),
-                ),
-              ),
-              Scaffold(
-                drawer: CustomDrawer(),
-                appBar: AppBar(
-                  title: const Text('Home4'),
-                ),
-              ),
+              QuestionarioPesquisa(),
               if (userManager.adminEnabled) ...[
                 AdminUsersScreen(),
                 Scaffold(

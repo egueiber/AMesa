@@ -12,7 +12,7 @@ class EditAlunoScreen extends StatelessWidget {
 
   final Aluno aluno;
   final bool editing;
-  String siglasel;
+  final String siglasel = '';
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override

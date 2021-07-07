@@ -19,7 +19,7 @@ import 'package:amesaadm/models/product.dart';
 import 'package:amesaadm/models/cart_manager.dart';
 import 'package:amesaadm/models/product_manager.dart';
 import 'package:amesaadm/models/questionariomanager.dart';
-import 'package:amesaadm/views/Product/product_screen.dart';
+//import 'package:amesaadm/views/Product/product_screen.dart';
 import 'package:amesaadm/views/cart/cart_screen.dart';
 import 'package:amesaadm/models/home_manager.dart';
 import 'package:amesaadm/models/admin_users_manager.dart';
@@ -115,10 +115,11 @@ class MyApp extends StatelessWidget {
                   return MaterialPageRoute(
                       builder: (_) => EditQuestionarioScreen(
                           settings.arguments as Questionario));
-                case '/product':
+                /*  case '/product':
                   return MaterialPageRoute(
                       builder: (_) =>
                           ProductScreen(settings.arguments as Product));
+ */
                 case '/turma':
                   return MaterialPageRoute(
                       builder: (_) => TurmaScreen(settings.arguments as Turma));

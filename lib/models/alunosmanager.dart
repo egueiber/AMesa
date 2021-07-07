@@ -21,7 +21,6 @@ class AlunoManager extends ChangeNotifier {
 
   List<Aluno> get filteredProducts {
     List<Aluno> filteredAlunos = [];
-    List<Aluno> filteredAlunosorder = [];
 
     if (search.isEmpty) {
       filteredAlunos.addAll(allAlunos);

@@ -23,7 +23,7 @@ class EditQuestionarioScreen extends StatelessWidget {
       value: questionario,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(editing ? 'Editar Questionario' : 'Criar Questionario'),
+          title: Text(editing ? 'Editar Atividade' : 'Criar Atividade'),
           centerTitle: true,
         ),
         backgroundColor: Colors.white,
@@ -37,7 +37,7 @@ class EditQuestionarioScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 16, bottom: 8),
                 child: Text(
-                  'Imagem Questionário',
+                  'Imagem Atividade',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),

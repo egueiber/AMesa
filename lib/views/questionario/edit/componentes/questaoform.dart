@@ -25,7 +25,7 @@ class QuestaoForm extends StatelessWidget {
               children: <Widget>[
                 Expanded(
                   child: Text(
-                    'Questoes',
+                    'Itens',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                 ),

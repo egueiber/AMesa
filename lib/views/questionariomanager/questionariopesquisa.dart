@@ -15,7 +15,7 @@ class QuestionarioPesquisa extends StatelessWidget {
         title: Consumer<QuestionarioManager>(
           builder: (_, questionarioManager, __) {
             if (questionarioManager.search.isEmpty) {
-              return const Text('Questionários');
+              return const Text('Atividades');
             } else {
               return LayoutBuilder(
                 builder: (_, constraints) {

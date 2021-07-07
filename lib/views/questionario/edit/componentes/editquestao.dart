@@ -42,7 +42,7 @@ class EditQuestao extends StatelessWidget {
                 maxLines: 4,
                 initialValue: questao.descricao,
                 decoration: const InputDecoration(
-                  labelText: 'Descrição questão',
+                  labelText: 'Descrição item',
                   isDense: true,
                   labelStyle:
                       TextStyle(fontSize: 20, fontWeight: FontWeight.bold),

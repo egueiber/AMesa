@@ -55,7 +55,7 @@ class QuestionarioScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 16, bottom: 8),
               child: Text(
-                'Imagem Questionário',
+                'Imagem Atividade',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
@@ -125,7 +125,7 @@ class QuestionarioScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 16, bottom: 8),
                     child: Text(
-                      'Questões',
+                      'Itens',
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),

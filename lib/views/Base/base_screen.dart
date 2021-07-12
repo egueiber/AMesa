@@ -31,6 +31,7 @@ class BaseScreen extends StatelessWidget {
               AlunosScreen(),
               TurmasScreen(),
               QuestionarioPesquisa(),
+
               if (userManager.adminEnabled) ...[
                 AdminUsersScreen(),
                 Scaffold(

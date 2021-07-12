@@ -86,7 +86,7 @@ class AlunosScreen extends StatelessWidget {
       ),
       body: Consumer<AlunoManager>(
         builder: (_, alunoManager, __) {
-          final filteredAlunos = alunoManager.filteredProducts;
+          final filteredAlunos = alunoManager.filteredAlunos;
           return ListView.builder(
               padding: const EdgeInsets.all(4),
               itemCount: filteredAlunos.length,

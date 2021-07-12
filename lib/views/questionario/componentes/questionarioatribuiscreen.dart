@@ -1,12 +1,14 @@
+import 'package:amesaadm/models/turmasalunos.dart';
+import 'package:amesaadm/views/questionario/componentes/questionarioatribuitile.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:amesaadm/models/questionario.dart';
 import 'package:amesaadm/models/user_manager.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import 'edit/componentes/questaowidget.dart';
 
-class QuestionarioScreen extends StatelessWidget {
-  const QuestionarioScreen(this.questionario);
+class QuestionarioAtribuiScreen extends StatelessWidget {
+  const QuestionarioAtribuiScreen(this.questionario);
 
   final Questionario questionario;
 
@@ -32,14 +34,14 @@ class QuestionarioScreen extends StatelessWidget {
                             arguments: questionario);
                       },
                     ),
-                    IconButton(
+                    /*  IconButton(
                       icon: Icon(Icons.group_add),
                       onPressed: () {
                         Navigator.of(context).pushReplacementNamed(
                             '/atribui_questionarios',
                             arguments: questionario);
                       },
-                    )
+                    ) */
                   ]);
                 } else {
                   return Container();
@@ -117,24 +119,27 @@ class QuestionarioScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    questionario.ativo.toString(),
+                    questionario.ativo ? 'Ativo' : 'Insativo',
                     style: const TextStyle(
                         fontSize: 18, fontWeight: FontWeight.w400),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 16, bottom: 8),
                     child: Text(
-                      'Itens',
+                      'Turmas',
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  Wrap(
-                    //spacing: 8,
-                    //runSpacing: 8,
-                    children: questionario.questoes.map((q) {
-                      return QuestaoWidget(questao: q);
-                    }).toList(),
+                  Consumer<TurmasAlunos>(
+                    builder: (_, turmasalunos, __) {
+                      turmasalunos.filteredAlunosAtivoByTurma;
+                      return Wrap(
+                        children: turmasalunos.strTurma.map((at) {
+                          return QuestionarioAtribuiTile(at);
+                        }).toList(),
+                      );
+                    },
                   ),
                   const SizedBox(
                     height: 20,

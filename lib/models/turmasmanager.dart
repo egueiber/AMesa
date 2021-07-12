@@ -19,6 +19,15 @@ class TurmaManager extends ChangeNotifier {
     notifyListeners();
   }
 
+  List<Turma> get filteredTurmaAtivaByTurma {
+    List<Turma> turmaAtivasbyTurma = [];
+    turmaAtivasbyTurma.addAll(allTurmas.where((a) => a.ativo));
+    turmaAtivasbyTurma
+        .sort((a, b) => a.sigla.toLowerCase().compareTo(b.sigla.toLowerCase()));
+
+    return turmaAtivasbyTurma;
+  }
+
   List<Turma> get filteredProducts {
     final List<Turma> filteredTurmas = [];
     if (search.isEmpty) {
@@ -35,6 +44,8 @@ class TurmaManager extends ChangeNotifier {
   Future<void> _loadAllTurmas() async {
     final QuerySnapshot snapTurmas = await firestore.collection('turmas').get();
     allTurmas = snapTurmas.docs.map((d) => Turma.fromDocument(d)).toList();
+    // turmasInativas = allTurmas.where((t) => (!t.ativo));
+
     notifyListeners();
   }
 

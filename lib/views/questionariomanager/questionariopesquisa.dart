@@ -102,7 +102,7 @@ class QuestionarioPesquisa extends StatelessWidget {
         backgroundColor: Colors.white,
         foregroundColor: Theme.of(context).primaryColor,
         onPressed: () {
-          Navigator.of(context).pushNamed('/cart');
+          Navigator.of(context).pushNamed('/atribui');
         },
         child: Icon(Icons.shopping_cart),
       ),*/

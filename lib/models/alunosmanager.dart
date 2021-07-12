@@ -10,6 +10,7 @@ class AlunoManager extends ChangeNotifier {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   List<Aluno> allAlunos = [];
+  //List<Aluno> alunosAtivos = [];
 
   String _search = '';
 
@@ -19,7 +20,18 @@ class AlunoManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<Aluno> get filteredProducts {
+  /*  List<Aluno> get filteredAlunosAtivoByTurma {
+    List<Aluno> alunosAtivosbyTurma = [];
+    alunosAtivosbyTurma.addAll(allAlunos.where((a) => a.ativo));
+    alunosAtivosbyTurma
+        .sort((a, b) => a.nome.toLowerCase().compareTo(b.nome.toLowerCase()));
+    alunosAtivosbyTurma
+        .sort((a, b) => a.turma.toLowerCase().compareTo(b.turma.toLowerCase()));
+    notifyListeners();
+    return alunosAtivosbyTurma;
+  } */
+
+  List<Aluno> get filteredAlunos {
     List<Aluno> filteredAlunos = [];
 
     if (search.isEmpty) {
@@ -36,7 +48,7 @@ class AlunoManager extends ChangeNotifier {
   Future<void> _loadAllAlunos() async {
     final QuerySnapshot snapAlunos = await firestore.collection('alunos').get();
     allAlunos = snapAlunos.docs.map((d) => Aluno.fromDocument(d)).toList();
-
+    //alunosAtivos = allAlunos.where((a) => a.ativo);
     notifyListeners();
   }
 
@@ -51,6 +63,8 @@ class AlunoManager extends ChangeNotifier {
   void update(Aluno aluno) {
     allAlunos.removeWhere((p) => p.id == aluno.id);
     allAlunos.add(aluno);
+/*     alunosAtivos.removeWhere((p) => p.id == aluno.id);
+    if (aluno.ativo) alunosAtivos.add(aluno); */
     notifyListeners();
   }
 }

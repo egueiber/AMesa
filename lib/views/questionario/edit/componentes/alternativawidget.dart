@@ -51,7 +51,10 @@ class AlternativaWidget extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
               child: Text(
                 alternativa.descricao,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+                style: TextStyle(
+                    fontSize: 18,
+                    color: alternativa.correta ? Colors.green : Colors.red,
+                    fontWeight: FontWeight.w400),
               ),
             ),
           ],

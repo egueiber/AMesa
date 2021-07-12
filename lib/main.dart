@@ -2,9 +2,11 @@ import 'package:amesaadm/models/aluno.dart';
 import 'package:amesaadm/models/turma.dart';
 import 'package:amesaadm/models/questionario.dart';
 import 'package:amesaadm/models/alunosmanager.dart';
+import 'package:amesaadm/models/turmasalunos.dart';
 import 'package:amesaadm/views/aluno/alunoscreen.dart';
 import 'package:amesaadm/views/aluno/edit/editaluno.dart';
 import 'package:amesaadm/models/turmasmanager.dart';
+import 'package:amesaadm/views/questionario/componentes/questionarioatribuiscreen.dart';
 import 'package:amesaadm/views/turma/turmascreen.dart';
 import 'package:amesaadm/views/turma/edit/editturma.dart';
 
@@ -75,6 +77,10 @@ class MyApp extends StatelessWidget {
             create: (_) => TurmaManager(),
             lazy: false,
           ),
+          ChangeNotifierProvider(
+            create: (_) => TurmasAlunos(),
+            lazy: false,
+          ),
         ],
         child: MaterialApp(
             title: 'Lição ',
@@ -115,11 +121,11 @@ class MyApp extends StatelessWidget {
                   return MaterialPageRoute(
                       builder: (_) => EditQuestionarioScreen(
                           settings.arguments as Questionario));
-                /*  case '/product':
+                case '/atribui_questionarios':
                   return MaterialPageRoute(
-                      builder: (_) =>
-                          ProductScreen(settings.arguments as Product));
- */
+                      builder: (_) => QuestionarioAtribuiScreen(
+                          settings.arguments as Questionario));
+
                 case '/turma':
                   return MaterialPageRoute(
                       builder: (_) => TurmaScreen(settings.arguments as Turma));

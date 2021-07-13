@@ -133,9 +133,11 @@ class QuestionarioAtribuiScreen extends StatelessWidget {
                   ),
                   Consumer<TurmasAlunos>(
                     builder: (_, turmasalunos, __) {
-                      turmasalunos.filteredAlunosAtivoByTurma;
+                      context.read<TurmasAlunos>();
+                      // turmasalunos.filteredAlunosAtivoByTurma;
                       return Wrap(
                         children: turmasalunos.strTurma.map((at) {
+                          context.read<TurmasAlunos>();
                           return QuestionarioAtribuiTile(at);
                         }).toList(),
                       );

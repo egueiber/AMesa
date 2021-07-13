@@ -45,6 +45,14 @@ class AlunoListTile extends StatelessWidget {
                         fontWeight: FontWeight.w800,
                       ),
                     ),
+                    Text(
+                      aluno.ativo ? 'Ativo' : 'Inativo',
+                      style: TextStyle(
+                        color: !aluno.ativo ? Colors.red : Colors.green,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
                   ],
                 ),
               )

@@ -1,3 +1,4 @@
+import 'package:amesaadm/models/turmasalunos.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:amesaadm/models/questionario.dart';
@@ -45,7 +46,14 @@ class QuestionarioScreen extends StatelessWidget {
                   return Container();
                 }
               },
-            )
+            ),
+            Consumer<TurmasAlunos>(
+              builder: (_, turmasalunos, __) {
+                context.read<TurmasAlunos>();
+                turmasalunos.filteredAlunosAtivoByTurma;
+                return Container();
+              },
+            ),
           ],
         ),
         backgroundColor: Colors.white,

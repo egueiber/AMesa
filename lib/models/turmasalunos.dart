@@ -19,8 +19,8 @@ class TurmasAlunos extends ChangeNotifier {
   List<Aluno> alunosAtivosByTurma;
   List<String> strTurma;
 
-  List<Aluno> get filteredAlunosAtivoByTurma {
-    _loadAllTurmasAlunos();
+  Future<List<Aluno>> get filteredAlunosAtivoByTurma async {
+    await _loadAllTurmasAlunos();
     return alunosAtivosByTurma;
   }
 
@@ -41,6 +41,8 @@ class TurmasAlunos extends ChangeNotifier {
         snapAlunosAtivos.docs.map((a) => Aluno.fromDocument(a)).toList();
     alunosAtivosByTurma = [];
     alunosAtivosByTurma.addAll(alunosAtivos);
+    alunosAtivosByTurma
+        .sort((a, b) => a.nome.toLowerCase().compareTo(b.nome.toLowerCase()));
     turmasInativas.forEach((ta) {
       alunosAtivosByTurma.removeWhere((at) => ta.sigla == at.turma);
     });
@@ -48,6 +50,9 @@ class TurmasAlunos extends ChangeNotifier {
     String turma = '';
     strTurma = [];
     String linha = '';
+    alunosAtivosByTurma
+        .sort((a, b) => a.turma.toLowerCase().compareTo(b.turma.toLowerCase()));
+
     alunosAtivosByTurma.forEach((at) {
       if (at.turma == turma) {
         linha = linha + at.nome + ', ';

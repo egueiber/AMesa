@@ -17,7 +17,6 @@ class EditAlternativa extends StatelessWidget {
   final VoidCallback onRemove;
   final VoidCallback onMoveUp;
   final VoidCallback onMoveDown;
-  final focusAlternativa = FocusNode();
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
@@ -46,11 +45,8 @@ class EditAlternativa extends StatelessWidget {
                   )
                 ])),
                 Container(
-                  // flex: 10,
                   child: TextFormField(
-                    //autofocus: true,
                     autofocus: true,
-                    focusNode: focusAlternativa,
                     initialValue: alternativa.descricao,
                     decoration: const InputDecoration(
                         labelText: 'Descrição alternativa:',

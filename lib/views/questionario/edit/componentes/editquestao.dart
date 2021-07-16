@@ -17,7 +17,6 @@ class EditQuestao extends StatelessWidget {
   final VoidCallback onRemove;
   final VoidCallback onMoveUp;
   final VoidCallback onMoveDown;
-  final focusQuestao = FocusNode();
   final int indice;
 
   @override
@@ -37,7 +36,6 @@ class EditQuestao extends StatelessWidget {
               flex: 1,
               child: TextFormField(
                 autofocus: true,
-                focusNode: focusQuestao,
                 minLines: 1,
                 maxLines: 4,
                 initialValue: questao.descricao,

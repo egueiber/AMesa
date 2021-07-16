@@ -33,8 +33,10 @@ class QuestaoForm extends StatelessWidget {
                   iconData: Icons.add,
                   color: Colors.black,
                   onTap: () {
+                    FocusManager.instance.primaryFocus?.unfocus();
                     state.value.add(Questao());
                     state.didChange(state.value);
+                    state.value.last;
                   },
                 )
               ],
@@ -42,10 +44,6 @@ class QuestaoForm extends StatelessWidget {
             Wrap(
               children: state.value.map((questao) {
                 return Card(
-                    //color: Colors.green[170],
-                    //elevation: 30,
-                    // shadowColor:Colors.yellow[200], //Color.fromARGB(10, 20, 30, 40),
-
                     child: EditQuestao(
                   key: ObjectKey(questao),
                   questao: questao,

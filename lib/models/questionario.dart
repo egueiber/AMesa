@@ -1,4 +1,5 @@
 import 'package:amesaadm/models/questao.dart';
+import 'package:amesaadm/models/questionarioturmas.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:io';
@@ -12,10 +13,12 @@ class Questionario extends ChangeNotifier {
       this.descricao,
       this.images,
       this.ativo,
-      this.questoes}) {
+      this.questoes,
+      this.questionarioturma}) {
     images = images ?? [];
     questoes = questoes ?? [];
     ativo = ativo ?? true;
+    questionarioturma = questionarioturma ?? [];
   }
   Questionario.fromDocument(DocumentSnapshot document) {
     id = document.id;
@@ -27,6 +30,9 @@ class Questionario extends ChangeNotifier {
     images = List<String>.from(item['images'] as List<dynamic>);
     questoes = (item['questoes'] as List<dynamic> ?? [])
         .map((s) => Questao.fromMap(s as Map<String, dynamic>))
+        .toList();
+    questionarioturma = (item['questionarioturma'] as List<dynamic> ?? {})
+        .map((s) => QuestionarioTurma.fromMap(s as Map<String, dynamic>))
         .toList();
   }
 
@@ -43,6 +49,7 @@ class Questionario extends ChangeNotifier {
   bool ativo;
   List<String> images;
   List<Questao> questoes;
+  List<QuestionarioTurma> questionarioturma;
 
   List<dynamic> newImages;
 
@@ -73,6 +80,43 @@ class Questionario extends ChangeNotifier {
     return questoes.map((questao) => questao.toMap()).toList();
   }
 
+  List<Map<String, dynamic>> exportQuestionarioTurmaList() {
+    if (questionarioturma != null)
+      return questionarioturma.map((qt) => qt.toMap()).toList();
+    else
+      return null;
+  }
+
+  QuestionarioTurma findQuestionarioTurma(String sigla) {
+    try {
+      return questionarioturma.firstWhere((s) => s.turma == sigla);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  bool addQuestionarioTurma(String turma) {
+    final existe = !(findQuestionarioTurma(turma) == null);
+    if (!existe) {
+      final QuestionarioTurma qt = (QuestionarioTurma(
+          turma: turma,
+          datainicio: DateTime.now(),
+          datafim: DateTime.now().add(const Duration(days: 50))));
+      questionarioturma.add(qt);
+    } else
+      questionarioturma.removeWhere((qt) => qt.turma == turma);
+    updateQuestionarioTurma();
+    return existe;
+  }
+
+  Future<void> updateQuestionarioTurma() async {
+    if (id != null) {
+      await firestoreRef
+          .update({'questionarioturma': exportQuestionarioTurmaList()});
+    }
+    notifyListeners();
+  }
+
   Future<void> save() async {
     loading = true;
     final Map<String, dynamic> data = {
@@ -80,6 +124,7 @@ class Questionario extends ChangeNotifier {
       'descricao': descricao,
       'ativo': ativo,
       'questoes': exportQuestaoList(),
+      'questionarioturma': exportQuestionarioTurmaList() ?? [],
       // 'images': List.from(images)
     };
 
@@ -173,11 +218,12 @@ class Questionario extends ChangeNotifier {
       descricao: descricao,
       images: List.from(images),
       questoes: questoes.map((questao) => questao.clone()).toList(),
+      questionarioturma: questionarioturma.map((qt) => qt.clone()).toList(),
     );
   }
 
   @override
   String toString() {
-    return 'Questionario{id: $id, name: $titulo, description: $descricao, ativo: $ativo, images: $images, questoes: $questoes, newImages: $newImages}';
+    return 'Questionario{id: $id, name: $titulo, description: $descricao, ativo: $ativo, images: $images, questoes: $questoes, questionarioturma: $questionarioturma, newImages: $newImages}';
   }
 }

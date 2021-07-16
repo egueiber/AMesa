@@ -38,8 +38,10 @@ class AlternativaForm extends StatelessWidget {
                       iconData: Icons.add,
                       color: Colors.black,
                       onTap: () {
+                        FocusManager.instance.primaryFocus?.unfocus();
                         state.value.add(Alternativa());
                         state.didChange(state.value);
+                        state.value.last;
                       },
                     )
                   ],

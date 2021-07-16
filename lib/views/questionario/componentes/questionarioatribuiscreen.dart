@@ -119,7 +119,7 @@ class QuestionarioAtribuiScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    questionario.ativo ? 'Ativo' : 'Insativo',
+                    questionario.ativo ? 'Ativo' : 'Inativo',
                     style: const TextStyle(
                         fontSize: 18, fontWeight: FontWeight.w400),
                   ),
@@ -138,7 +138,7 @@ class QuestionarioAtribuiScreen extends StatelessWidget {
                       return Wrap(
                         children: turmasalunos.strTurma.map((at) {
                           context.read<TurmasAlunos>();
-                          return QuestionarioAtribuiTile(at);
+                          return QuestionarioAtribuiTile(at, questionario);
                         }).toList(),
                       );
                     },

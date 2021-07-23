@@ -17,17 +17,12 @@ import 'package:amesaadm/views/Login/login_screen.dart';
 import 'package:amesaadm/views/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:amesaadm/models/product.dart';
-import 'package:amesaadm/models/cart_manager.dart';
-import 'package:amesaadm/models/product_manager.dart';
+import 'package:amesaadm/models/questionarioturmamanager.dart';
 import 'package:amesaadm/models/questionariomanager.dart';
-//import 'package:amesaadm/views/Product/product_screen.dart';
-import 'package:amesaadm/views/cart/cart_screen.dart';
 import 'package:amesaadm/models/home_manager.dart';
 import 'package:amesaadm/models/admin_users_manager.dart';
-import 'package:amesaadm/views/edit_products/edit_product_screen.dart';
 import 'package:amesaadm/views/questionario/edit/editquestionario.dart';
-import 'package:amesaadm/views/select_product/select_product_screen.dart';
+//import 'package:amesaadm/views/select_product/select_product_screen.dart';
 import 'package:amesaadm/views/questionario/questionarioscreen.dart';
 
 void main() async {
@@ -46,10 +41,6 @@ class MyApp extends StatelessWidget {
             lazy: false,
           ),
           ChangeNotifierProvider(
-            create: (_) => ProductManager(),
-            lazy: false,
-          ),
-          ChangeNotifierProvider(
             create: (_) => QuestionarioManager(),
             lazy: false,
           ),
@@ -57,10 +48,14 @@ class MyApp extends StatelessWidget {
             create: (_) => HomeManager(),
             lazy: false,
           ),
-          ChangeNotifierProxyProvider<UserManager, CartManager>(
-            create: (_) => CartManager(),
+          ChangeNotifierProxyProvider<UserManager, QuestionarioTurmaManager>(
+            create: (_) => QuestionarioTurmaManager(),
             lazy: false,
-            update: (_, userManager, cartManager) =>
+            update: (
+              _,
+              userManager,
+              cartManager,
+            ) =>
                 cartManager..updateUser(userManager),
           ),
           ChangeNotifierProxyProvider<UserManager, AdminUsersManager>(
@@ -83,7 +78,7 @@ class MyApp extends StatelessWidget {
           ),
         ],
         child: MaterialApp(
-            title: 'Lição ',
+            title: 'Atividades ',
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
                 primaryColor: const Color.fromARGB(255, 4, 125, 141),
@@ -98,17 +93,9 @@ class MyApp extends StatelessWidget {
                   return (MaterialPageRoute(builder: (_) => SignUpScreen()));
                 case '/login':
                   return (MaterialPageRoute(builder: (_) => LoginScreen()));
-                case '/select_product':
-                  return MaterialPageRoute(
-                      builder: (_) => SelectProductScreen());
                 case '/base':
                   return (MaterialPageRoute(builder: (_) => BaseScreen()));
-                case '/cart':
-                  return MaterialPageRoute(builder: (_) => CartScreen());
-                case '/edit_products':
-                  return MaterialPageRoute(
-                      builder: (_) =>
-                          EditProductScreen(settings.arguments as Product));
+
                 case '/edit_turma':
                   return MaterialPageRoute(
                       builder: (_) =>

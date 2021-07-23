@@ -26,12 +26,9 @@ class BaseScreen extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             children: <Widget>[
               HomeScreen(),
-              //  ProductsScreen(),
-
               AlunosScreen(),
               TurmasScreen(),
               QuestionarioPesquisa(),
-
               if (userManager.adminEnabled) ...[
                 AdminUsersScreen(),
                 Scaffold(

@@ -34,6 +34,18 @@ class QuestionarioManager extends ChangeNotifier {
     return filteredQuestionarios;
   }
 
+  List<Questionario> filteredQuestionariosTurma(String turma) {
+    List<Questionario> questionariosTurma = [];
+    if (questionariosTurma.isNotEmpty) {
+      if (turma.isNotEmpty) {
+        questionariosTurma.addAll(allQuestionarios);
+        //.where(
+        //  (q) => q.questionarioturma.contains((qt) => qt.turma == turma)));
+      }
+    }
+    return questionariosTurma;
+  }
+
   Future<void> _loadAllQuestionarios() async {
     final QuerySnapshot snapQuestionarios =
         await firestore.collection('questionarios').get();

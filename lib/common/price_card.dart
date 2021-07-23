@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:amesaadm/models/cart_manager.dart';
+import 'package:amesaadm/models/questionarioturmamanager.dart';
 import 'package:provider/provider.dart';
 
 class PriceCard extends StatelessWidget {
@@ -10,7 +10,7 @@ class PriceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cartManager = context.watch<CartManager>();
+    final cartManager = context.watch<QuestionarioTurmaManager>();
     final productsPrice = cartManager.productsPrice;
 
     return Card(

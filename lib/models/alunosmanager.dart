@@ -60,6 +60,14 @@ class AlunoManager extends ChangeNotifier {
     }
   }
 
+  Aluno findAlunoByEmail(String email) {
+    try {
+      return allAlunos.firstWhere((p) => p.email == email);
+    } catch (e) {
+      return null;
+    }
+  }
+
   void update(Aluno aluno) {
     allAlunos.removeWhere((p) => p.id == aluno.id);
     allAlunos.add(aluno);

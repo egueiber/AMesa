@@ -1,12 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:amesaadm/models/product_manager.dart';
 import 'package:amesaadm/models/section_item.dart';
 import 'package:provider/provider.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:amesaadm/models/home_manager.dart';
 import 'package:amesaadm/models/section.dart';
-import 'package:amesaadm/models/product.dart';
+//import 'package:amesaadm/models/product.dart';
 
 class ItemTile extends StatelessWidget {
   const ItemTile(this.item);
@@ -19,11 +18,11 @@ class ItemTile extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (item.product != null) {
-          final product =
-              context.read<ProductManager>().findProductById(item.product);
-          if (product != null) {
-            Navigator.of(context).pushNamed('/product', arguments: product);
-          }
+          //      final product =
+          //        context.read<ProductManager>().findProductById(item.product);
+          //  if (product != null) {
+          //  Navigator.of(context).pushNamed('/product', arguments: product);
+          //}
         }
       },
       onLongPress: homeManager.editing
@@ -31,12 +30,12 @@ class ItemTile extends StatelessWidget {
               showDialog(
                   context: context,
                   builder: (_) {
-                    final product = context
+                    /*   final product = context
                         .read<ProductManager>()
-                        .findProductById(item.product);
+                        .findProductById(item.product); */
                     return AlertDialog(
                       title: const Text('Editar Item'),
-                      content: product != null
+                      /*  content: product != null
                           ? ListTile(
                               contentPadding: EdgeInsets.zero,
                               leading: Image.network(product.images.first),
@@ -44,7 +43,7 @@ class ItemTile extends StatelessWidget {
                               subtitle: Text(
                                   'R\$ ${product.basePrice.toStringAsFixed(2)}'),
                             )
-                          : null,
+                          : null, */
                       actions: <Widget>[
                         TextButton(
                           onPressed: () {
@@ -55,20 +54,20 @@ class ItemTile extends StatelessWidget {
                           child: const Text('Excluir'),
                         ),
                         TextButton(
-                          onPressed: () async {
-                            if (product != null) {
+                            onPressed: () async {
+                              /*  if (product != null) {
                               item.product = null;
                             } else {
                               final Product product =
                                   await Navigator.of(context)
                                       .pushNamed('/select_product') as Product;
                               item.product = product?.id;
-                            }
-                            Navigator.of(context).pop();
-                          },
-                          child: Text(
-                              product != null ? 'Desvincular' : 'Vincular'),
-                        ),
+                            } */
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('nada')
+                            // product != null ? 'Desvincular' : 'Vincular'),
+                            ),
                       ],
                     );
                   });

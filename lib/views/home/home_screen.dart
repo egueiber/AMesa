@@ -1,11 +1,10 @@
+import 'package:amesaadm/models/questionarioturmamanager.dart';
+import 'package:amesaadm/views/questionariomanager/componentes/questionariolisttile.dart';
 import 'package:flutter/material.dart';
 import 'package:amesaadm/common/custom_drawer/custom_drawer.dart';
 import 'package:amesaadm/models/home_manager.dart';
-import 'package:amesaadm/views/home/components/section_list.dart';
 import 'package:provider/provider.dart';
-import 'package:amesaadm/views/home/components/section_staggered.dart';
 import 'package:amesaadm/models/user_manager.dart';
-import 'package:amesaadm/views/home/components/add_section_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -71,34 +70,30 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              Consumer<HomeManager>(
-                builder: (_, homeManager, __) {
-                  if (homeManager.loading) {
-                    return SliverToBoxAdapter(
-                      child: LinearProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation(Colors.white),
-                        backgroundColor: Colors.transparent,
-                      ),
-                    );
-                  }
-                  final List<Widget> children =
-                      homeManager.sections.map<Widget>((section) {
-                    switch (section.type) {
-                      case 'List':
-                        return SectionList(section);
-                      case 'Staggered':
-                        return SectionStaggered(section);
-                      default:
-                        return Container();
-                    }
-                  }).toList();
-                  if (homeManager.editing)
-                    children.add(AddSectionWidget(homeManager));
-                  return SliverList(
-                    delegate: SliverChildListDelegate(children),
+              Consumer<QuestionarioTurmaManager>(
+                  builder: (_, questionarioTurmaManager, __) {
+                List<Widget> children;
+                if (questionarioTurmaManager == null) {
+                  return SliverToBoxAdapter(
+                    child: LinearProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation(Colors.white),
+                      backgroundColor: Colors.transparent,
+                    ),
                   );
-                },
-              )
+                } else {
+                  if (questionarioTurmaManager.items.isNotEmpty) {
+                    children = [];
+
+                    questionarioTurmaManager.items.forEach((tm) {
+                      children.add(QuestionarioListTile(tm));
+                    });
+                  } else {
+                    children = {Text('Carregando..')}.toList();
+                  }
+                  return SliverList(
+                      delegate: SliverChildListDelegate(children));
+                }
+              })
             ],
           ),
         ],

@@ -1,5 +1,5 @@
 import 'package:amesaadm/models/questionarioturmamanager.dart';
-import 'package:amesaadm/views/questionariomanager/componentes/questionariolisttile.dart';
+import 'package:amesaadm/views/questionarioexec/questionariolisttileexec.dart';
 import 'package:flutter/material.dart';
 import 'package:amesaadm/common/custom_drawer/custom_drawer.dart';
 import 'package:amesaadm/models/home_manager.dart';
@@ -85,7 +85,7 @@ class HomeScreen extends StatelessWidget {
                     children = [];
 
                     questionarioTurmaManager.items.forEach((tm) {
-                      children.add(QuestionarioListTile(tm));
+                      children.add(QuestionarioListTileExec(tm));
                     });
                   } else {
                     children = {Text('Carregando..')}.toList();

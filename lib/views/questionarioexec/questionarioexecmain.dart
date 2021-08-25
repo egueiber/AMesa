@@ -1,10 +1,10 @@
 //import 'package:amesaadm/models/turmasalunos.dart';
+import 'package:amesaadm/helpers/msgtextovoz.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:amesaadm/models/questionario.dart';
 //import 'package:amesaadm/models/user_manager.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 //import 'edit/componentes/questaowidget.dart';
 
 class QuestionarioScreenExecMain extends StatelessWidget {
@@ -15,8 +15,7 @@ class QuestionarioScreenExecMain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).primaryColor;
-    // setStartHandler(questionario.titulo);
-    // setStartHandler(questionario.descricao);
+    setStartHandler(questionario.titulo + ' e ' + questionario.descricao, 0.3);
 
     return ChangeNotifierProvider.value(
       value: questionario,
@@ -112,9 +111,4 @@ class QuestionarioScreenExecMain extends StatelessWidget {
       ),
     );
   }
-}
-
-Future<void> setStartHandler(String msg) async {
-  //var flutterTts = FlutterTts();
-  //var result = await flutterTts.speak(msg);
 }

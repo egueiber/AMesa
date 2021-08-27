@@ -13,7 +13,7 @@ class Questao extends ChangeNotifier {
     alternativas = (map['alternativas'] as List<dynamic> ?? [])
         .map((s) => Alternativa.fromMap(s as Map<String, dynamic>))
         .toList();
-    respostas = (map['resposta'] as List<dynamic> ?? [])
+    respostas = (map['respostas'] as List<dynamic> ?? [])
         .map((s) => Resposta.fromMap(s as Map<String, dynamic>))
         .toList();
   }
@@ -47,6 +47,40 @@ class Questao extends ChangeNotifier {
   List<Map<String, dynamic>> exportRespostaList() {
     return respostas.map((resposta) => resposta.toMap()).toList();
   }
+
+  bool findRespostaAluno(String email) {
+    bool existe = false;
+    if (respostas.isNotEmpty) {
+      respostas.forEach((r) {
+        if (r.email == email) {
+          existe = true;
+        }
+      });
+    }
+    return existe;
+  }
+
+  bool addRespostaQuestionario(String email, bool correta, num pontuacao) {
+    final existe = findRespostaAluno(email);
+    final Resposta resposta = (Resposta(
+        email: email,
+        dataexecucao: DateTime.now(),
+        correta: correta,
+        pontuacao: pontuacao));
+    if (existe) {
+      respostas.removeWhere((r) => r.email == email);
+    }
+    respostas.add(resposta);
+    //updateRespostaAluno();
+    return existe;
+  }
+
+  /* Future<void> updateRespostaAluno() async {
+    if (id != null) {
+      await firestoreRef.update({'respostas': exportRespostaList()});
+    }
+    notifyListeners();
+  } */
 
   Map<String, dynamic> toMap() {
     return {

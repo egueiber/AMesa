@@ -7,6 +7,7 @@ import 'package:amesaadm/views/aluno/alunoscreen.dart';
 import 'package:amesaadm/views/aluno/edit/editaluno.dart';
 import 'package:amesaadm/models/turmasmanager.dart';
 import 'package:amesaadm/views/questionario/componentes/questionarioatribuiscreen.dart';
+import 'package:amesaadm/views/questionarioexec/questaoexec.dart';
 import 'package:amesaadm/views/questionarioexec/questionarioexecmain.dart';
 import 'package:amesaadm/views/turma/turmascreen.dart';
 import 'package:amesaadm/views/turma/edit/editturma.dart';
@@ -129,6 +130,10 @@ class MyApp extends StatelessWidget {
                   return MaterialPageRoute(
                       builder: (_) => QuestionarioScreenExecMain(
                           settings.arguments as Questionario));
+                case '/questaoformexec':
+                  return MaterialPageRoute(
+                      builder: (_) =>
+                          QuestaoFormExec(settings.arguments as Questionario));
                 default:
                   return (MaterialPageRoute(builder: (_) => BaseScreen()));
               }

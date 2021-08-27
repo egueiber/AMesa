@@ -16,6 +16,7 @@ class Alternativa extends ChangeNotifier {
   List<dynamic> images;
   List<dynamic> newImages;
   bool correta = true;
+  bool selecionada = false;
   num pontuacao = 1;
   //String newImagem;
 
@@ -25,6 +26,13 @@ class Alternativa extends ChangeNotifier {
     _aCorreta = valor;
     correta = valor;
     notifyListeners();
+  }
+
+  bool _aselecionada;
+  bool get aselecionada => _aselecionada;
+  set qsetSelecionada(bool valor) {
+    _aselecionada = valor;
+    selecionada = valor;
   }
 
   Alternativa clone() {

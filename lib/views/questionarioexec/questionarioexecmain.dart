@@ -39,7 +39,7 @@ class QuestionarioScreenExecMain extends StatelessWidget {
             //  SizedBox(
 
             AspectRatio(
-              aspectRatio: 2,
+              aspectRatio: 3,
               child: Carousel(
                 images: questionario.images.map((url) {
                   return NetworkImage(url);
@@ -52,6 +52,10 @@ class QuestionarioScreenExecMain extends StatelessWidget {
                 boxFit: BoxFit.contain,
                 borderRadius: true,
                 radius: Radius.circular(2),
+                onImageTap: (index) {
+                  Navigator.of(context)
+                      .pushNamed('/questaoformexec', arguments: questionario);
+                },
               ),
             ),
             // ),
@@ -87,10 +91,19 @@ class QuestionarioScreenExecMain extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 16, bottom: 8),
-                    child: Text(
-                      'Itens',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                          padding: const EdgeInsets.all(16.0),
+                          primary: Colors.white,
+                          textStyle: const TextStyle(fontSize: 20),
+                          backgroundColor: Colors.blueGrey,
+                          elevation: 5,
+                          shadowColor: Colors.yellow),
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/questaoformexec',
+                            arguments: questionario);
+                      },
+                      child: const Text('Participar'),
                     ),
                   ),
                   /* Wrap(

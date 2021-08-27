@@ -21,31 +21,9 @@ class AlternativaWidget extends StatelessWidget {
       },
       child: Card(
         elevation: 0,
-
-        /* decoration: BoxDecoration(
-          border: Border(
-            top: BorderSide(width: 3.0, color: Colors.lightBlue.shade900),
-            // bottom: BorderSide(width: 3.0, color: Colors.lightBlue.shade900),
-          ),
-        ),*/
-        /*shape: StadiumBorder(
-          side: BorderSide.none,
-          /* (
-            color: Colors.black,
-            width: 2.0,
-          ),*/
-        ),*/
-
         child: Row(
           //mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            /* Container(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 2),
-              child: Text(
-                alternativa.pontuacao?.toStringAsFixed(0),
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-              ),
-            ), */
             Container(
               //color: color,
               padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),

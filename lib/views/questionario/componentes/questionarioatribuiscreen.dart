@@ -34,14 +34,6 @@ class QuestionarioAtribuiScreen extends StatelessWidget {
                             arguments: questionario);
                       },
                     ),
-                    /*  IconButton(
-                      icon: Icon(Icons.group_add),
-                      onPressed: () {
-                        Navigator.of(context).pushReplacementNamed(
-                            '/atribui_questionarios',
-                            arguments: questionario);
-                      },
-                    ) */
                   ]);
                 } else {
                   return Container();
@@ -146,37 +138,6 @@ class QuestionarioAtribuiScreen extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  /*
-                  if (product.hasStock)
-                    Consumer2<UserManager, Product>(
-                      builder: (_, userManager, product, __) {
-                        return SizedBox(
-                          height: 44,
-                          child: ElevatedButton(
-                            onPressed: product.selectedSize != null
-                                ? () {
-                                    if (userManager.isLoggedIn) {
-                                      context
-                                          .read<CartManager>()
-                                          .addToCart(product);
-                                      Navigator.of(context).pushNamed('/cart');
-                                    } else {
-                                      Navigator.of(context).pushNamed('/login');
-                                    }
-                                  }
-                                : null,
-                            // color: primaryColor,
-                            // textColor: Colors.white,
-                            child: Text(
-                              userManager.isLoggedIn
-                                  ? 'Adicionar ao Carrinho'
-                                  : 'Entre para Comprar',
-                              style: const TextStyle(fontSize: 18),
-                            ),
-                          ),
-                        );
-                      },
-                    )*/
                 ],
               ),
             )

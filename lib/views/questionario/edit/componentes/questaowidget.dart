@@ -21,13 +21,6 @@ class QuestaoWidget extends StatelessWidget {
         ),
         child: Wrap(
           children: <Widget>[
-            /*Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                questao.numero.toStringAsFixed(0),
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-              ),
-            ),*/
             Container(
               //color: color,
               padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),

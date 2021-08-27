@@ -1,3 +1,4 @@
+import 'package:amesaadm/models/alternativa.dart';
 import 'package:amesaadm/models/questao.dart';
 import 'package:amesaadm/models/questionarioturmas.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -114,6 +115,15 @@ class Questionario extends ChangeNotifier {
       await firestoreRef
           .update({'questionarioturma': exportQuestionarioTurmaList()});
     }
+    notifyListeners();
+  }
+
+  Future<void> updateAlternativa(Alternativa alternativaselecionada) async {
+    /*  if (id != null) {
+      await firestoreRef
+          .update({'questionarioturma': exportQuestionarioTurmaList()});
+    } */
+    alternativaselecionada.selecionada = !alternativaselecionada.selecionada;
     notifyListeners();
   }
 

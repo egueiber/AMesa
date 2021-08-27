@@ -77,6 +77,10 @@ class Questionario extends ChangeNotifier {
     notifyListeners();
   }
 
+  void refresh() {
+    notifyListeners();
+  }
+
   List<Map<String, dynamic>> exportQuestaoList() {
     return questoes.map((questao) => questao.toMap()).toList();
   }

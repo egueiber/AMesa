@@ -1,12 +1,16 @@
 import 'package:amesaadm/helpers/msgtextovoz.dart';
+import 'package:amesaadm/models/questao.dart';
 import 'package:amesaadm/models/questionario.dart';
 import 'package:flutter/material.dart';
 import 'package:amesaadm/models/alternativa.dart';
 import 'package:provider/provider.dart';
 
 class AlternativaWidgetExec extends StatelessWidget {
-  const AlternativaWidgetExec({this.alternativa});
+  const AlternativaWidgetExec(
+      this.alternativa, this.questionario, this.questao);
   final Alternativa alternativa;
+  final Questionario questionario;
+  final Questao questao;
 
   @override
   Widget build(BuildContext context) {
@@ -14,10 +18,17 @@ class AlternativaWidgetExec extends StatelessWidget {
 
     //Color color;
     // color = Colors.black;
-
+    String texto = '';
+    setStartHandler(questao.descricao, 0.3);
     return GestureDetector(onTap: () {
-      setStartHandler(alternativa.descricao, 0.3);
-
+      alternativa.selecionada = !alternativa.selecionada;
+      //questionario.exportQuestaoList();
+      questionario.refresh();
+      if (alternativa.selecionada)
+        texto = 'Você marcou a opção ';
+      else
+        texto = 'Você desmarcou a opção ';
+      setStartHandler(texto + alternativa.descricao, 0.3);
       // alternativa.selecionada = !alternativa.selecionada;
       //(questionario.findQuestionarioTurma(
       //      turmaaluno.substring(0, turmaaluno.indexOf(':'))) !=

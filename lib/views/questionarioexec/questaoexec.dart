@@ -11,7 +11,7 @@ class QuestaoFormExec extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final primaryColor = Theme.of(context).primaryColor;
+    //final primaryColor = Theme.of(context).primaryColor;
     // setStartHandler(questionario.titulo + ' e ' + questionario.descricao, 0.3);
 
     return ChangeNotifierProvider.value(
@@ -37,8 +37,9 @@ class QuestaoFormExec extends StatelessWidget {
                 Wrap(
                   //spacing: 8,
                   //runSpacing: 8,
-                  children: questionario.questoes[0].alternativas.map((q) {
-                    return AlternativaWidgetExec(alternativa: q);
+                  children: questionario.questoes[0].alternativas.map((a) {
+                    return AlternativaWidgetExec(
+                        a, questionario, questionario.questoes[0]);
                   }).toList(),
                 ),
               ],

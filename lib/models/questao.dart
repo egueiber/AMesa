@@ -6,6 +6,7 @@ class Questao extends ChangeNotifier {
   Questao({this.descricao, this.imagem, this.alternativas, this.respostas}) {
     alternativas = alternativas ?? [];
     respostas = respostas ?? [];
+    respondida = false;
   }
   Questao.fromMap(Map<String, dynamic> map) {
     descricao = map['descricao'] as String;

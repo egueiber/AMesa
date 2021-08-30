@@ -18,7 +18,7 @@ class QuestaoFormExec extends StatelessWidget {
     /*  setStartHandler(
         questionario.questoes[questionario.questaocorrente].descricao, 0.3);
  */
-    String msgbt = 'Confirmar';
+    String msgbt;
     return ChangeNotifierProvider.value(
         value: questionario,
         child: Scaffold(
@@ -29,6 +29,20 @@ class QuestaoFormExec extends StatelessWidget {
             ),
             backgroundColor: Colors.white,
             body: Consumer<Questionario>(builder: (_, questionario, __) {
+              final bool respondida = questionario
+                  .questoes[questionario.questaocorrente].respondida;
+              final int corr = questionario.questaocorrente;
+              final int qtde = questionario.questoes.length;
+              fmsgBt(respondida, corr, qtde);
+              if (questionario
+                  .questoes[questionario.questaocorrente].respondida) {
+                if (questionario.questoes.length <=
+                    questionario.questaocorrente + 1) {
+                  msgbt = 'Finalizar';
+                } else
+                  msgbt = 'Continuar';
+              } else
+                msgbt = 'Confirmar';
               return ListView(
                 children: <Widget>[
                   Container(
@@ -63,34 +77,19 @@ class QuestaoFormExec extends StatelessWidget {
                           elevation: 5,
                           shadowColor: Colors.yellow),
                       onPressed: () {
-                        if (!questionario.questoes[questionario.questaocorrente]
-                            .respondida) {
-                          if (!questionario
-                              .questoes[questionario.questaocorrente]
-                              .corrigir()) {
-                            setStartHandler(
-                                'Escolha pelo menos uma alternativa', 0.3);
-                          }
-                          questionario.refresh();
-                        }
-                        if (questionario.questoes.length >
-                            questionario.questaocorrente + 2) {
-                          if (!questionario
-                              .questoes[questionario.questaocorrente]
-                              .respondida)
-                            msgbt = 'Confirmar';
-                          else
-                            msgbt = 'Próxima';
-                          questionario.questaocorrente++;
-                          questionario.refresh();
-                        } else {
-                          if (questionario.questoes.length >
-                              questionario.questaocorrente + 1) {
-                            msgbt = 'Finalizar';
+                        if (msgbt == 'Continuar') {
+                          if (questionario.questaocorrente + 1 <
+                              questionario.questoes.length) {
                             questionario.questaocorrente++;
-                            questionario.refresh();
+                          } else {
+                            //confirmar
+                            if (!questionario.questoes[corr].corrigir()) {
+                              setStartHandler(
+                                  'Escolha pelo menos uma alternativa', 0.3);
+                            }
                           }
                         }
+                        questionario.refresh();
                       },
                       child: Text(msgbt),
                     ),
@@ -98,5 +97,18 @@ class QuestaoFormExec extends StatelessWidget {
                 ],
               );
             })));
+  }
+
+  String fmsgBt(bool respondida, int corr, int qtde) {
+    String msg = 'Continuar';
+    if (respondida) {
+      if (corr + 1 >= qtde)
+        msg = 'Finalizar';
+      else
+        msg = 'Continuar';
+    } else {
+      msg = 'Confirmar';
+    }
+    return msg;
   }
 }

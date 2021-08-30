@@ -39,27 +39,15 @@ class AlternativaWidgetExec extends StatelessWidget {
       }
     }, child: Consumer<Questionario>(builder: (_, questionario, __) {
       final bool selecionada = alternativa.selecionada;
-      MaterialColor corSelecionada;
-      MaterialColor corNaoSelecionada;
 
-      if (alternativa.selecionada && alternativa.aCorreta && questao.respondida)
-        corSelecionada = Colors.green;
-      else
-        corSelecionada = Colors.red;
-
-      if (!alternativa.selecionada &&
-          alternativa.aCorreta &&
-          questao.respondida)
-        corNaoSelecionada = Colors.green;
-      else
-        corNaoSelecionada = Colors.white;
-
-      if (alternativa.selecionada && !questao.respondida)
-        corSelecionada = Colors.yellow;
-      else
-        corSelecionada = Colors.white;
       return Card(
-        color: selecionada ? corSelecionada : corNaoSelecionada,
+        color: selecionada
+            ? ((questao.respondida)
+                ? (alternativa.respostaCorreta ? Colors.green : Colors.red)
+                : Colors.yellow)
+            : ((questao.respondida)
+                ? (alternativa.correta ? Colors.green : Colors.white)
+                : Colors.white),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
         child: Container(
           height: 100,

@@ -4,6 +4,8 @@ class Alternativa extends ChangeNotifier {
   Alternativa({this.descricao, this.correta, this.pontuacao, this.images}) {
     images = images ?? [];
     correta = correta ?? true;
+    respostaCorreta = false;
+    selecionada = false;
   }
   Alternativa.fromMap(Map<String, dynamic> map) {
     descricao = map['descricao'] as String;
@@ -29,14 +31,13 @@ class Alternativa extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool _respostaCorreta;
-  bool get respostaCorreta => _respostaCorreta;
-  set respostaCorreta(bool valor) {
+  bool respostaCorreta = false;
+//  bool get respostaCorreta => _respostaCorreta;
+  /*  set respostaCorreta(bool valor) {
     _respostaCorreta = valor;
-    respostaCorreta = valor;
     // notifyListeners();
   }
-
+ */
   bool _aselecionada;
   bool get aselecionada => _aselecionada;
   set qsetSelecionada(bool valor) {

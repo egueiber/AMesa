@@ -19,7 +19,6 @@ class AlternativaWidgetExec extends StatelessWidget {
     //Color color;
     // color = Colors.black;
     String texto = '';
-    setStartHandler(questao.descricao, 0.3);
     return GestureDetector(onTap: () {
       alternativa.selecionada = !alternativa.selecionada;
       //questionario.exportQuestaoList();

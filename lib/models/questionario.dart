@@ -51,6 +51,7 @@ class Questionario extends ChangeNotifier {
   List<String> images;
   List<Questao> questoes;
   List<QuestionarioTurma> questionarioturma;
+  num questaocorrente;
 
   List<dynamic> newImages;
 

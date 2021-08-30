@@ -20,6 +20,7 @@ class Questao extends ChangeNotifier {
 
   String descricao;
   String imagem;
+  bool lido = false;
   List<Alternativa> alternativas;
   List<Resposta> respostas;
 

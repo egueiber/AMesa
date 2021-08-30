@@ -21,6 +21,7 @@ class Questao extends ChangeNotifier {
   String descricao;
   String imagem;
   bool lido = false;
+  bool respondida = false;
   List<Alternativa> alternativas;
   List<Resposta> respostas;
 
@@ -58,7 +59,20 @@ class Questao extends ChangeNotifier {
         }
       });
     }
+
     return existe;
+  }
+
+  bool corrigir() {
+    bool valido = false;
+    for (int i = 0; i < alternativas.length; i++) {
+      if (alternativas[i].selecionada) {
+        valido = true;
+        alternativas[i].respostaCorreta = (alternativas[i].correta);
+      }
+    }
+    respondida = valido;
+    return valido;
   }
 
   bool addRespostaQuestionario(String email, bool correta, num pontuacao) {

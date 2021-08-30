@@ -22,10 +22,19 @@ class Alternativa extends ChangeNotifier {
 
   bool _aCorreta;
   bool get aCorreta => _aCorreta;
+
   set qCorreta(bool valor) {
     _aCorreta = valor;
     correta = valor;
     notifyListeners();
+  }
+
+  bool _respostaCorreta;
+  bool get respostaCorreta => _respostaCorreta;
+  set respostaCorreta(bool valor) {
+    _respostaCorreta = valor;
+    respostaCorreta = valor;
+    // notifyListeners();
   }
 
   bool _aselecionada;

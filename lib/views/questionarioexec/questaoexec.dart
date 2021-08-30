@@ -15,10 +15,10 @@ class QuestaoFormExec extends StatelessWidget {
     //final primaryColor = Theme.of(context).primaryColor;
     // setStartHandler(questionario.titulo + ' e ' + questionario.descricao, 0.3);
     questionario.questaocorrente = 0;
-    setStartHandler(
+    /*  setStartHandler(
         questionario.questoes[questionario.questaocorrente].descricao, 0.3);
-
-    String msgbt = 'Próximo';
+ */
+    String msgbt = 'Confirmar';
     return ChangeNotifierProvider.value(
         value: questionario,
         child: Scaffold(
@@ -63,9 +63,24 @@ class QuestaoFormExec extends StatelessWidget {
                           elevation: 5,
                           shadowColor: Colors.yellow),
                       onPressed: () {
+                        if (!questionario.questoes[questionario.questaocorrente]
+                            .respondida) {
+                          if (!questionario
+                              .questoes[questionario.questaocorrente]
+                              .corrigir()) {
+                            setStartHandler(
+                                'Escolha pelo menos uma alternativa', 0.3);
+                          }
+                          questionario.refresh();
+                        }
                         if (questionario.questoes.length >
                             questionario.questaocorrente + 2) {
-                          msgbt = 'Confirmar';
+                          if (!questionario
+                              .questoes[questionario.questaocorrente]
+                              .respondida)
+                            msgbt = 'Confirmar';
+                          else
+                            msgbt = 'Próxima';
                           questionario.questaocorrente++;
                           questionario.refresh();
                         } else {

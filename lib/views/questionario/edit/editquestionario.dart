@@ -93,6 +93,32 @@ class EditQuestionarioScreen extends StatelessWidget {
                       },
                       onSaved: (desc) => questionario.descricao = desc,
                     ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Text(
+                        'Qtde tentativas para responder',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    TextFormField(
+                      initialValue: questionario.qtdetentativas?.toString(),
+                      style: const TextStyle(fontSize: 16),
+                      decoration: const InputDecoration(
+                        hintText: 'Qtde de tentativas',
+                        //border: InputBorder.none
+                      ),
+                      keyboardType: TextInputType.number,
+                      validator: (qtde) {
+                        if (int.tryParse(qtde) == null)
+                          return 'Numero inválido';
+                        if (int.tryParse(qtde) < 1)
+                          return 'Informe uma qtde maior ou igual a um!';
+                        return null;
+                      },
+                      onSaved: (qtde) =>
+                          questionario.qtdetentativas = int.parse(qtde),
+                    ),
                     Consumer<Questionario>(builder: (_, questionario, __) {
                       return (CheckboxListTile(
                         title: Text("Ativo", textAlign: TextAlign.left),
@@ -118,13 +144,10 @@ class EditQuestionarioScreen extends StatelessWidget {
                                 ? () async {
                                     if (formKey.currentState.validate()) {
                                       formKey.currentState.save();
-
                                       await questionario.save();
-
                                       context
                                           .read<QuestionarioManager>()
                                           .update(questionario);
-
                                       Navigator.of(context).pop();
                                     }
                                   }

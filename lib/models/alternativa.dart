@@ -20,6 +20,7 @@ class Alternativa extends ChangeNotifier {
   bool correta = true;
   bool selecionada = false;
   num pontuacao = 1;
+
   //String newImagem;
 
   bool _aCorreta;

@@ -14,6 +14,7 @@ class Questionario extends ChangeNotifier {
       this.descricao,
       this.images,
       this.ativo,
+      this.qtdetentativas,
       this.questoes,
       this.questionarioturma}) {
     images = images ?? [];
@@ -27,6 +28,7 @@ class Questionario extends ChangeNotifier {
     titulo = item['titulo'] as String;
     descricao = item['descricao'] as String;
     ativo = item['ativo'] as bool;
+    qtdetentativas = item['qtdetentativas'] as num;
     // images = List<String>.from(item['images']);
     images = List<String>.from(item['images'] as List<dynamic>);
     questoes = (item['questoes'] as List<dynamic> ?? [])
@@ -52,6 +54,9 @@ class Questionario extends ChangeNotifier {
   List<Questao> questoes;
   List<QuestionarioTurma> questionarioturma;
   num questaocorrente;
+  String emailUsuario;
+  num qtdetentativas;
+  num nrtentativa;
 
   List<dynamic> newImages;
 
@@ -93,6 +98,15 @@ class Questionario extends ChangeNotifier {
       return null;
   }
 
+  void tentativas(String email) {
+    num ultima = 0;
+    for (final resp in questoes[0].respostas) {
+      if ((email == resp.email) && (resp.nrtentativa > ultima))
+        ultima = resp.nrtentativa;
+    }
+    nrtentativa = ultima;
+  }
+
   QuestionarioTurma findQuestionarioTurma(String sigla) {
     try {
       return questionarioturma.firstWhere((s) => s.turma == sigla);
@@ -123,6 +137,13 @@ class Questionario extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> updateQuestionarioRespostas(String id) async {
+    if (id != null) {
+      await firestoreRef.update({'questoes': exportQuestaoList()});
+    }
+    notifyListeners();
+  }
+
   Future<void> updateAlternativa(Alternativa alternativaselecionada) async {
     /*  if (id != null) {
       await firestoreRef
@@ -138,6 +159,7 @@ class Questionario extends ChangeNotifier {
       'titulo': titulo,
       'descricao': descricao,
       'ativo': ativo,
+      'qtdetentativas': qtdetentativas,
       'questoes': exportQuestaoList(),
       'questionarioturma': exportQuestionarioTurmaList() ?? [],
       // 'images': List.from(images)
@@ -231,6 +253,7 @@ class Questionario extends ChangeNotifier {
       titulo: titulo,
       ativo: ativo,
       descricao: descricao,
+      qtdetentativas: qtdetentativas,
       images: List.from(images),
       questoes: questoes.map((questao) => questao.clone()).toList(),
       questionarioturma: questionarioturma.map((qt) => qt.clone()).toList(),
@@ -239,6 +262,6 @@ class Questionario extends ChangeNotifier {
 
   @override
   String toString() {
-    return 'Questionario{id: $id, name: $titulo, description: $descricao, ativo: $ativo, images: $images, questoes: $questoes, questionarioturma: $questionarioturma, newImages: $newImages}';
+    return 'Questionario{id: $id, name: $titulo, description: $descricao, ativo: $ativo, qtdetentativas:$qtdetentativas, images: $images, questoes: $questoes, questionarioturma: $questionarioturma, newImages: $newImages}';
   }
 }

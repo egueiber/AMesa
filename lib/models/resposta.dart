@@ -1,7 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
 class Resposta extends ChangeNotifier {
-  Resposta({this.email, this.correta, this.pontuacao, this.dataexecucao}) {
+  Resposta(
+      {this.email,
+      this.correta,
+      this.pontuacao,
+      this.nrtentativa,
+      this.dataexecucao}) {
     email = email;
     pontuacao = pontuacao ?? 0;
     correta = correta ?? true;
@@ -12,6 +17,7 @@ class Resposta extends ChangeNotifier {
     correta = map['correta'] as bool;
     pontuacao = map['pontuacao'] as num;
     dataexecucao = map['dataexecucao'].toDate();
+    nrtentativa = map['nrtentativa'] as int;
   }
 
   String descricao;
@@ -19,6 +25,7 @@ class Resposta extends ChangeNotifier {
   num pontuacao = 1;
   String email;
   DateTime dataexecucao;
+  int nrtentativa;
 
   bool _aCorreta;
   bool get aCorreta => _aCorreta;
@@ -33,7 +40,8 @@ class Resposta extends ChangeNotifier {
         email: email,
         correta: correta,
         pontuacao: pontuacao,
-        dataexecucao: dataexecucao);
+        dataexecucao: dataexecucao,
+        nrtentativa: nrtentativa);
   }
 
   Map<String, dynamic> toMap() {
@@ -41,7 +49,8 @@ class Resposta extends ChangeNotifier {
       'email': email,
       'correta': correta,
       'pontuacao': pontuacao,
-      'dataexecucao': dataexecucao
+      'dataexecucao': dataexecucao,
+      'nrtentativa': nrtentativa
     };
   }
 

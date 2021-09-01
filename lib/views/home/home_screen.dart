@@ -9,6 +9,7 @@ import 'package:amesaadm/models/user_manager.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    String emailusuario;
     return Scaffold(
       drawer: CustomDrawer(),
       body: Stack(
@@ -39,6 +40,7 @@ class HomeScreen extends StatelessWidget {
                   ), */
                   Consumer2<UserManager, HomeManager>(
                     builder: (_, userManager, homeManager, __) {
+                      emailusuario = userManager.user.email;
                       if (userManager.adminEnabled && !homeManager.loading) {
                         if (homeManager.editing) {
                           return PopupMenuButton(
@@ -85,6 +87,7 @@ class HomeScreen extends StatelessWidget {
                     children = [];
 
                     questionarioTurmaManager.items.forEach((tm) {
+                      tm.emailUsuario = emailusuario;
                       children.add(QuestionarioListTileExec(tm));
                     });
                   } else {

@@ -1,5 +1,6 @@
 import 'package:amesaadm/models/alternativa.dart';
 import 'package:amesaadm/models/resposta.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
 class Questao extends ChangeNotifier {
@@ -25,6 +26,9 @@ class Questao extends ChangeNotifier {
   bool respondida = false;
   List<Alternativa> alternativas;
   List<Resposta> respostas;
+  num pontos = 0;
+  num pontosperdidos = 0;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Questao clone() {
     return Questao(
@@ -64,28 +68,39 @@ class Questao extends ChangeNotifier {
     return existe;
   }
 
-  bool corrigir() {
+  bool corrigir(String email, int nrtentativa) {
     bool valido = false;
+    pontos = 0;
+    pontosperdidos = 0;
     for (int i = 0; i < alternativas.length; i++) {
       if (alternativas[i].selecionada) {
         valido = true;
         alternativas[i].respostaCorreta = (alternativas[i].correta);
+        if (alternativas[i].respostaCorreta) {
+          pontos = pontos + alternativas[i].pontuacao;
+        } else {
+          pontosperdidos = pontosperdidos + alternativas[i].pontuacao;
+        }
+        addRespostaQuestionario(email, alternativas[i].respostaCorreta,
+            alternativas[i].pontuacao, nrtentativa);
       }
     }
     respondida = valido;
     return valido;
   }
 
-  bool addRespostaQuestionario(String email, bool correta, num pontuacao) {
+  bool addRespostaQuestionario(
+      String email, bool correta, num pontuacao, int nrtentativa) {
     final existe = findRespostaAluno(email);
     final Resposta resposta = (Resposta(
         email: email,
         dataexecucao: DateTime.now(),
         correta: correta,
-        pontuacao: pontuacao));
-    if (existe) {
+        pontuacao: pontuacao,
+        nrtentativa: nrtentativa));
+/*     if (existe) {
       respostas.removeWhere((r) => r.email == email);
-    }
+    } */
     respostas.add(resposta);
     //updateRespostaAluno();
     return existe;

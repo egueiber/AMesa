@@ -33,20 +33,39 @@ class QuestaoFormExec extends StatelessWidget {
                   .questoes[questionario.questaocorrente].respondida;
               final int corr = questionario.questaocorrente;
               final int qtde = questionario.questoes.length;
-              fmsgBt(respondida, corr, qtde);
-              if (questionario
-                  .questoes[questionario.questaocorrente].respondida) {
-                if (questionario.questoes.length <=
-                    questionario.questaocorrente + 1) {
-                  msgbt = 'Finalizar';
+              msgbt = fmsgBt(respondida, corr, qtde);
+              if (respondida) {
+                String msgvoz;
+                String msgponto;
+                if (questionario.questoes[corr].pontos > 0) {
+                  msgponto = (questionario.questoes[corr].pontos == 1)
+                      ? ' ponto'
+                      : 'pontos';
+                  msgvoz = 'Você conquistou ' +
+                      questionario.questoes[corr].pontos.toString() +
+                      msgponto;
+
+                  if (questionario.questoes[corr].pontosperdidos > 0) {
+                    msgponto = (questionario.questoes[corr].pontosperdidos == 1)
+                        ? ' ponto'
+                        : 'pontos';
+                    msgvoz = msgvoz +
+                        ' mas perdeu ' +
+                        questionario.questoes[corr].pontosperdidos.toString() +
+                        msgponto;
+                  }
+                  setStartHandler(msgvoz, 0.3);
                 } else
-                  msgbt = 'Continuar';
-              } else
-                msgbt = 'Confirmar';
+                  setStartHandler(
+                      'Você não conquistou pontos nesta questão, mas mesmo assim aprendeu!',
+                      0.3);
+              }
+
               return ListView(
                 children: <Widget>[
                   Container(
                     //color: color,
+
                     padding:
                         const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                     child: Text(
@@ -57,8 +76,9 @@ class QuestaoFormExec extends StatelessWidget {
                     ),
                   ),
                   Wrap(
-                    //spacing: 8,
+                    //spacing: 28,
                     //runSpacing: 8,
+                    //spacing: 40,
                     children: questionario
                         .questoes[questionario.questaocorrente].alternativas
                         .map((a) {
@@ -77,16 +97,20 @@ class QuestaoFormExec extends StatelessWidget {
                           elevation: 5,
                           shadowColor: Colors.yellow),
                       onPressed: () {
-                        if (msgbt == 'Continuar') {
+                        if (msgbt == 'Finalizar') {
+                          questionario.questoes[corr].exportRespostaList();
+                        } else if (msgbt == 'Continuar') {
                           if (questionario.questaocorrente + 1 <
                               questionario.questoes.length) {
                             questionario.questaocorrente++;
-                          } else {
-                            //confirmar
-                            if (!questionario.questoes[corr].corrigir()) {
-                              setStartHandler(
-                                  'Escolha pelo menos uma alternativa', 0.3);
-                            }
+                          }
+                        } else {
+                          //confirmar
+                          if (!questionario.questoes[corr].corrigir(
+                              questionario.emailUsuario,
+                              questionario.nrtentativa + 1)) {
+                            setStartHandler(
+                                'Escolha pelo menos uma alternativa', 0.3);
                           }
                         }
                         questionario.refresh();
@@ -94,6 +118,36 @@ class QuestaoFormExec extends StatelessWidget {
                       child: Text(msgbt),
                     ),
                   ),
+                  Container(
+                      //color: color,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4, horizontal: 8),
+                      child: Text(
+                        'Pontos: ' +
+                            questionario.questoes[corr].pontos.toString(),
+                        style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.w600,
+                            color:
+                                respondida ? Colors.blueAccent : Colors.white),
+                      )),
+                  Container(
+                      //color: color,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4, horizontal: 8),
+                      child: Text(
+                        'Pontos Perdidos: ' +
+                            questionario.questoes[corr].pontosperdidos
+                                .toString(),
+                        style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.w600,
+                            color: (respondida &&
+                                    questionario.questoes[corr].pontosperdidos >
+                                        0)
+                                ? Colors.blueAccent
+                                : Colors.white),
+                      )),
                 ],
               );
             })));

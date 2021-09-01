@@ -43,12 +43,24 @@ class AlternativaWidgetExec extends StatelessWidget {
       return Card(
         color: selecionada
             ? ((questao.respondida)
-                ? (alternativa.respostaCorreta ? Colors.green : Colors.red)
-                : Colors.yellow)
+                ? (alternativa.respostaCorreta
+                    ? Colors.green[100]
+                    : Colors.red[100])
+                : Colors.yellow[100])
             : ((questao.respondida)
-                ? (alternativa.correta ? Colors.green : Colors.white)
+                ? (alternativa.correta ? Colors.green[50] : Colors.white)
                 : Colors.white),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+        clipBehavior: Clip.none,
+        borderOnForeground: false,
+        elevation: 10,
+        shadowColor: selecionada
+            ? ((questao.respondida)
+                ? (alternativa.respostaCorreta ? Colors.green : Colors.red[200])
+                : Colors.yellow[200])
+            : ((questao.respondida)
+                ? (alternativa.correta ? Colors.green[100] : Colors.white)
+                : Colors.grey[200]),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         child: Container(
           height: 100,
           padding: const EdgeInsets.all(8),
@@ -75,7 +87,7 @@ class AlternativaWidgetExec extends StatelessWidget {
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

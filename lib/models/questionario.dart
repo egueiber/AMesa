@@ -16,7 +16,8 @@ class Questionario extends ChangeNotifier {
       this.ativo,
       this.qtdetentativas,
       this.questoes,
-      this.questionarioturma}) {
+      this.questionarioturma,
+      this.idUsuario}) {
     images = images ?? [];
     questoes = questoes ?? [];
     ativo = ativo ?? true;
@@ -255,6 +256,7 @@ class Questionario extends ChangeNotifier {
       ativo: ativo,
       descricao: descricao,
       qtdetentativas: qtdetentativas,
+      idUsuario: idUsuario,
       images: List.from(images),
       questoes: questoes.map((questao) => questao.clone()).toList(),
       questionarioturma: questionarioturma.map((qt) => qt.clone()).toList(),
@@ -263,6 +265,6 @@ class Questionario extends ChangeNotifier {
 
   @override
   String toString() {
-    return 'Questionario{id: $id, name: $titulo, description: $descricao, ativo: $ativo, qtdetentativas:$qtdetentativas, images: $images, questoes: $questoes, questionarioturma: $questionarioturma, newImages: $newImages}';
+    return 'Questionario{id: $id, name: $titulo, description: $descricao, ativo: $ativo, idUsuario: $idUsuario ,qtdetentativas:$qtdetentativas, images: $images, questoes: $questoes, questionarioturma: $questionarioturma, newImages: $newImages}';
   }
 }

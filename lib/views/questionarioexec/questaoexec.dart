@@ -108,6 +108,7 @@ class QuestaoFormExec extends StatelessWidget {
                         } else {
                           //confirmar
                           if (!questionario.questoes[corr].corrigir(
+                              questionario.idUsuario,
                               questionario.id,
                               questionario.emailUsuario,
                               questionario.nrtentativa + 1)) {

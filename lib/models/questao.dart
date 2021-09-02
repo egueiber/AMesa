@@ -68,7 +68,8 @@ class Questao extends ChangeNotifier {
     return existe;
   }
 
-  bool corrigir(String idQuestionario, String email, int nrtentativa) {
+  bool corrigir(
+      String idUsuario, String idQuestionario, String email, int nrtentativa) {
     bool valido = false;
     pontos = 0;
     pontosperdidos = 0;
@@ -82,6 +83,7 @@ class Questao extends ChangeNotifier {
           pontosperdidos = pontosperdidos + alternativas[i].pontuacao;
         }
         addRespostaQuestionario(
+            idUsuario,
             idQuestionario,
             email,
             alternativas[i].respostaCorreta,
@@ -93,11 +95,12 @@ class Questao extends ChangeNotifier {
     return valido;
   }
 
-  bool addRespostaQuestionario(String idQuestionario, String email,
-      bool correta, num pontuacao, int nrtentativa) {
+  bool addRespostaQuestionario(String idUsuario, String idQuestionario,
+      String email, bool correta, num pontuacao, int nrtentativa) {
     final existe = findRespostaAluno(email, nrtentativa);
     final Resposta resposta = (Resposta(
         idQuestionario: idQuestionario,
+        idUsuario: idUsuario,
         email: email,
         dataexecucao: DateTime.now(),
         correta: correta,

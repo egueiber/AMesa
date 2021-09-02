@@ -6,11 +6,15 @@ class Resposta extends ChangeNotifier {
       this.correta,
       this.pontuacao,
       this.nrtentativa,
-      this.dataexecucao}) {
+      this.dataexecucao,
+      this.idUsuario,
+      this.idQuestionario}) {
     email = email;
     pontuacao = pontuacao ?? 0;
     correta = correta ?? true;
     dataexecucao = dataexecucao ?? DateTime.now().toLocal();
+    idUsuario = idUsuario;
+    idQuestionario = idQuestionario;
   }
   Resposta.fromMap(Map<String, dynamic> map) {
     email = map['email'] as String;
@@ -18,6 +22,8 @@ class Resposta extends ChangeNotifier {
     pontuacao = map['pontuacao'] as num;
     dataexecucao = map['dataexecucao'].toDate();
     nrtentativa = map['nrtentativa'] as int;
+    idUsuario = map['idUsuario'] as String;
+    idQuestionario = map['idQuestionario'] as String;
   }
 
   String descricao;
@@ -26,6 +32,8 @@ class Resposta extends ChangeNotifier {
   String email;
   DateTime dataexecucao;
   int nrtentativa;
+  String idUsuario;
+  String idQuestionario;
 
   bool _aCorreta;
   bool get aCorreta => _aCorreta;
@@ -41,7 +49,9 @@ class Resposta extends ChangeNotifier {
         correta: correta,
         pontuacao: pontuacao,
         dataexecucao: dataexecucao,
-        nrtentativa: nrtentativa);
+        nrtentativa: nrtentativa,
+        idUsuario: idUsuario,
+        idQuestionario: idQuestionario);
   }
 
   Map<String, dynamic> toMap() {
@@ -50,12 +60,14 @@ class Resposta extends ChangeNotifier {
       'correta': correta,
       'pontuacao': pontuacao,
       'dataexecucao': dataexecucao,
-      'nrtentativa': nrtentativa
+      'nrtentativa': nrtentativa,
+      'idUsuario': idUsuario,
+      'idQuestionario': idQuestionario,
     };
   }
 
   @override
   String toString() {
-    return 'Resposta{email: $email, correta: $correta, pontuacao: $pontuacao, dataexecucao: $dataexecucao}';
+    return 'Resposta{email: $email, correta: $correta, pontuacao: $pontuacao, dataexecucao: $dataexecucao, nrtentativa:$nrtentativa, idUsuario: $idUsuario, idQuestionario: $idQuestionario}';
   }
 }

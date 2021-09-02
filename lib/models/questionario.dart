@@ -47,6 +47,7 @@ class Questionario extends ChangeNotifier {
       storage.ref().child('questionarios/alternativas').child(id);
 
   String id;
+  String idUsuario;
   String titulo;
   String descricao;
   bool ativo;
@@ -98,10 +99,10 @@ class Questionario extends ChangeNotifier {
       return null;
   }
 
-  void tentativas(String email) {
+  void tentativas() {
     num ultima = 0;
     for (final resp in questoes[0].respostas) {
-      if ((email == resp.email) && (resp.nrtentativa > ultima))
+      if ((emailUsuario == resp.email) && (resp.nrtentativa > ultima))
         ultima = resp.nrtentativa;
     }
     nrtentativa = ultima;
@@ -137,7 +138,7 @@ class Questionario extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> updateQuestionarioRespostas(String id) async {
+  Future<void> updateQuestoes() async {
     if (id != null) {
       await firestoreRef.update({'questoes': exportQuestaoList()});
     }

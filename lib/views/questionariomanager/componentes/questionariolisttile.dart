@@ -10,6 +10,7 @@ class QuestionarioListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        //questionario.idUsuario = user;
         Navigator.of(context)
             .pushNamed('/questionario', arguments: questionario);
       },

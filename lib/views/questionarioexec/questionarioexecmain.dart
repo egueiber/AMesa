@@ -16,7 +16,7 @@ class QuestionarioScreenExecMain extends StatelessWidget {
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).primaryColor;
     setStartHandler(questionario.titulo + ' e ' + questionario.descricao, 0.3);
-    questionario.tentativas(questionario.emailUsuario);
+    questionario.tentativas();
     return ChangeNotifierProvider.value(
       value: questionario,
       child: Scaffold(

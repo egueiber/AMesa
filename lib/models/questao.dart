@@ -55,11 +55,11 @@ class Questao extends ChangeNotifier {
     return respostas.map((resposta) => resposta.toMap()).toList();
   }
 
-  bool findRespostaAluno(String email) {
+  bool findRespostaAluno(String email, int nrtentativa) {
     bool existe = false;
     if (respostas.isNotEmpty) {
       respostas.forEach((r) {
-        if (r.email == email) {
+        if ((r.email == email) && (r.nrtentativa == nrtentativa)) {
           existe = true;
         }
       });
@@ -68,7 +68,7 @@ class Questao extends ChangeNotifier {
     return existe;
   }
 
-  bool corrigir(String email, int nrtentativa) {
+  bool corrigir(String idQuestionario, String email, int nrtentativa) {
     bool valido = false;
     pontos = 0;
     pontosperdidos = 0;
@@ -81,18 +81,23 @@ class Questao extends ChangeNotifier {
         } else {
           pontosperdidos = pontosperdidos + alternativas[i].pontuacao;
         }
-        addRespostaQuestionario(email, alternativas[i].respostaCorreta,
-            alternativas[i].pontuacao, nrtentativa);
+        addRespostaQuestionario(
+            idQuestionario,
+            email,
+            alternativas[i].respostaCorreta,
+            alternativas[i].pontuacao,
+            nrtentativa);
       }
     }
     respondida = valido;
     return valido;
   }
 
-  bool addRespostaQuestionario(
-      String email, bool correta, num pontuacao, int nrtentativa) {
-    final existe = findRespostaAluno(email);
+  bool addRespostaQuestionario(String idQuestionario, String email,
+      bool correta, num pontuacao, int nrtentativa) {
+    final existe = findRespostaAluno(email, nrtentativa);
     final Resposta resposta = (Resposta(
+        idQuestionario: idQuestionario,
         email: email,
         dataexecucao: DateTime.now(),
         correta: correta,

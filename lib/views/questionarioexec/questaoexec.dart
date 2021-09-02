@@ -98,7 +98,8 @@ class QuestaoFormExec extends StatelessWidget {
                           shadowColor: Colors.yellow),
                       onPressed: () {
                         if (msgbt == 'Finalizar') {
-                          questionario.questoes[corr].exportRespostaList();
+                          // questionario.questoes[corr].exportRespostaList();
+                          questionario.updateQuestoes();
                         } else if (msgbt == 'Continuar') {
                           if (questionario.questaocorrente + 1 <
                               questionario.questoes.length) {
@@ -107,6 +108,7 @@ class QuestaoFormExec extends StatelessWidget {
                         } else {
                           //confirmar
                           if (!questionario.questoes[corr].corrigir(
+                              questionario.id,
                               questionario.emailUsuario,
                               questionario.nrtentativa + 1)) {
                             setStartHandler(

@@ -24,7 +24,7 @@ class AlternativaWidgetExec extends StatelessWidget {
       questao.lido = true;
     }
     return GestureDetector(onTap: () {
-      if (questao.respondida) {
+      if ((questao.respondida) || (!questionario.ativo)) {
         setStartHandler(
             'Você já respondeu esta questão! Veja o resultado!', 0.3);
       } else {
@@ -42,7 +42,7 @@ class AlternativaWidgetExec extends StatelessWidget {
 
       return Card(
         color: selecionada
-            ? ((questao.respondida)
+            ? (((questao.respondida) || (!questionario.ativo))
                 ? (alternativa.respostaCorreta
                     ? Colors.green[100]
                     : Colors.red[100])

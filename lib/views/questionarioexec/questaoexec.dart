@@ -29,14 +29,20 @@ class QuestaoFormExec extends StatelessWidget {
             ),
             backgroundColor: Colors.white,
             body: Consumer<Questionario>(builder: (_, questionario, __) {
-              final bool respondida = questionario
-                  .questoes[questionario.questaocorrente].respondida;
+              final bool respondida = ((questionario
+                      .questoes[questionario.questaocorrente].respondida) ||
+                  (!questionario.ativo));
+
               final int corr = questionario.questaocorrente;
               final int qtde = questionario.questoes.length;
               msgbt = fmsgBt(respondida, corr, qtde);
               if (respondida) {
                 String msgvoz;
                 String msgponto;
+                if (!questionario.ativo) {
+                  questionario.questoes[questionario.questaocorrente]
+                      .recuperaSelecao(questionario.emailUsuario);
+                }
                 if (questionario.questoes[corr].pontos > 0) {
                   msgponto = (questionario.questoes[corr].pontos == 1)
                       ? ' ponto'
@@ -99,7 +105,13 @@ class QuestaoFormExec extends StatelessWidget {
                       onPressed: () {
                         if (msgbt == 'Finalizar') {
                           // questionario.questoes[corr].exportRespostaList();
+
                           questionario.updateQuestoes();
+                          questionario.tentativas();
+                          Navigator.of(context).pushReplacementNamed(
+                              '/base_screen',
+                              arguments: questionario);
+                          //Navigator.of(context).pop();
                         } else if (msgbt == 'Continuar') {
                           if (questionario.questaocorrente + 1 <
                               questionario.questoes.length) {
@@ -116,6 +128,7 @@ class QuestaoFormExec extends StatelessWidget {
                                 'Escolha pelo menos uma alternativa', 0.3);
                           }
                         }
+
                         questionario.refresh();
                       },
                       child: Text(msgbt),
@@ -159,9 +172,9 @@ class QuestaoFormExec extends StatelessWidget {
   String fmsgBt(bool respondida, int corr, int qtde) {
     String msg = 'Continuar';
     if (respondida) {
-      if (corr + 1 >= qtde)
+      if (corr + 1 >= qtde) {
         msg = 'Finalizar';
-      else
+      } else
         msg = 'Continuar';
     } else {
       msg = 'Confirmar';

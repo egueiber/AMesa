@@ -15,8 +15,15 @@ class QuestionarioScreenExecMain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).primaryColor;
-    setStartHandler(questionario.titulo + ' e ' + questionario.descricao, 0.3);
     questionario.tentativas();
+    String msgbt = questionario.ativo
+        ? (questionario.qtdetentativas - questionario.nrtentativa).toString() +
+            ' tentativa(s) restantes'
+        : ' Não há mais tentativas restantes';
+    setStartHandler(
+        questionario.titulo + ' e ' + questionario.descricao + ' ' + msgbt,
+        0.3);
+
     return ChangeNotifierProvider.value(
       value: questionario,
       child: Scaffold(
@@ -103,7 +110,9 @@ class QuestionarioScreenExecMain extends StatelessWidget {
                         Navigator.of(context).pushNamed('/questaoformexec',
                             arguments: questionario);
                       },
-                      child: const Text('Participar'),
+                      child: Text(questionario.ativo
+                          ? 'Participar'
+                          : 'Verificar respostas'),
                     ),
                   ),
                   /* Wrap(
@@ -116,6 +125,11 @@ class QuestionarioScreenExecMain extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
+                  Text(questionario.ativo
+                      ? (questionario.qtdetentativas - questionario.nrtentativa)
+                              .toString() +
+                          ' tentativa(s) restantes'
+                      : ' Não há mais tentativas restantes'),
                 ],
               ),
             )

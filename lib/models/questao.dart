@@ -68,6 +68,19 @@ class Questao extends ChangeNotifier {
     return existe;
   }
 
+  void recuperaSelecao(String emailusuario) {
+    for (int idAlternativa = 0;
+        idAlternativa < alternativas.length;
+        idAlternativa++) {
+      for (int j = 0; j < respostas.length; j++) {
+        if ((emailusuario == respostas[j].email) &&
+            (respostas[j].idAlternativa == idAlternativa)) {
+          alternativas[idAlternativa].selecionada = true;
+        }
+      }
+    }
+  }
+
   bool corrigir(
       String idUsuario, String idQuestionario, String email, int nrtentativa) {
     bool valido = false;
@@ -84,6 +97,7 @@ class Questao extends ChangeNotifier {
         }
         addRespostaQuestionario(
             idUsuario,
+            i, //alternativa selecionada
             idQuestionario,
             email,
             alternativas[i].respostaCorreta,
@@ -95,12 +109,19 @@ class Questao extends ChangeNotifier {
     return valido;
   }
 
-  bool addRespostaQuestionario(String idUsuario, String idQuestionario,
-      String email, bool correta, num pontuacao, int nrtentativa) {
+  bool addRespostaQuestionario(
+      String idUsuario,
+      int idAlternativa,
+      String idQuestionario,
+      String email,
+      bool correta,
+      num pontuacao,
+      int nrtentativa) {
     final existe = findRespostaAluno(email, nrtentativa);
     final Resposta resposta = (Resposta(
         idQuestionario: idQuestionario,
         idUsuario: idUsuario,
+        idAlternativa: idAlternativa,
         email: email,
         dataexecucao: DateTime.now(),
         correta: correta,

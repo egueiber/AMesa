@@ -107,6 +107,7 @@ class Questionario extends ChangeNotifier {
         ultima = resp.nrtentativa;
     }
     nrtentativa = ultima;
+    ativo = (qtdetentativas > nrtentativa);
   }
 
   QuestionarioTurma findQuestionarioTurma(String sigla) {

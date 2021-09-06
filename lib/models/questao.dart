@@ -6,7 +6,6 @@ import 'package:flutter/cupertino.dart';
 class Questao extends ChangeNotifier {
   Questao({this.descricao, this.imagem, this.alternativas, this.respostas}) {
     alternativas = alternativas ?? [];
-    respostas = respostas ?? [];
     respondida = false;
   }
   Questao.fromMap(Map<String, dynamic> map) {
@@ -14,9 +13,6 @@ class Questao extends ChangeNotifier {
     imagem = map['imagem'] as String;
     alternativas = (map['alternativas'] as List<dynamic> ?? [])
         .map((s) => Alternativa.fromMap(s as Map<String, dynamic>))
-        .toList();
-    respostas = (map['respostas'] as List<dynamic> ?? [])
-        .map((s) => Resposta.fromMap(s as Map<String, dynamic>))
         .toList();
   }
 
@@ -36,7 +32,6 @@ class Questao extends ChangeNotifier {
       imagem: imagem,
       alternativas:
           alternativas.map((alternativa) => alternativa.clone()).toList(),
-      respostas: respostas.map((resposta) => resposta.clone()).toList(),
     );
   }
 
@@ -51,108 +46,35 @@ class Questao extends ChangeNotifier {
     return alternativas.map((alternativa) => alternativa.toMap()).toList();
   }
 
-  List<Map<String, dynamic>> exportRespostaList() {
-    return respostas.map((resposta) => resposta.toMap()).toList();
-  }
-
-  bool findRespostaAluno(String email, int nrtentativa) {
-    bool existe = false;
-    if (respostas.isNotEmpty) {
-      respostas.forEach((r) {
-        if ((r.email == email) && (r.nrtentativa == nrtentativa)) {
-          existe = true;
-        }
-      });
-    }
-
-    return existe;
-  }
-
-  void recuperaSelecao(String emailusuario) {
-    for (int idAlternativa = 0;
-        idAlternativa < alternativas.length;
-        idAlternativa++) {
-      for (int j = 0; j < respostas.length; j++) {
-        if ((emailusuario == respostas[j].email) &&
-            (respostas[j].idAlternativa == idAlternativa)) {
-          alternativas[idAlternativa].selecionada = true;
-        }
-      }
-    }
-  }
-
   bool corrigir(
       String idUsuario, String idQuestionario, String email, int nrtentativa) {
-    bool valido = false;
+    bool respondido = false;
     pontos = 0;
     pontosperdidos = 0;
     for (int i = 0; i < alternativas.length; i++) {
+      alternativas[i].recuperaSelecao(idUsuario, nrtentativa);
       if (alternativas[i].selecionada) {
-        valido = true;
-        alternativas[i].respostaCorreta = (alternativas[i].correta);
-        if (alternativas[i].respostaCorreta) {
+        if (alternativas[i].correta)
           pontos = pontos + alternativas[i].pontuacao;
-        } else {
+        else
           pontosperdidos = pontosperdidos + alternativas[i].pontuacao;
-        }
-        addRespostaQuestionario(
-            idUsuario,
-            i, //alternativa selecionada
-            idQuestionario,
-            email,
-            alternativas[i].respostaCorreta,
-            alternativas[i].pontuacao,
-            nrtentativa);
+        respondido = true;
       }
     }
-    respondida = valido;
-    return valido;
+    respondida = respondido;
+    return respondido;
   }
-
-  bool addRespostaQuestionario(
-      String idUsuario,
-      int idAlternativa,
-      String idQuestionario,
-      String email,
-      bool correta,
-      num pontuacao,
-      int nrtentativa) {
-    final existe = findRespostaAluno(email, nrtentativa);
-    final Resposta resposta = (Resposta(
-        idQuestionario: idQuestionario,
-        idUsuario: idUsuario,
-        idAlternativa: idAlternativa,
-        email: email,
-        dataexecucao: DateTime.now(),
-        correta: correta,
-        pontuacao: pontuacao,
-        nrtentativa: nrtentativa));
-/*     if (existe) {
-      respostas.removeWhere((r) => r.email == email);
-    } */
-    respostas.add(resposta);
-    //updateRespostaAluno();
-    return existe;
-  }
-
-  /* Future<void> updateRespostaAluno() async {
-    if (id != null) {
-      await firestoreRef.update({'respostas': exportRespostaList()});
-    }
-    notifyListeners();
-  } */
 
   Map<String, dynamic> toMap() {
     return {
       'descricao': descricao,
       'imagem': imagem,
       'alternativas': exportAlternativaList(),
-      'respostas': exportRespostaList(),
     };
   }
 
   @override
   String toString() {
-    return 'Questao{descricao: $descricao, imagem: $imagem, questoes: $alternativas, respostas: $respostas}';
+    return 'Questao{descricao: $descricao, imagem: $imagem, questoes: $alternativas}';
   }
 }

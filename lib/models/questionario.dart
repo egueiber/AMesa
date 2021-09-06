@@ -17,7 +17,8 @@ class Questionario extends ChangeNotifier {
       this.qtdetentativas,
       this.questoes,
       this.questionarioturma,
-      this.idUsuario}) {
+      this.idUsuario,
+      this.nrtentativa}) {
     images = images ?? [];
     questoes = questoes ?? [];
     ativo = ativo ?? true;
@@ -102,12 +103,20 @@ class Questionario extends ChangeNotifier {
 
   void tentativas() {
     num ultima = 0;
-    for (final resp in questoes[0].respostas) {
-      if ((emailUsuario == resp.email) && (resp.nrtentativa > ultima))
-        ultima = resp.nrtentativa;
+    if (questoes[0].alternativas.isNotEmpty) {
+      questoes[0].alternativas.forEach((alt) {
+        if (alt.respostas.isNotEmpty) {
+          alt.respostas.forEach((r) {
+            if ((r.idUsuario == idUsuario) && (r.nrtentativa > ultima)) {
+              ultima = r.nrtentativa;
+            }
+          });
+        }
+      });
     }
     nrtentativa = ultima;
     ativo = (qtdetentativas > nrtentativa);
+    if (ativo) nrtentativa++;
   }
 
   QuestionarioTurma findQuestionarioTurma(String sigla) {
@@ -148,10 +157,6 @@ class Questionario extends ChangeNotifier {
   }
 
   Future<void> updateAlternativa(Alternativa alternativaselecionada) async {
-    /*  if (id != null) {
-      await firestoreRef
-          .update({'questionarioturma': exportQuestionarioTurmaList()});
-    } */
     alternativaselecionada.selecionada = !alternativaselecionada.selecionada;
     notifyListeners();
   }
@@ -174,14 +179,6 @@ class Questionario extends ChangeNotifier {
     } else {
       await firestoreRef.update(data);
     }
-
-    /* Questao findQuestao(String descricao) {
-      try {
-        return questoes.firstWhere((s) => s.descricao == descricao);
-      } catch (e) {
-        return null;
-      }
-    }*/
 
     final List<String> updateImages = [];
 
@@ -257,6 +254,7 @@ class Questionario extends ChangeNotifier {
       ativo: ativo,
       descricao: descricao,
       qtdetentativas: qtdetentativas,
+      nrtentativa: nrtentativa,
       idUsuario: idUsuario,
       images: List.from(images),
       questoes: questoes.map((questao) => questao.clone()).toList(),

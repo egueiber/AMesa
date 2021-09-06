@@ -31,10 +31,15 @@ class AlternativaWidgetExec extends StatelessWidget {
         alternativa.selecionada = !alternativa.selecionada;
         //questionario.exportQuestaoList();
         questionario.refresh();
-        if (alternativa.selecionada)
+        if (alternativa.selecionada) {
           texto = 'Você marcou a opção ';
-        else
+          alternativa.addResposta(questionario.idUsuario, questionario.id,
+              questionario.emailUsuario, questionario.nrtentativa);
+        } else {
           texto = 'Você desmarcou a opção ';
+          alternativa.removeResposta(
+              questionario.idUsuario, questionario.nrtentativa);
+        }
         setStartHandler(texto + alternativa.descricao, 0.3);
       }
     }, child: Consumer<Questionario>(builder: (_, questionario, __) {

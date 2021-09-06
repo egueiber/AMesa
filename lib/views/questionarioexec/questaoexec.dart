@@ -39,10 +39,7 @@ class QuestaoFormExec extends StatelessWidget {
               if (respondida) {
                 String msgvoz;
                 String msgponto;
-                if (!questionario.ativo) {
-                  questionario.questoes[questionario.questaocorrente]
-                      .recuperaSelecao(questionario.emailUsuario);
-                }
+
                 if (questionario.questoes[corr].pontos > 0) {
                   msgponto = (questionario.questoes[corr].pontos == 1)
                       ? ' ponto'
@@ -123,7 +120,7 @@ class QuestaoFormExec extends StatelessWidget {
                               questionario.idUsuario,
                               questionario.id,
                               questionario.emailUsuario,
-                              questionario.nrtentativa + 1)) {
+                              questionario.nrtentativa)) {
                             setStartHandler(
                                 'Escolha pelo menos uma alternativa', 0.3);
                           }

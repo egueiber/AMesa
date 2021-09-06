@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 class Resposta extends ChangeNotifier {
   Resposta(
       {this.email,
-      this.idAlternativa,
       this.correta,
       this.pontuacao,
       this.nrtentativa,
@@ -16,7 +15,6 @@ class Resposta extends ChangeNotifier {
     dataexecucao = dataexecucao ?? DateTime.now().toLocal();
     idUsuario = idUsuario;
     idQuestionario = idQuestionario;
-    idAlternativa = idAlternativa;
   }
   Resposta.fromMap(Map<String, dynamic> map) {
     email = map['email'] as String;
@@ -26,7 +24,6 @@ class Resposta extends ChangeNotifier {
     nrtentativa = map['nrtentativa'] as int;
     idUsuario = map['idUsuario'] as String;
     idQuestionario = map['idQuestionario'] as String;
-    idAlternativa = map['idalternativa'] as int;
   }
 
   String descricao;
@@ -37,7 +34,6 @@ class Resposta extends ChangeNotifier {
   int nrtentativa;
   String idUsuario;
   String idQuestionario;
-  int idAlternativa;
 
   bool _aCorreta;
   bool get aCorreta => _aCorreta;
@@ -54,7 +50,6 @@ class Resposta extends ChangeNotifier {
         pontuacao: pontuacao,
         dataexecucao: dataexecucao,
         nrtentativa: nrtentativa,
-        idAlternativa: idAlternativa,
         idUsuario: idUsuario,
         idQuestionario: idQuestionario);
   }
@@ -62,7 +57,6 @@ class Resposta extends ChangeNotifier {
   Map<String, dynamic> toMap() {
     return {
       'email': email,
-      'idAlternativa': idAlternativa,
       'correta': correta,
       'pontuacao': pontuacao,
       'dataexecucao': dataexecucao,
@@ -74,6 +68,6 @@ class Resposta extends ChangeNotifier {
 
   @override
   String toString() {
-    return 'Resposta{email: $email, idAlternativa: $idAlternativa, correta: $correta, pontuacao: $pontuacao, dataexecucao: $dataexecucao, nrtentativa:$nrtentativa, idUsuario: $idUsuario, idQuestionario: $idQuestionario}';
+    return 'Resposta{email: $email, correta: $correta, pontuacao: $pontuacao, dataexecucao: $dataexecucao, nrtentativa:$nrtentativa, idUsuario: $idUsuario, idQuestionario: $idQuestionario}';
   }
 }

@@ -1,8 +1,15 @@
+import 'package:amesaadm/models/resposta.dart';
 import 'package:flutter/cupertino.dart';
 
 class Alternativa extends ChangeNotifier {
-  Alternativa({this.descricao, this.correta, this.pontuacao, this.images}) {
+  Alternativa(
+      {this.descricao,
+      this.correta,
+      this.pontuacao,
+      this.respostas,
+      this.images}) {
     images = images ?? [];
+    respostas = respostas ?? [];
     correta = correta ?? true;
     respostaCorreta = false;
     selecionada = false;
@@ -12,6 +19,9 @@ class Alternativa extends ChangeNotifier {
     correta = map['correta'] as bool;
     pontuacao = map['pontuacao'] as num;
     images = List<dynamic>.from(map['images'] as List<dynamic>);
+    respostas = (map['respostas'] as List<dynamic> ?? [])
+        .map((s) => Resposta.fromMap(s as Map<String, dynamic>))
+        .toList();
   }
 
   String descricao;
@@ -20,6 +30,7 @@ class Alternativa extends ChangeNotifier {
   bool correta = true;
   bool selecionada = false;
   num pontuacao = 1;
+  List<Resposta> respostas;
 
   //String newImagem;
 
@@ -52,6 +63,7 @@ class Alternativa extends ChangeNotifier {
       images: List.from(images),
       correta: correta,
       pontuacao: pontuacao,
+      respostas: respostas.map((resposta) => resposta.clone()).toList(),
     );
   }
 
@@ -61,11 +73,54 @@ class Alternativa extends ChangeNotifier {
       'correta': correta,
       'pontuacao': pontuacao,
       'images': List.from(images),
+      'respostas': exportRespostaList(),
     };
+  }
+
+  List<Map<String, dynamic>> exportRespostaList() {
+    return respostas.map((resposta) => resposta.toMap()).toList();
+  }
+
+  bool findRespostaAluno(String idUsuario, int nrtentativa) {
+    bool existe = false;
+    if (respostas.isNotEmpty) {
+      respostas.forEach((r) {
+        if ((r.idUsuario == idUsuario) && (r.nrtentativa == nrtentativa)) {
+          existe = true;
+          respostaCorreta = correta;
+        }
+      });
+    }
+    return existe;
+  }
+
+  void removeResposta(String idUsuario, int nrTentativa) {
+    respostas.removeWhere(
+        (r) => ((r.idUsuario == idUsuario) && (r.nrtentativa == nrTentativa)));
+  }
+
+  void addResposta(
+      String idUsuario, String idQuestionario, String email, int nrtentativa) {
+    if (!findRespostaAluno(email, nrtentativa)) {
+      final Resposta resposta = (Resposta(
+          idQuestionario: idQuestionario,
+          idUsuario: idUsuario,
+          email: email,
+          dataexecucao: DateTime.now(),
+          correta: correta,
+          pontuacao: pontuacao,
+          nrtentativa: nrtentativa));
+      respostas.add(resposta);
+      selecionada = true;
+    }
+  }
+
+  void recuperaSelecao(String idUsuario, int nrtentativa) {
+    selecionada = findRespostaAluno(idUsuario, nrtentativa);
   }
 
   @override
   String toString() {
-    return 'Alternativa{descricao: $descricao, correta: $correta, pontuacao: $pontuacao, imagem: $images, newImages: $newImages}';
+    return 'Alternativa{descricao: $descricao, correta: $correta, pontuacao: $pontuacao, respostas: $respostas,imagem: $images, newImages: $newImages}';
   }
 }

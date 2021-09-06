@@ -17,7 +17,8 @@ class QuestionarioScreenExecMain extends StatelessWidget {
     final primaryColor = Theme.of(context).primaryColor;
     questionario.tentativas();
     String msgbt = questionario.ativo
-        ? (questionario.qtdetentativas - questionario.nrtentativa).toString() +
+        ? (questionario.qtdetentativas + 1 - questionario.nrtentativa)
+                .toString() +
             ' tentativa(s) restantes'
         : ' Não há mais tentativas restantes';
     setStartHandler(

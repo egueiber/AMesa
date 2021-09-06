@@ -81,7 +81,7 @@ class Alternativa extends ChangeNotifier {
     return respostas.map((resposta) => resposta.toMap()).toList();
   }
 
-  bool findRespostaAluno(String idUsuario, int nrtentativa) {
+  bool atribuiRespostaAluno(String idUsuario, int nrtentativa) {
     bool existe = false;
     if (respostas.isNotEmpty) {
       respostas.forEach((r) {
@@ -101,7 +101,8 @@ class Alternativa extends ChangeNotifier {
 
   void addResposta(
       String idUsuario, String idQuestionario, String email, int nrtentativa) {
-    if (!findRespostaAluno(email, nrtentativa)) {
+    if (!atribuiRespostaAluno(email, nrtentativa)) {
+      //se ainda não tem a resposta para a alternativa nesta tentativa
       final Resposta resposta = (Resposta(
           idQuestionario: idQuestionario,
           idUsuario: idUsuario,
@@ -116,7 +117,7 @@ class Alternativa extends ChangeNotifier {
   }
 
   void recuperaSelecao(String idUsuario, int nrtentativa) {
-    selecionada = findRespostaAluno(idUsuario, nrtentativa);
+    selecionada = atribuiRespostaAluno(idUsuario, nrtentativa);
   }
 
   @override

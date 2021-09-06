@@ -101,6 +101,7 @@ class Questionario extends ChangeNotifier {
       return null;
   }
 
+//verificar a última resposta de cada usuario
   void tentativas() {
     num ultima = 0;
     if (questoes[0].alternativas.isNotEmpty) {
@@ -116,7 +117,23 @@ class Questionario extends ChangeNotifier {
     }
     nrtentativa = ultima;
     ativo = (qtdetentativas > nrtentativa);
-    if (ativo) nrtentativa++;
+    if (ativo) {
+      if (questoes[0].alternativas.isNotEmpty) {
+        questoes.forEach((q) {
+          q.respondida = false;
+          q.alternativas.forEach((alt) {
+            alt.selecionada = false;
+          });
+        });
+        nrtentativa++;
+      }
+    } else {
+      //verificar se na última tentativa aquela alternativa foi selecionada e atribui
+      questoes.forEach((q) {
+        q.respondida = true;
+        q.corrigir(idUsuario, id, emailUsuario, nrtentativa);
+      });
+    }
   }
 
   QuestionarioTurma findQuestionarioTurma(String sigla) {

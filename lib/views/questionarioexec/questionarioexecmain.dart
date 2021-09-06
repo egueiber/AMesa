@@ -19,7 +19,7 @@ class QuestionarioScreenExecMain extends StatelessWidget {
     String msgbt = questionario.ativo
         ? (questionario.qtdetentativas + 1 - questionario.nrtentativa)
                 .toString() +
-            ' tentativa(s) restantes'
+            ' tentativas restantes'
         : ' Não há mais tentativas restantes';
     setStartHandler(
         questionario.titulo + ' e ' + questionario.descricao + ' ' + msgbt,
@@ -127,9 +127,11 @@ class QuestionarioScreenExecMain extends StatelessWidget {
                     height: 20,
                   ),
                   Text(questionario.ativo
-                      ? (questionario.qtdetentativas - questionario.nrtentativa)
+                      ? (questionario.qtdetentativas +
+                                  1 -
+                                  questionario.nrtentativa)
                               .toString() +
-                          ' tentativa(s) restantes'
+                          ' tentativas restantes'
                       : ' Não há mais tentativas restantes'),
                 ],
               ),

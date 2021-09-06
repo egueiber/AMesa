@@ -47,7 +47,7 @@ class AlternativaWidgetExec extends StatelessWidget {
 
       return Card(
         color: selecionada
-            ? (((questao.respondida) || (!questionario.ativo))
+            ? ((questao.respondida)
                 ? (alternativa.respostaCorreta
                     ? Colors.green[100]
                     : Colors.red[100])

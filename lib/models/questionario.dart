@@ -60,6 +60,8 @@ class Questionario extends ChangeNotifier {
   String emailUsuario;
   num qtdetentativas;
   num nrtentativa;
+  num totalpontosperdidos;
+  num totalpontosganhos;
 
   List<dynamic> newImages;
 
@@ -104,6 +106,8 @@ class Questionario extends ChangeNotifier {
 //verificar a última resposta de cada usuario
   void tentativas() {
     num ultima = 0;
+    totalpontosperdidos = 0;
+    totalpontosganhos = 0;
     if (questoes[0].alternativas.isNotEmpty) {
       questoes[0].alternativas.forEach((alt) {
         if (alt.respostas.isNotEmpty) {

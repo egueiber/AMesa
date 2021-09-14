@@ -28,25 +28,21 @@ class CustomDrawer extends StatelessWidget {
               DrawerTile(Icons.home, 'Inicio', 0),
               //   DrawerTile(Icons.list, 'Produtos', 1),
 
-              DrawerTile(Icons.person, 'Alunos', 1),
-              DrawerTile(Icons.group, 'Turmas', 2),
-              DrawerTile(Icons.question_answer_sharp, 'Atividades', 3),
               Consumer<UserManager>(
                 builder: (_, userManager, __) {
                   if (userManager.adminEnabled) {
                     return Column(
                       children: <Widget>[
+                        DrawerTile(Icons.person, 'Alunos', 1),
+                        DrawerTile(Icons.group, 'Turmas', 2),
+                        DrawerTile(
+                            Icons.question_answer_sharp, 'Atividades', 3),
                         const Divider(),
                         DrawerTile(
                           Icons.settings,
                           'Usuários',
                           4,
                         ),
-                        /*   DrawerTile(
-                          Icons.settings,
-                          'PeTurma',
-                          5,
-                        ), */
                       ],
                     );
                   } else {

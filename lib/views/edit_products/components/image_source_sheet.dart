@@ -41,23 +41,28 @@ class ImageSourceSheet extends StatelessWidget {
           children: <Widget>[
             TextButton(
               onPressed: () async {
-                final PickedFile file = await picker.getImage(
+                final XFile image = await picker.pickImage(
                     source: ImageSource.camera,
                     imageQuality: 20,
                     maxHeight: 500,
                     maxWidth: 500);
-                editImage(file.path, context);
+                editImage(image.path, context);
               },
               child: const Text('Câmera'),
             ),
             TextButton(
               onPressed: () async {
-                final PickedFile file = await picker.getImage(
+                /*  final PickedFile file = await picker.getImage(
+                    source: ImageSource.gallery,
+                    imageQuality: 20,
+                    maxHeight: 500,
+                    maxWidth: 500); */
+                final XFile image = await picker.pickImage(
                     source: ImageSource.gallery,
                     imageQuality: 20,
                     maxHeight: 500,
                     maxWidth: 500);
-                editImage(file.path, context);
+                editImage(image.path, context);
               },
               child: const Text('Galeria'),
             ),
@@ -76,16 +81,16 @@ class ImageSourceSheet extends StatelessWidget {
           CupertinoActionSheetAction(
             isDefaultAction: true,
             onPressed: () async {
-              final PickedFile file =
-                  await picker.getImage(source: ImageSource.camera);
-              editImage(file.path, context);
+              final XFile image =
+                  await picker.pickImage(source: ImageSource.camera);
+              editImage(image.path, context);
             },
             child: const Text('Câmera'),
           ),
           CupertinoActionSheetAction(
             onPressed: () async {
-              final PickedFile file =
-                  await picker.getImage(source: ImageSource.gallery);
+              final XFile file =
+                  await picker.pickImage(source: ImageSource.gallery);
               editImage(file.path, context);
             },
             child: const Text('Galeria'),

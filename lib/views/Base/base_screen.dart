@@ -1,3 +1,4 @@
+import 'package:amesaadm/views/Login/login_screen.dart';
 import 'package:amesaadm/views/aluno_lista/alunosscreen.dart';
 //import 'package:amesaadm/views/turma/turmascreen.dart';
 import 'package:amesaadm/views/turma_lista/turmasscreen.dart';
@@ -25,11 +26,11 @@ class BaseScreen extends StatelessWidget {
             controller: pageController,
             physics: const NeverScrollableScrollPhysics(),
             children: <Widget>[
-              HomeScreen(),
-              AlunosScreen(),
-              TurmasScreen(),
-              QuestionarioPesquisa(),
+              userManager.isLoggedIn ? HomeScreen() : LoginScreen(),
               if (userManager.adminEnabled) ...[
+                AlunosScreen(),
+                TurmasScreen(),
+                QuestionarioPesquisa(),
                 AdminUsersScreen(),
                 Scaffold(
                   drawer: CustomDrawer(),

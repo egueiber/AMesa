@@ -1,3 +1,4 @@
+import 'package:amesaadm/helpers/msgtextovoz.dart';
 import 'package:amesaadm/models/questionarioturmamanager.dart';
 import 'package:amesaadm/views/questionarioexec/questionariolisttileexec.dart';
 import 'package:flutter/material.dart';
@@ -60,8 +61,9 @@ class HomeScreen extends StatelessWidget {
                           );
                         } else {
                           return IconButton(
-                            icon: Icon(Icons.edit),
-                            onPressed: homeManager.enterEditing,
+                            icon: Icon(Icons.voice_chat_sharp),
+                            onPressed: () => setStartHandler(
+                                'Escolha uma atividade para executar!', 0.3),
                           );
                         }
                       } else

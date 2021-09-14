@@ -41,7 +41,7 @@ class ImageSourceSheetAlt extends StatelessWidget {
           children: <Widget>[
             TextButton(
               onPressed: () async {
-                final PickedFile file = await picker.getImage(
+                final XFile file = await picker.pickImage(
                     source: ImageSource.camera,
                     imageQuality: 20,
                     maxHeight: 500,
@@ -52,7 +52,7 @@ class ImageSourceSheetAlt extends StatelessWidget {
             ),
             TextButton(
               onPressed: () async {
-                final PickedFile file = await picker.getImage(
+                final XFile file = await picker.pickImage(
                     source: ImageSource.gallery,
                     imageQuality: 20,
                     maxHeight: 500,
@@ -76,16 +76,16 @@ class ImageSourceSheetAlt extends StatelessWidget {
           CupertinoActionSheetAction(
             isDefaultAction: true,
             onPressed: () async {
-              final PickedFile file =
-                  await picker.getImage(source: ImageSource.camera);
+              final XFile file =
+                  await picker.pickImage(source: ImageSource.camera);
               editImage(file.path, context);
             },
             child: const Text('Câmera'),
           ),
           CupertinoActionSheetAction(
             onPressed: () async {
-              final PickedFile file =
-                  await picker.getImage(source: ImageSource.gallery);
+              final XFile file =
+                  await picker.pickImage(source: ImageSource.gallery);
               editImage(file.path, context);
             },
             child: const Text('Galeria'),

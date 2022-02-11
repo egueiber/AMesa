@@ -1,7 +1,9 @@
 import 'package:amesaadm/models/aluno.dart';
 import 'package:amesaadm/models/turma.dart';
+import 'package:amesaadm/models/topico.dart';
 import 'package:amesaadm/models/questionario.dart';
 import 'package:amesaadm/models/alunosmanager.dart';
+import 'package:amesaadm/models/topicosmanager.dart';
 import 'package:amesaadm/models/turmasalunos.dart';
 import 'package:amesaadm/views/aluno/alunoscreen.dart';
 import 'package:amesaadm/views/aluno/edit/editaluno.dart';
@@ -11,6 +13,8 @@ import 'package:amesaadm/views/questionarioexec/questaoexec.dart';
 import 'package:amesaadm/views/questionarioexec/questionarioexecmain.dart';
 import 'package:amesaadm/views/turma/turmascreen.dart';
 import 'package:amesaadm/views/turma/edit/editturma.dart';
+import 'package:amesaadm/views/topico/topicoscreen.dart';
+import 'package:amesaadm/views/topico/edit/edittopico.dart';
 
 import 'package:flutter/material.dart';
 import 'package:amesaadm/models/user_manager.dart';
@@ -78,9 +82,13 @@ class MyApp extends StatelessWidget {
             create: (_) => TurmasAlunos(),
             lazy: false,
           ),
+          ChangeNotifierProvider(
+            create: (_) => TopicosManager(),
+            lazy: false,
+          ),
         ],
         child: MaterialApp(
-            title: 'Atividades ',
+            title: 'A Mesa ',
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
                 primaryColor: const Color.fromARGB(255, 4, 125, 141),
@@ -102,6 +110,10 @@ class MyApp extends StatelessWidget {
                   return MaterialPageRoute(
                       builder: (_) =>
                           EditTurmaScreen(settings.arguments as Turma));
+                case '/edit_topico':
+                  return MaterialPageRoute(
+                      builder: (_) =>
+                          EditTopicoScreen(settings.arguments as Topico));
                 case '/edit_aluno':
                   return MaterialPageRoute(
                       builder: (_) =>
@@ -118,7 +130,10 @@ class MyApp extends StatelessWidget {
                 case '/turma':
                   return MaterialPageRoute(
                       builder: (_) => TurmaScreen(settings.arguments as Turma));
-
+                case '/topico':
+                  return MaterialPageRoute(
+                      builder: (_) =>
+                          TopicoScreen(settings.arguments as Topico));
                 case '/aluno':
                   return MaterialPageRoute(
                       builder: (_) => AlunoScreen(settings.arguments as Aluno));

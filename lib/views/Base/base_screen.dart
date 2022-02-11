@@ -1,5 +1,7 @@
 import 'package:amesaadm/views/Login/login_screen.dart';
 import 'package:amesaadm/views/aluno_lista/alunosscreen.dart';
+import 'package:amesaadm/views/topico_lista/topicosscreen.dart';
+
 //import 'package:amesaadm/views/turma/turmascreen.dart';
 import 'package:amesaadm/views/turma_lista/turmasscreen.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +32,7 @@ class BaseScreen extends StatelessWidget {
               if (userManager.adminEnabled) ...[
                 AlunosScreen(),
                 TurmasScreen(),
+                TopicosScreen(),
                 QuestionarioPesquisa(),
                 AdminUsersScreen(),
                 Scaffold(

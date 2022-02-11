@@ -15,7 +15,7 @@ class CustomDrawerHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              Text('Atividades',
+              Text('A MESA',
                   style: TextStyle(fontSize: 34, fontWeight: FontWeight.bold)),
               Text(
                 'Bem vindo  ${userManager.user?.name ?? ''}',

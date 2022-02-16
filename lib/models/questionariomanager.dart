@@ -52,7 +52,8 @@ class QuestionarioManager extends ChangeNotifier {
     allQuestionarios = snapQuestionarios.docs
         .map((d) => Questionario.fromDocument(d))
         .toList();
-
+    allQuestionarios.sort(
+        (a, b) => a.titulo.toLowerCase().compareTo(b.titulo.toLowerCase()));
     notifyListeners();
   }
 

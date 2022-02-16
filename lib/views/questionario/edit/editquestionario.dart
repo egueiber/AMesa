@@ -55,7 +55,7 @@ class EditQuestionarioScreen extends StatelessWidget {
                       child: Text(
                         'Título',
                         style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                            fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                     ),
                     TextFormField(
@@ -77,7 +77,7 @@ class EditQuestionarioScreen extends StatelessWidget {
                       child: Text(
                         'Descrição',
                         style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                            fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                     ),
                     TextFormField(
@@ -97,90 +97,33 @@ class EditQuestionarioScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: 16),
                       child: Text(
-                        'Qtde tentativas para responder',
+                        'Categoria',
                         style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                            fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                     ),
                     TextFormField(
-                      initialValue: questionario.qtdetentativas?.toString(),
-                      style: const TextStyle(fontSize: 16),
+                      initialValue: questionario.categoria,
                       decoration: const InputDecoration(
-                        hintText: 'Qtde de tentativas',
-                        //border: InputBorder.none
+                        hintText: 'Categoria',
+                        //border: InputBorder.none,
                       ),
-                      keyboardType: TextInputType.number,
-                      validator: (qtde) {
-                        if (int.tryParse(qtde) == null)
-                          return 'Numero inválido';
-                        if (int.tryParse(qtde) < 1)
-                          return 'Informe uma qtde maior ou igual a um!';
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+                      validator: (categoria) {
+                        if (categoria.length < 3)
+                          return 'Categoria muito curta';
                         return null;
                       },
-                      onSaved: (qtde) =>
-                          questionario.qtdetentativas = int.parse(qtde),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16),
-                      child: Text(
-                        'Qtde erros refazer atividade',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    TextFormField(
-                      initialValue: questionario.nrerrosrefazer?.toString(),
-                      style: const TextStyle(fontSize: 16),
-                      decoration: const InputDecoration(
-                        hintText:
-                            'Qtde erros implica em refazer esta atividade. Digite 0 quando não for o caso!',
-                        //border: InputBorder.none
-                      ),
-                      keyboardType: TextInputType.number,
-                      validator: (nrerros) {
-                        if (int.tryParse(nrerros) == null)
-                          return 'Numero inválido';
-                        if (int.tryParse(nrerros) < 0)
-                          return 'Informe uma qtde maior ou igual a zero!';
-                        return null;
-                      },
-                      onSaved: (nrerros) =>
-                          questionario.nrerrosrefazer = int.parse(nrerros),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16),
-                      child: Text(
-                        'Qtde erros refazer atividade subjacente',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    TextFormField(
-                      initialValue:
-                          questionario.nrerrosativanterior?.toString(),
-                      style: const TextStyle(fontSize: 16),
-                      decoration: const InputDecoration(
-                        hintText:
-                            'Qtde erros implica em refazer a atividade subjacente. Digite 0 quando não for o caso!',
-                        //border: InputBorder.none
-                      ),
-                      keyboardType: TextInputType.number,
-                      validator: (nrerrossub) {
-                        if (int.tryParse(nrerrossub) == null)
-                          return 'Numero inválido';
-                        if (int.tryParse(nrerrossub) < 0)
-                          return 'Informe uma qtde maior ou igual a zero!';
-                        return null;
-                      },
-                      onSaved: (nrerrossub) => questionario
-                          .nrerrosativanterior = int.parse(nrerrossub),
+                      onSaved: (categoria) =>
+                          questionario.categoria = categoria,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 16),
                       child: Text(
                         'Tópico',
                         style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                            fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                     ),
                     Consumer<TopicosManager>(builder: (_, topicomanager, __) {
@@ -206,15 +149,15 @@ class EditQuestionarioScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: 16),
                       child: Text(
-                        'Tópico anterior',
+                        'Tópico subjacente',
                         style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                            fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                     ),
                     Consumer<TopicosManager>(
                         builder: (_, topicomanagerant, __) {
                       return (DropdownButtonFormField(
-                          hint: Text('Escolha o tópico anterior'),
+                          hint: Text('Escolha o tópico subjacente'),
                           value: questionario.topicoanterior == ""
                               ? 'nd'
                               : questionario.topicoanterior,
@@ -233,6 +176,95 @@ class EditQuestionarioScreen extends StatelessWidget {
                           onSaved: (value) =>
                               questionario.topicoanterior = value));
                     }),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Text(
+                        'Qtde tentativas para responder',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    TextFormField(
+                      initialValue: questionario.qtdetentativas?.toString(),
+                      style: const TextStyle(fontSize: 16),
+                      decoration: const InputDecoration(
+                        hintText: 'Qtde de tentativas',
+                        //border: InputBorder.none
+                      ),
+                      keyboardType: TextInputType.number,
+                      validator: (qtde) {
+                        if (int.tryParse(qtde) == null)
+                          return 'Numero inválido';
+                        if (int.tryParse(qtde) < 1)
+                          return 'Informe uma qtde maior ou igual a um!';
+                        return null;
+                      },
+                      onSaved: (qtde) =>
+                          questionario.qtdetentativas = int.parse(qtde),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Text(
+                        'Qtde erros implica em refazer atividade',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    TextFormField(
+                      initialValue: questionario.nrerrosrefazer?.toString(),
+                      style: const TextStyle(fontSize: 16),
+                      decoration: const InputDecoration(
+                        hintText:
+                            'Qtde erros implica em refazer esta atividade. Digite 0 quando não for o caso!',
+                        //border: InputBorder.none
+                      ),
+                      keyboardType: TextInputType.number,
+                      validator: (nrerros) {
+                        if (int.tryParse(nrerros) == null)
+                          return 'Numero inválido';
+                        if (int.tryParse(nrerros) < 0)
+                          return 'Informe uma qtde maior ou igual a zero!';
+                        return null;
+                      },
+                      onSaved: (nrerros) =>
+                          questionario.nrerrosrefazer = int.parse(nrerros),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Text(
+                        'Qtde erros implica refazer atividade subjacente',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    TextFormField(
+                      initialValue:
+                          questionario.nrerrosativanterior?.toString(),
+                      style: const TextStyle(fontSize: 16),
+                      decoration: const InputDecoration(
+                        hintText:
+                            'Qtde erros implica em refazer a atividade subjacente. Digite 0 quando não for o caso!',
+                        //border: InputBorder.none
+                      ),
+                      keyboardType: TextInputType.number,
+                      validator: (nrerrossub) {
+                        if (int.tryParse(nrerrossub) == null)
+                          return 'Numero inválido';
+                        if (int.tryParse(nrerrossub) < 0)
+                          return 'Informe uma qtde maior ou igual a zero!';
+                        return null;
+                      },
+                      onSaved: (nrerrossub) => questionario
+                          .nrerrosativanterior = int.parse(nrerrossub),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Text(
+                        'Atividade subjacente',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    ),
                     Consumer<QuestionarioManager>(
                         builder: (_, questionariomanager, __) {
                       return (DropdownButtonFormField(
@@ -243,9 +275,9 @@ class EditQuestionarioScreen extends StatelessWidget {
                           items: questionariomanager.allQuestionarios
                               .map((dynamic val) {
                             return DropdownMenuItem<dynamic>(
-                              value: val.descricao,
+                              value: val.titulo,
                               child: new Text(
-                                val.descricao,
+                                val.titulo,
                               ),
                             );
                           }).toList(),

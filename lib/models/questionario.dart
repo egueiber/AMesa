@@ -18,17 +18,32 @@ class Questionario extends ChangeNotifier {
       this.questoes,
       this.questionarioturma,
       this.idUsuario,
-      this.nrtentativa}) {
+      this.nrtentativa,
+      this.topico,
+      this.topicoanterior,
+      this.nrerrosrefazer,
+      this.nrerrosativanterior,
+      this.atividadesubjacente,
+      this.categoria}) {
     images = images ?? [];
     questoes = questoes ?? [];
     ativo = ativo ?? true;
+    nrerrosrefazer = nrerrosrefazer ?? 0;
+    nrerrosativanterior = nrerrosativanterior ?? 0;
     questionarioturma = questionarioturma ?? [];
+    //categoria = categoria ?? '';
   }
   Questionario.fromDocument(DocumentSnapshot document) {
     id = document.id;
     var item = document.data() as Map;
     titulo = item['titulo'] as String;
     descricao = item['descricao'] as String;
+    topico = item['topico'] as String;
+    topicoanterior = item['topicoanterior'] as String;
+    nrerrosrefazer = item['nrerrosrefazer'] as num;
+    nrerrosativanterior = item['nrerrosativanterior'] as num;
+    atividadesubjacente = item['atividadesubjacente'] as String;
+    categoria = item['categoria'] as String;
     ativo = item['ativo'] as bool;
     qtdetentativas = item['qtdetentativas'] as num;
     // images = List<String>.from(item['images']);
@@ -52,7 +67,11 @@ class Questionario extends ChangeNotifier {
   String idUsuario;
   String titulo;
   String descricao;
+  String topico;
   bool ativo;
+  String topicoanterior;
+  num nrerrosrefazer;
+  num nrerrosativanterior;
   List<String> images;
   List<Questao> questoes;
   List<QuestionarioTurma> questionarioturma;
@@ -62,6 +81,8 @@ class Questionario extends ChangeNotifier {
   num nrtentativa;
   num totalpontosperdidos;
   num totalpontosganhos;
+  String atividadesubjacente;
+  String categoria;
 
   List<dynamic> newImages;
 
@@ -189,6 +210,11 @@ class Questionario extends ChangeNotifier {
       'descricao': descricao,
       'ativo': ativo,
       'qtdetentativas': qtdetentativas,
+      'topico': topico,
+      'topicoanterior': topicoanterior,
+      'nrerrosrefazer': nrerrosrefazer,
+      'nrerrosativanterior': nrerrosativanterior,
+      'categoria': categoria,
       'questoes': exportQuestaoList(),
       'questionarioturma': exportQuestionarioTurmaList() ?? [],
       // 'images': List.from(images)
@@ -274,9 +300,15 @@ class Questionario extends ChangeNotifier {
       titulo: titulo,
       ativo: ativo,
       descricao: descricao,
+      topico: topico,
       qtdetentativas: qtdetentativas,
       nrtentativa: nrtentativa,
+      nrerrosrefazer: nrerrosrefazer,
+      nrerrosativanterior: nrerrosativanterior,
+      topicoanterior: topicoanterior,
       idUsuario: idUsuario,
+      atividadesubjacente: atividadesubjacente,
+      categoria: categoria,
       images: List.from(images),
       questoes: questoes.map((questao) => questao.clone()).toList(),
       questionarioturma: questionarioturma.map((qt) => qt.clone()).toList(),
@@ -285,6 +317,6 @@ class Questionario extends ChangeNotifier {
 
   @override
   String toString() {
-    return 'Questionario{id: $id, name: $titulo, description: $descricao, ativo: $ativo, idUsuario: $idUsuario ,qtdetentativas:$qtdetentativas, images: $images, questoes: $questoes, questionarioturma: $questionarioturma, newImages: $newImages}';
+    return 'Questionario{id: $id, name: $titulo, description: $descricao, ativo: $ativo, idUsuario: $idUsuario ,qtdetentativas:$qtdetentativas,topico:$topico, topicoanterior:$topicoanterior, nrerrosrefazer: $nrerrosrefazer, nrerrosativanterior: $nrerrosativanterior,atividadesubjacente: $atividadesubjacente, categoria: $categoria, images: $images, questoes: $questoes, questionarioturma: $questionarioturma, newImages: $newImages}';
   }
 }

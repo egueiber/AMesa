@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:amesaadm/models/questionario.dart';
 import 'package:amesaadm/models/questionariomanager.dart';
+import 'package:amesaadm/models/topicosmanager.dart';
 import 'package:amesaadm/views/questionario/edit/componentes/images_questionario.dart';
 import 'package:amesaadm/views/questionario/edit/componentes/questaoform.dart';
 import 'package:provider/provider.dart';
@@ -119,6 +120,142 @@ class EditQuestionarioScreen extends StatelessWidget {
                       onSaved: (qtde) =>
                           questionario.qtdetentativas = int.parse(qtde),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Text(
+                        'Qtde erros refazer atividade',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    TextFormField(
+                      initialValue: questionario.nrerrosrefazer?.toString(),
+                      style: const TextStyle(fontSize: 16),
+                      decoration: const InputDecoration(
+                        hintText:
+                            'Qtde erros implica em refazer esta atividade. Digite 0 quando não for o caso!',
+                        //border: InputBorder.none
+                      ),
+                      keyboardType: TextInputType.number,
+                      validator: (nrerros) {
+                        if (int.tryParse(nrerros) == null)
+                          return 'Numero inválido';
+                        if (int.tryParse(nrerros) < 0)
+                          return 'Informe uma qtde maior ou igual a zero!';
+                        return null;
+                      },
+                      onSaved: (nrerros) =>
+                          questionario.nrerrosrefazer = int.parse(nrerros),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Text(
+                        'Qtde erros refazer atividade subjacente',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    TextFormField(
+                      initialValue:
+                          questionario.nrerrosativanterior?.toString(),
+                      style: const TextStyle(fontSize: 16),
+                      decoration: const InputDecoration(
+                        hintText:
+                            'Qtde erros implica em refazer a atividade subjacente. Digite 0 quando não for o caso!',
+                        //border: InputBorder.none
+                      ),
+                      keyboardType: TextInputType.number,
+                      validator: (nrerrossub) {
+                        if (int.tryParse(nrerrossub) == null)
+                          return 'Numero inválido';
+                        if (int.tryParse(nrerrossub) < 0)
+                          return 'Informe uma qtde maior ou igual a zero!';
+                        return null;
+                      },
+                      onSaved: (nrerrossub) => questionario
+                          .nrerrosativanterior = int.parse(nrerrossub),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Text(
+                        'Tópico',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Consumer<TopicosManager>(builder: (_, topicomanager, __) {
+                      return (DropdownButtonFormField(
+                          hint: Text('Escolha um tópico'),
+                          value: questionario.topico == ''
+                              ? 'nd'
+                              : questionario.topico,
+                          items: topicomanager.allTopicos.map((dynamic val) {
+                            return DropdownMenuItem<dynamic>(
+                              value: val.descricao,
+                              child: new Text(
+                                val.descricao,
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (newValue) {
+                            questionario.topico = newValue;
+                            questionario.qAtivo = true;
+                          },
+                          onSaved: (value) => questionario.topico = value));
+                    }),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Text(
+                        'Tópico anterior',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Consumer<TopicosManager>(
+                        builder: (_, topicomanagerant, __) {
+                      return (DropdownButtonFormField(
+                          hint: Text('Escolha o tópico anterior'),
+                          value: questionario.topicoanterior == ""
+                              ? 'nd'
+                              : questionario.topicoanterior,
+                          items: topicomanagerant.allTopicos.map((dynamic val) {
+                            return DropdownMenuItem<dynamic>(
+                              value: val.descricao,
+                              child: new Text(
+                                val.descricao,
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (newValue) {
+                            questionario.topicoanterior = newValue;
+                            questionario.qAtivo = true;
+                          },
+                          onSaved: (value) =>
+                              questionario.topicoanterior = value));
+                    }),
+                    Consumer<QuestionarioManager>(
+                        builder: (_, questionariomanager, __) {
+                      return (DropdownButtonFormField(
+                          hint: Text('Escolha a atividade subjacente'),
+                          value: questionario.atividadesubjacente == ''
+                              ? 'nd'
+                              : questionario.atividadesubjacente,
+                          items: questionariomanager.allQuestionarios
+                              .map((dynamic val) {
+                            return DropdownMenuItem<dynamic>(
+                              value: val.descricao,
+                              child: new Text(
+                                val.descricao,
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (newValue) {
+                            questionario.atividadesubjacente = newValue;
+                            questionario.qAtivo = true;
+                          },
+                          onSaved: (value) =>
+                              questionario.atividadesubjacente = value));
+                    }),
                     Consumer<Questionario>(builder: (_, questionario, __) {
                       return (CheckboxListTile(
                         title: Text("Ativo", textAlign: TextAlign.left),

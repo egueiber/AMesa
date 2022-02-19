@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 //import 'package:amesaadm/models/questao.dart';
 import 'package:amesaadm/models/questionario.dart';
 import 'package:provider/provider.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class QuestaoFormExec extends StatelessWidget {
   QuestaoFormExec(this.questionario);
@@ -66,18 +67,41 @@ class QuestaoFormExec extends StatelessWidget {
 
               return ListView(
                 children: <Widget>[
-                  Container(
-                    //color: color,
-
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                    child: Text(
-                      questionario
-                          .questoes[questionario.questaocorrente].descricao,
-                      style:
-                          TextStyle(fontSize: 28, fontWeight: FontWeight.w600),
-                    ),
-                  ),
+                  (questionario.questoes[questionario.questaocorrente]
+                              .youtubeLink ==
+                          null)
+                      ? Container(
+                          //color: color,
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 4, horizontal: 8),
+                          child: Text(
+                            questionario.questoes[questionario.questaocorrente]
+                                .descricao,
+                            style: TextStyle(
+                                fontSize: 28, fontWeight: FontWeight.w600),
+                          ),
+                        )
+                      : Container(
+                          height: 180,
+                          padding: const EdgeInsets.only(top: 8, bottom: 2),
+                          child: YoutubePlayer(
+                            controller: YoutubePlayerController(
+                                initialVideoId: YoutubePlayer.convertUrlToId(
+                                    questionario
+                                            .questoes[
+                                                questionario.questaocorrente]
+                                            .youtubeLink ??
+                                        ''),
+                                flags: YoutubePlayerFlags(
+                                  autoPlay: true,
+                                )),
+                            showVideoProgressIndicator: true,
+                            progressIndicatorColor: Colors.blue,
+                            progressColors: ProgressBarColors(
+                                playedColor: Colors.blue,
+                                handleColor: Colors.blueAccent),
+                          ),
+                        ),
                   Wrap(
                     //spacing: 28,
                     //runSpacing: 8,

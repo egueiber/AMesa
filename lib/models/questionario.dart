@@ -13,6 +13,7 @@ class Questionario extends ChangeNotifier {
       this.titulo,
       this.descricao,
       this.images,
+      this.youtubeLink,
       this.ativo,
       this.qtdetentativas,
       this.questoes,
@@ -38,6 +39,7 @@ class Questionario extends ChangeNotifier {
     var item = document.data() as Map;
     titulo = item['titulo'] as String;
     descricao = item['descricao'] as String;
+    youtubeLink = item['youtubeLink'] as String;
     topico = item['topico'] as String;
     topicoanterior = item['topicoanterior'] as String;
     nrerrosrefazer = item['nrerrosrefazer'] as num;
@@ -83,6 +85,7 @@ class Questionario extends ChangeNotifier {
   num totalpontosganhos;
   String atividadesubjacente;
   String categoria;
+  String youtubeLink;
 
   List<dynamic> newImages;
 
@@ -215,6 +218,7 @@ class Questionario extends ChangeNotifier {
       'nrerrosrefazer': nrerrosrefazer,
       'nrerrosativanterior': nrerrosativanterior,
       'categoria': categoria,
+      'youtubeLink': youtubeLink,
       'questoes': exportQuestaoList(),
       'questionarioturma': exportQuestionarioTurmaList() ?? [],
       // 'images': List.from(images)
@@ -309,6 +313,7 @@ class Questionario extends ChangeNotifier {
       idUsuario: idUsuario,
       atividadesubjacente: atividadesubjacente,
       categoria: categoria,
+      youtubeLink: youtubeLink,
       images: List.from(images),
       questoes: questoes.map((questao) => questao.clone()).toList(),
       questionarioturma: questionarioturma.map((qt) => qt.clone()).toList(),
@@ -317,6 +322,6 @@ class Questionario extends ChangeNotifier {
 
   @override
   String toString() {
-    return 'Questionario{id: $id, name: $titulo, description: $descricao, ativo: $ativo, idUsuario: $idUsuario ,qtdetentativas:$qtdetentativas,topico:$topico, topicoanterior:$topicoanterior, nrerrosrefazer: $nrerrosrefazer, nrerrosativanterior: $nrerrosativanterior,atividadesubjacente: $atividadesubjacente, categoria: $categoria, images: $images, questoes: $questoes, questionarioturma: $questionarioturma, newImages: $newImages}';
+    return 'Questionario{id: $id, name: $titulo, description: $descricao, youtubeLink: $youtubeLink,ativo: $ativo, idUsuario: $idUsuario ,qtdetentativas:$qtdetentativas,topico:$topico, topicoanterior:$topicoanterior, nrerrosrefazer: $nrerrosrefazer, nrerrosativanterior: $nrerrosativanterior,atividadesubjacente: $atividadesubjacente, categoria: $categoria, images: $images, questoes: $questoes, questionarioturma: $questionarioturma, newImages: $newImages}';
   }
 }

@@ -6,6 +6,7 @@ import 'package:amesaadm/models/questionario.dart';
 //import 'package:amesaadm/models/user_manager.dart';
 import 'package:provider/provider.dart';
 //import 'edit/componentes/questaowidget.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class QuestionarioScreenExecMain extends StatelessWidget {
   const QuestionarioScreenExecMain(this.questionario);
@@ -21,9 +22,10 @@ class QuestionarioScreenExecMain extends StatelessWidget {
                 .toString() +
             ' tentativas restantes'
         : ' Não há mais tentativas restantes';
-    setStartHandler(
-        questionario.titulo + ' e ' + questionario.descricao + ' ' + msgbt,
-        0.3);
+    questionario.youtubeLink ??
+        setStartHandler(
+            questionario.titulo + ' e ' + questionario.descricao + ' ' + msgbt,
+            0.3);
 
     return ChangeNotifierProvider.value(
       value: questionario,
@@ -36,36 +38,54 @@ class QuestionarioScreenExecMain extends StatelessWidget {
         backgroundColor: Colors.white,
         body: ListView(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 16, bottom: 8),
-              child: Text(
-                'Imagem Atividade',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ),
-            //  SizedBox(
+            (questionario.youtubeLink != null)
+                ? Padding(
+                    padding: const EdgeInsets.only(top: 16, bottom: 8),
+                    child: YoutubePlayer(
+                      controller: YoutubePlayerController(
+                          initialVideoId: YoutubePlayer.convertUrlToId(
+                              questionario.youtubeLink),
+                          flags: YoutubePlayerFlags(
+                            autoPlay: true,
+                          )),
+                      showVideoProgressIndicator: true,
+                      progressIndicatorColor: Colors.blue,
+                      progressColors: ProgressBarColors(
+                          playedColor: Colors.blue,
+                          handleColor: Colors.blueAccent),
+                    ),
+                  )
+                : /* Padding(
+                    padding: const EdgeInsets.only(top: 16, bottom: 8),
+                    child: Text(
+                      'Imagem Atividade',
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ),*/
+                //  SizedBox(
 
-            AspectRatio(
-              aspectRatio: 3,
-              child: Carousel(
-                images: questionario.images.map((url) {
-                  return NetworkImage(url);
-                }).toList(),
-                dotSize: 4,
-                dotSpacing: 15,
-                dotBgColor: Colors.transparent,
-                dotColor: primaryColor,
-                autoplay: false,
-                boxFit: BoxFit.contain,
-                borderRadius: true,
-                radius: Radius.circular(2),
-                onImageTap: (index) {
-                  Navigator.of(context)
-                      .pushNamed('/questaoformexec', arguments: questionario);
-                },
-              ),
-            ),
+                AspectRatio(
+                    aspectRatio: 3,
+                    child: Carousel(
+                      images: questionario.images.map((url) {
+                        return NetworkImage(url);
+                      }).toList(),
+                      dotSize: 4,
+                      dotSpacing: 15,
+                      dotBgColor: Colors.transparent,
+                      dotColor: primaryColor,
+                      autoplay: false,
+                      boxFit: BoxFit.contain,
+                      borderRadius: true,
+                      radius: Radius.circular(2),
+                      onImageTap: (index) {
+                        Navigator.of(context).pushNamed('/questaoformexec',
+                            arguments: questionario);
+                      },
+                    ),
+                  ),
             // ),
             Padding(
               padding: const EdgeInsets.all(16),

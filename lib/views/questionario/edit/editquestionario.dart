@@ -13,6 +13,8 @@ class EditQuestionarioScreen extends StatelessWidget {
 
   final Questionario questionario;
   final bool editing;
+  final utube =
+      RegExp(r"^(https?\:\/\/)?((www\.)?youtube\.com|youtu\.?be)\/.+$");
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -288,6 +290,33 @@ class EditQuestionarioScreen extends StatelessWidget {
                           onSaved: (value) =>
                               questionario.atividadesubjacente = value));
                     }),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Text(
+                        'Link Video Youtube',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    TextFormField(
+                      initialValue: questionario.youtubeLink,
+                      decoration: const InputDecoration(
+                        hintText: 'Informe o link do video YouTube',
+                        //border: InputBorder.none,
+                      ),
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                      validator: (youtubeLink) {
+                        if (youtubeLink.length < 3) return 'link inválido';
+
+                        /*if (!utube.hasMatch(youtubeLink)) {
+                          return 'Link inválido';
+                        }*/
+                        return null;
+                      },
+                      onSaved: (youtubeLink) =>
+                          questionario.youtubeLink = youtubeLink,
+                    ),
                     Consumer<Questionario>(builder: (_, questionario, __) {
                       return (CheckboxListTile(
                         title: Text("Ativo", textAlign: TextAlign.left),

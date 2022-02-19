@@ -4,13 +4,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
 class Questao extends ChangeNotifier {
-  Questao({this.descricao, this.imagem, this.alternativas, this.respostas}) {
+  Questao(
+      {this.descricao,
+      this.imagem,
+      this.youtubeLink,
+      this.alternativas,
+      this.respostas}) {
     alternativas = alternativas ?? [];
     respondida = false;
   }
   Questao.fromMap(Map<String, dynamic> map) {
     descricao = map['descricao'] as String;
     imagem = map['imagem'] as String;
+    youtubeLink = map['youtubeLink'] as String;
     alternativas = (map['alternativas'] as List<dynamic> ?? [])
         .map((s) => Alternativa.fromMap(s as Map<String, dynamic>))
         .toList();
@@ -18,6 +24,7 @@ class Questao extends ChangeNotifier {
 
   String descricao;
   String imagem;
+  String youtubeLink;
   bool lido = false;
   bool respondida = false;
   List<Alternativa> alternativas;
@@ -30,6 +37,7 @@ class Questao extends ChangeNotifier {
     return Questao(
       descricao: descricao,
       imagem: imagem,
+      youtubeLink: youtubeLink,
       alternativas:
           alternativas.map((alternativa) => alternativa.clone()).toList(),
     );
@@ -69,12 +77,13 @@ class Questao extends ChangeNotifier {
     return {
       'descricao': descricao,
       'imagem': imagem,
+      'youtubeLink': youtubeLink,
       'alternativas': exportAlternativaList(),
     };
   }
 
   @override
   String toString() {
-    return 'Questao{descricao: $descricao, imagem: $imagem, questoes: $alternativas}';
+    return 'Questao{descricao: $descricao, imagem: $imagem, youtubeLink: $youtubeLink, questoes: $alternativas}';
   }
 }

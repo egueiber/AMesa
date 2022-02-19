@@ -41,6 +41,7 @@ dependencies:
   transparent_image: ^2.0.0
   alphabet_list_scroll_view: ^2.0.0
   flutter_tts: ^3.3.3
+  youtube_player_flutter: ^8.0.0
  
   
 

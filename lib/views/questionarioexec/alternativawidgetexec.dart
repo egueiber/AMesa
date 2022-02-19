@@ -19,7 +19,7 @@ class AlternativaWidgetExec extends StatelessWidget {
     //Color color;
     // color = Colors.black;
     String texto = '';
-    if (!questao.lido) {
+    if ((!questao.lido) && (questao.youtubeLink == null)) {
       setStartHandler(questao.descricao, 0.3);
       questao.lido = true;
     }
@@ -67,7 +67,7 @@ class AlternativaWidgetExec extends StatelessWidget {
                 : Colors.grey[200]),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         child: Container(
-          height: 100,
+          height: 80,
           padding: const EdgeInsets.all(8),
           child: Row(
             children: <Widget>[

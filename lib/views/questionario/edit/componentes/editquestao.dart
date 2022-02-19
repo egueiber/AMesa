@@ -71,6 +71,46 @@ class EditQuestao extends StatelessWidget {
               onTap: onMoveDown,
             ),
           ]),
+          Row(children: <Widget>[
+            Expanded(
+              flex: 1,
+              child: TextFormField(
+                autofocus: true,
+                minLines: 1,
+                maxLines: 3,
+                initialValue: questao.youtubeLink,
+                decoration: const InputDecoration(
+                  labelText: 'Link Youtube',
+                  isDense: true,
+                  labelStyle:
+                      TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                validator: (youtubeLink) {
+                  // if (youtubeLink.isEmpty) return 'Inválido';
+                  return null;
+                },
+                onChanged: (youtubeLink) => questao.youtubeLink = youtubeLink,
+              ),
+            ),
+            const SizedBox(
+              width: 4,
+            ),
+            CustomIconButton(
+              iconData: Icons.remove,
+              color: Colors.red,
+              onTap: onRemove,
+            ),
+            CustomIconButton(
+              iconData: Icons.arrow_drop_up,
+              color: Colors.black,
+              onTap: onMoveUp,
+            ),
+            CustomIconButton(
+              iconData: Icons.arrow_drop_down,
+              color: Colors.black,
+              onTap: onMoveDown,
+            ),
+          ]),
           AlternativaForm(questao),
         ]));
   }

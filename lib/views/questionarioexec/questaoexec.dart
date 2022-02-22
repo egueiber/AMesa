@@ -37,7 +37,8 @@ class QuestaoFormExec extends StatelessWidget {
               final int corr = questionario.questaocorrente;
               final int qtde = questionario.questoes.length;
               msgbt = fmsgBt(respondida, corr, qtde);
-              if (respondida) {
+              if ((respondida) &&
+                  ((questionario == null) ? false : questionario.gamificar)) {
                 String msgvoz;
                 String msgponto;
 

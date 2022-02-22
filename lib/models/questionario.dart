@@ -15,6 +15,8 @@ class Questionario extends ChangeNotifier {
       this.images,
       this.youtubeLink,
       this.ativo,
+      this.usarvideos,
+      this.gamificar,
       this.qtdetentativas,
       this.questoes,
       this.questionarioturma,
@@ -29,6 +31,8 @@ class Questionario extends ChangeNotifier {
     images = images ?? [];
     questoes = questoes ?? [];
     ativo = ativo ?? true;
+    usarvideos = usarvideos ?? false;
+    gamificar = gamificar ?? false;
     nrerrosrefazer = nrerrosrefazer ?? 0;
     nrerrosativanterior = nrerrosativanterior ?? 0;
     questionarioturma = questionarioturma ?? [];
@@ -47,6 +51,8 @@ class Questionario extends ChangeNotifier {
     atividadesubjacente = item['atividadesubjacente'] as String;
     categoria = item['categoria'] as String;
     ativo = item['ativo'] as bool;
+    usarvideos = item['usarvideos'] as bool;
+    gamificar = item['gamificar'] as bool;
     qtdetentativas = item['qtdetentativas'] as num;
     // images = List<String>.from(item['images']);
     images = List<String>.from(item['images'] as List<dynamic>);
@@ -71,6 +77,8 @@ class Questionario extends ChangeNotifier {
   String descricao;
   String topico;
   bool ativo;
+  bool gamificar;
+  bool usarvideos;
   String topicoanterior;
   num nrerrosrefazer;
   num nrerrosativanterior;
@@ -91,6 +99,7 @@ class Questionario extends ChangeNotifier {
 
   bool _loading = false;
   bool get loading => _loading;
+
   set loading(bool value) {
     _loading = value;
     notifyListeners();
@@ -109,6 +118,22 @@ class Questionario extends ChangeNotifier {
   set qAtivo(bool valor) {
     _qativo = valor;
     ativo = valor;
+    notifyListeners();
+  }
+
+  bool _qgamificar;
+  bool get qGamificar => _qgamificar;
+  set qGamificar(bool valor) {
+    _qgamificar = gamificar;
+    gamificar = valor;
+    notifyListeners();
+  }
+
+  bool _usarvideos;
+  bool get qUsarvideos => _usarvideos;
+  set qUsarvideos(bool valor) {
+    _usarvideos = valor;
+    usarvideos = valor;
     notifyListeners();
   }
 
@@ -212,9 +237,12 @@ class Questionario extends ChangeNotifier {
       'titulo': titulo,
       'descricao': descricao,
       'ativo': ativo,
+      'usarvideos': usarvideos,
+      'gamificar': gamificar,
       'qtdetentativas': qtdetentativas,
       'topico': topico,
       'topicoanterior': topicoanterior,
+      'atividadesubjacente': atividadesubjacente,
       'nrerrosrefazer': nrerrosrefazer,
       'nrerrosativanterior': nrerrosativanterior,
       'categoria': categoria,
@@ -303,6 +331,8 @@ class Questionario extends ChangeNotifier {
       id: id,
       titulo: titulo,
       ativo: ativo,
+      gamificar: gamificar,
+      usarvideos: usarvideos,
       descricao: descricao,
       topico: topico,
       qtdetentativas: qtdetentativas,
@@ -322,6 +352,6 @@ class Questionario extends ChangeNotifier {
 
   @override
   String toString() {
-    return 'Questionario{id: $id, name: $titulo, description: $descricao, youtubeLink: $youtubeLink,ativo: $ativo, idUsuario: $idUsuario ,qtdetentativas:$qtdetentativas,topico:$topico, topicoanterior:$topicoanterior, nrerrosrefazer: $nrerrosrefazer, nrerrosativanterior: $nrerrosativanterior,atividadesubjacente: $atividadesubjacente, categoria: $categoria, images: $images, questoes: $questoes, questionarioturma: $questionarioturma, newImages: $newImages}';
+    return 'Questionario{id: $id, name: $titulo, description: $descricao, youtubeLink: $youtubeLink,ativo: $ativo, usarvideos: $usarvideos, gamificar: $gamificar, idUsuario: $idUsuario ,qtdetentativas:$qtdetentativas,topico:$topico, topicoanterior:$topicoanterior, nrerrosrefazer: $nrerrosrefazer, nrerrosativanterior: $nrerrosativanterior,atividadesubjacente: $atividadesubjacente, categoria: $categoria, images: $images, questoes: $questoes, questionarioturma: $questionarioturma, newImages: $newImages}';
   }
 }

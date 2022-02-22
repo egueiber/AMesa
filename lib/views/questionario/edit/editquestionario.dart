@@ -329,6 +329,30 @@ class EditQuestionarioScreen extends StatelessWidget {
                             .leading, //  <-- leading Checkbox
                       ));
                     }),
+                    Consumer<Questionario>(builder: (_, questionario, __) {
+                      return (CheckboxListTile(
+                        title: Text("Gamificar", textAlign: TextAlign.left),
+                        // key: Key('questionarioativo'),
+                        value: questionario.gamificar,
+                        onChanged: (valor) {
+                          questionario.qGamificar = valor;
+                        },
+                        controlAffinity: ListTileControlAffinity
+                            .leading, //  <-- leading Checkbox
+                      ));
+                    }),
+                    Consumer<Questionario>(builder: (_, questionario, __) {
+                      return (CheckboxListTile(
+                        title: Text("Usar vídeos", textAlign: TextAlign.left),
+                        // key: Key('questionarioativo'),
+                        value: questionario.usarvideos,
+                        onChanged: (valor) {
+                          questionario.qUsarvideos = valor;
+                        },
+                        controlAffinity: ListTileControlAffinity
+                            .leading, //  <-- leading Checkbox
+                      ));
+                    }),
                     QuestaoForm(questionario),
                     const SizedBox(
                       height: 20,

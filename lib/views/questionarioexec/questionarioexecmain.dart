@@ -22,10 +22,10 @@ class QuestionarioScreenExecMain extends StatelessWidget {
                 .toString() +
             ' tentativas restantes'
         : ' Não há mais tentativas restantes';
-    questionario.youtubeLink ??
-        setStartHandler(
-            questionario.titulo + ' e ' + questionario.descricao + ' ' + msgbt,
-            0.3);
+    if (!questionario.usarvideos)
+      setStartHandler(
+          questionario.titulo + ' e ' + questionario.descricao + ' ' + msgbt,
+          0.3);
 
     return ChangeNotifierProvider.value(
       value: questionario,
@@ -38,7 +38,7 @@ class QuestionarioScreenExecMain extends StatelessWidget {
         backgroundColor: Colors.white,
         body: ListView(
           children: <Widget>[
-            (questionario.youtubeLink != null)
+            (questionario.usarvideos)
                 ? Padding(
                     padding: const EdgeInsets.only(top: 16, bottom: 8),
                     child: YoutubePlayer(

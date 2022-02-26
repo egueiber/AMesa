@@ -9,13 +9,19 @@ class Questao extends ChangeNotifier {
       this.imagem,
       this.youtubeLink,
       this.alternativas,
-      this.respostas}) {
+      this.respostas,
+      this.pontos,
+      this.pontosperdidos}) {
     alternativas = alternativas ?? [];
     respondida = false;
+    pontos = pontos ?? 0;
+    pontosperdidos = pontosperdidos ?? 0;
   }
   Questao.fromMap(Map<String, dynamic> map) {
     descricao = map['descricao'] as String;
     imagem = map['imagem'] as String;
+    pontos = map['pontos'] as num;
+    pontosperdidos = map['pontosperdidos'] as num;
     youtubeLink = map['youtubeLink'] as String;
     alternativas = (map['alternativas'] as List<dynamic> ?? [])
         .map((s) => Alternativa.fromMap(s as Map<String, dynamic>))
@@ -38,6 +44,8 @@ class Questao extends ChangeNotifier {
       descricao: descricao,
       imagem: imagem,
       youtubeLink: youtubeLink,
+      pontos: pontos,
+      pontosperdidos: pontosperdidos,
       alternativas:
           alternativas.map((alternativa) => alternativa.clone()).toList(),
     );
@@ -78,12 +86,14 @@ class Questao extends ChangeNotifier {
       'descricao': descricao,
       'imagem': imagem,
       'youtubeLink': youtubeLink,
+      'pontos': pontos,
+      'pontosperdidos': pontosperdidos,
       'alternativas': exportAlternativaList(),
     };
   }
 
   @override
   String toString() {
-    return 'Questao{descricao: $descricao, imagem: $imagem, youtubeLink: $youtubeLink, questoes: $alternativas}';
+    return 'Questao{descricao: $descricao, imagem: $imagem, youtubeLink: $youtubeLink, pontos: $pontos, pontosperdidos: $pontosperdidos,questoes: $alternativas}';
   }
 }

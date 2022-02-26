@@ -39,8 +39,23 @@ class QuestionarioTurmaManager extends ChangeNotifier {
 
       allQuestionarioTurma.forEach((at) {
         at.questionarioturma.forEach((qt) {
-          if (qt.turma == allAlunos.first.turma) {
-            lf.add(at);
+          if ((qt.turma == allAlunos.first.turma) ||
+              (qt.turma == allAlunos.first.email)) {
+            //se o questionario estiver atribuito a turma ou ao email do aluno será listado
+            if (lf.isEmpty) {
+              lf.add(at);
+            } else {
+              bool existe = false;
+              lf.forEach((p) {
+                if ((p.titulo == at.titulo)) {
+                  existe = true;
+                }
+              });
+              if (!existe) {
+                //senão existir adiciona a lista
+                lf.add(at);
+              }
+            }
           }
         });
       });

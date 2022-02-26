@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 class Questionario extends ChangeNotifier {
@@ -182,9 +183,13 @@ class Questionario extends ChangeNotifier {
       }
     } else {
       //verificar se na última tentativa aquela alternativa foi selecionada e atribui
+      totalpontosganhos = 0;
+      totalpontosperdidos = 0;
       questoes.forEach((q) {
         q.respondida = true;
         q.corrigir(idUsuario, id, emailUsuario, nrtentativa);
+        totalpontosganhos = totalpontosganhos + q.pontos;
+        totalpontosperdidos = totalpontosperdidos + q.pontosperdidos;
       });
     }
   }
@@ -247,6 +252,8 @@ class Questionario extends ChangeNotifier {
       'nrerrosativanterior': nrerrosativanterior,
       'categoria': categoria,
       'youtubeLink': youtubeLink,
+      'totalpontosganhos': totalpontosganhos,
+      'totalpontosperdidos': totalpontosperdidos,
       'questoes': exportQuestaoList(),
       'questionarioturma': exportQuestionarioTurmaList() ?? [],
       // 'images': List.from(images)

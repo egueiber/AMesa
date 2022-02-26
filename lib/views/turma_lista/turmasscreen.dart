@@ -86,7 +86,7 @@ class TurmasScreen extends StatelessWidget {
       ),
       body: Consumer<TurmaManager>(
         builder: (_, turmaManager, __) {
-          final filteredTurmas = turmaManager.filteredProducts;
+          final filteredTurmas = turmaManager.filteredTurmas;
           return ListView.builder(
               padding: const EdgeInsets.all(4),
               itemCount: filteredTurmas.length,

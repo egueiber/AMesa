@@ -3,22 +3,20 @@ import 'package:amesaadm/views/questionarioexec/alternativawidgetexec.dart';
 import 'package:flutter/material.dart';
 //import 'package:amesaadm/models/questao.dart';
 import 'package:amesaadm/models/questionario.dart';
+import 'package:amesaadm/models/questionariomanager.dart';
 import 'package:provider/provider.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class QuestaoFormExec extends StatelessWidget {
   QuestaoFormExec(this.questionario);
   final Questionario questionario;
+  final QuestionarioManager questionariomanager = QuestionarioManager();
   final ScrollController controller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     //final primaryColor = Theme.of(context).primaryColor;
-    // setStartHandler(questionario.titulo + ' e ' + questionario.descricao, 0.3);
     questionario.questaocorrente = 0;
-    /*  setStartHandler(
-        questionario.questoes[questionario.questaocorrente].descricao, 0.3);
- */
     String msgbt;
     return ChangeNotifierProvider.value(
         value: questionario,
@@ -33,7 +31,6 @@ class QuestaoFormExec extends StatelessWidget {
               final bool respondida = ((questionario
                       .questoes[questionario.questaocorrente].respondida) ||
                   (!questionario.ativo));
-
               final int corr = questionario.questaocorrente;
               final int qtde = questionario.questoes.length;
               msgbt = fmsgBt(respondida, corr, qtde);
@@ -127,9 +124,10 @@ class QuestaoFormExec extends StatelessWidget {
                       onPressed: () {
                         if (msgbt == 'Finalizar') {
                           // questionario.questoes[corr].exportRespostaList();
-
                           questionario.updateQuestoes();
                           questionario.tentativas();
+                          questionariomanager
+                              .aprovaVerificaDependencia(questionario);
                           Navigator.of(context).pushReplacementNamed(
                               '/base_screen',
                               arguments: questionario);

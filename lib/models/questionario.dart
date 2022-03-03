@@ -28,7 +28,8 @@ class Questionario extends ChangeNotifier {
       this.nrerrosrefazer,
       this.nrerrosativanterior,
       this.atividadesubjacente,
-      this.categoria}) {
+      this.atividadeposterior,
+      this.tipoaprendizagem}) {
     images = images ?? [];
     questoes = questoes ?? [];
     ativo = ativo ?? true;
@@ -37,7 +38,7 @@ class Questionario extends ChangeNotifier {
     nrerrosrefazer = nrerrosrefazer ?? 0;
     nrerrosativanterior = nrerrosativanterior ?? 0;
     questionarioturma = questionarioturma ?? [];
-    //categoria = categoria ?? '';
+    //tipoaprendizagem = tipoaprendizagem ?? '';
   }
   Questionario.fromDocument(DocumentSnapshot document) {
     id = document.id;
@@ -50,7 +51,8 @@ class Questionario extends ChangeNotifier {
     nrerrosrefazer = item['nrerrosrefazer'] as num;
     nrerrosativanterior = item['nrerrosativanterior'] as num;
     atividadesubjacente = item['atividadesubjacente'] as String;
-    categoria = item['categoria'] as String;
+    atividadeposterior = item['atividadeposterior'] as String;
+    tipoaprendizagem = item['tipoaprendizagem'] as String;
     ativo = item['ativo'] as bool;
     usarvideos = item['usarvideos'] as bool;
     gamificar = item['gamificar'] as bool;
@@ -93,7 +95,8 @@ class Questionario extends ChangeNotifier {
   num totalpontosperdidos;
   num totalpontosganhos;
   String atividadesubjacente;
-  String categoria;
+  String atividadeposterior;
+  String tipoaprendizagem;
   String youtubeLink;
 
   List<dynamic> newImages;
@@ -248,9 +251,10 @@ class Questionario extends ChangeNotifier {
       'topico': topico,
       'topicoanterior': topicoanterior,
       'atividadesubjacente': atividadesubjacente,
+      'atividadeposterior': atividadeposterior,
       'nrerrosrefazer': nrerrosrefazer,
       'nrerrosativanterior': nrerrosativanterior,
-      'categoria': categoria,
+      'tipoaprendizagem': tipoaprendizagem,
       'youtubeLink': youtubeLink,
       'totalpontosganhos': totalpontosganhos,
       'totalpontosperdidos': totalpontosperdidos,
@@ -349,7 +353,8 @@ class Questionario extends ChangeNotifier {
       topicoanterior: topicoanterior,
       idUsuario: idUsuario,
       atividadesubjacente: atividadesubjacente,
-      categoria: categoria,
+      atividadeposterior: atividadeposterior,
+      tipoaprendizagem: tipoaprendizagem,
       youtubeLink: youtubeLink,
       images: List.from(images),
       questoes: questoes.map((questao) => questao.clone()).toList(),
@@ -359,6 +364,6 @@ class Questionario extends ChangeNotifier {
 
   @override
   String toString() {
-    return 'Questionario{id: $id, name: $titulo, description: $descricao, youtubeLink: $youtubeLink,ativo: $ativo, usarvideos: $usarvideos, gamificar: $gamificar, idUsuario: $idUsuario ,qtdetentativas:$qtdetentativas,topico:$topico, topicoanterior:$topicoanterior, nrerrosrefazer: $nrerrosrefazer, nrerrosativanterior: $nrerrosativanterior,atividadesubjacente: $atividadesubjacente, categoria: $categoria, images: $images, questoes: $questoes, questionarioturma: $questionarioturma, newImages: $newImages}';
+    return 'Questionario{id: $id, name: $titulo, description: $descricao, youtubeLink: $youtubeLink,ativo: $ativo, usarvideos: $usarvideos, gamificar: $gamificar, idUsuario: $idUsuario ,qtdetentativas:$qtdetentativas,topico:$topico, topicoanterior:$topicoanterior, nrerrosrefazer: $nrerrosrefazer, nrerrosativanterior: $nrerrosativanterior,atividadesubjacente: $atividadesubjacente, atividadeposterior: $atividadeposterior, tipoaprendizagem: $tipoaprendizagem, images: $images, questoes: $questoes, questionarioturma: $questionarioturma, newImages: $newImages}';
   }
 }

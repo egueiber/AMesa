@@ -16,7 +16,7 @@ class CustomDrawerHeader extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               Text('A MESA',
-                  style: TextStyle(fontSize: 34, fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
               Text(
                 'Bem vindo  ${userManager.user?.name ?? ''}',
                 // ' ${userManager.isLoggedIn ? 'Bem vindo,' + userManager.user.name ? : ''}',

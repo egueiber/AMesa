@@ -37,11 +37,12 @@ class CustomDrawer extends StatelessWidget {
                         DrawerTile(Icons.group, 'Turmas', 2),
                         DrawerTile(Icons.question_answer_sharp, 'Tópicos', 3),
                         DrawerTile(Icons.topic_sharp, 'Atividades', 4),
+                        DrawerTile(Icons.menu_book, 'Tipos Aprendizagem', 5),
                         const Divider(),
                         DrawerTile(
                           Icons.settings,
                           'Usuários',
-                          5,
+                          6,
                         ),
                       ],
                     );

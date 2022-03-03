@@ -1,9 +1,11 @@
 import 'package:amesaadm/models/aluno.dart';
 import 'package:amesaadm/models/turma.dart';
 import 'package:amesaadm/models/topico.dart';
+import 'package:amesaadm/models/tipoaprendizagem.dart';
 import 'package:amesaadm/models/questionario.dart';
 import 'package:amesaadm/models/alunosmanager.dart';
 import 'package:amesaadm/models/topicosmanager.dart';
+import 'package:amesaadm/models/tipoaprendizagemmanager.dart';
 import 'package:amesaadm/models/turmasalunos.dart';
 import 'package:amesaadm/views/aluno/alunoscreen.dart';
 import 'package:amesaadm/views/aluno/edit/editaluno.dart';
@@ -14,8 +16,9 @@ import 'package:amesaadm/views/questionarioexec/questionarioexecmain.dart';
 import 'package:amesaadm/views/turma/turmascreen.dart';
 import 'package:amesaadm/views/turma/edit/editturma.dart';
 import 'package:amesaadm/views/topico/topicoscreen.dart';
+import 'package:amesaadm/views/tipoaprendizagem/tipoaprendizagemscreen.dart';
 import 'package:amesaadm/views/topico/edit/edittopico.dart';
-
+import 'package:amesaadm/views/tipoaprendizagem/edit/edittipoaprendizagem.dart';
 import 'package:flutter/material.dart';
 import 'package:amesaadm/models/user_manager.dart';
 import 'package:amesaadm/views/Base/base_screen.dart';
@@ -86,6 +89,10 @@ class MyApp extends StatelessWidget {
             create: (_) => TopicosManager(),
             lazy: false,
           ),
+          ChangeNotifierProvider(
+            create: (_) => TipoAprendizagemManager(),
+            lazy: false,
+          ),
         ],
         child: MaterialApp(
             title: 'A Mesa ',
@@ -114,6 +121,10 @@ class MyApp extends StatelessWidget {
                   return MaterialPageRoute(
                       builder: (_) =>
                           EditTopicoScreen(settings.arguments as Topico));
+                case '/edit_tipoaprendizagem':
+                  return MaterialPageRoute(
+                      builder: (_) => EditTipoAprendizagemScreen(
+                          settings.arguments as TipoAprendizagem));
                 case '/edit_aluno':
                   return MaterialPageRoute(
                       builder: (_) =>
@@ -134,6 +145,10 @@ class MyApp extends StatelessWidget {
                   return MaterialPageRoute(
                       builder: (_) =>
                           TopicoScreen(settings.arguments as Topico));
+                case '/tipoaprendizagem':
+                  return MaterialPageRoute(
+                      builder: (_) => TipoAprendizagemScreen(
+                          settings.arguments as TipoAprendizagem));
                 case '/aluno':
                   return MaterialPageRoute(
                       builder: (_) => AlunoScreen(settings.arguments as Aluno));

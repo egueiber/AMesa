@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:amesaadm/models/questionario.dart';
-import 'turmasmanager.dart';
-import 'turma.dart';
+//import 'turmasmanager.dart';
+//import 'turma.dart';
 
 class QuestionarioManager extends ChangeNotifier {
   QuestionarioManager() {
@@ -88,7 +88,7 @@ class QuestionarioManager extends ChangeNotifier {
           if (atividadesubjacente
                   .findQuestionarioTurma(atividadecorrente.emailUsuario) ==
               null) {
-            TurmaManager turmamanager = TurmaManager();
+            /*  TurmaManager turmamanager = TurmaManager();
             Turma turma = (turmamanager
                     .findTurmaBySigla(atividadecorrente.emailUsuario)) ??
                 Turma();
@@ -96,7 +96,7 @@ class QuestionarioManager extends ChangeNotifier {
             turma.ativo = true;
             turma.descricao = atividadecorrente.emailUsuario;
             turma.sigla = atividadecorrente.emailUsuario;
-            await turma.save();
+            await turma.save(); */
             //adiciona a turma exclusiva deste aluno a atividade subjacente
             //desta forma o aluno terá a atividade subjacente para ser feita
             // localizar a atividade subjacente

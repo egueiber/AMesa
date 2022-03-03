@@ -1,5 +1,6 @@
 import 'package:amesaadm/views/Login/login_screen.dart';
 import 'package:amesaadm/views/aluno_lista/alunosscreen.dart';
+import 'package:amesaadm/views/tipoaprendizagem_lista/tiposaprendizagemscreen.dart';
 import 'package:amesaadm/views/topico_lista/topicosscreen.dart';
 
 //import 'package:amesaadm/views/turma/turmascreen.dart';
@@ -34,6 +35,7 @@ class BaseScreen extends StatelessWidget {
                 TurmasScreen(),
                 TopicosScreen(),
                 QuestionarioPesquisa(),
+                TiposAprendizagemsScreen(),
                 AdminUsersScreen(),
                 Scaffold(
                   drawer: CustomDrawer(),

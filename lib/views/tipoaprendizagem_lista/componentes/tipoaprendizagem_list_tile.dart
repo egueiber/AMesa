@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:amesaadm/models/topico.dart';
+import 'package:amesaadm/models/tipoaprendizagem.dart';
 
-class TopicoListTile extends StatelessWidget {
-  const TopicoListTile(this.topico);
+class TipoAprendizagemListTile extends StatelessWidget {
+  const TipoAprendizagemListTile(this.tipoAprendizagem);
 
-  final Topico topico;
+  final TipoAprendizagem tipoAprendizagem;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed('/topico', arguments: topico);
+        Navigator.of(context)
+            .pushNamed('/edit_tipoaprendizagem', arguments: tipoAprendizagem);
       },
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
         child: Container(
-          height: 200,
+          height: 100,
           padding: const EdgeInsets.all(8),
           child: Row(
             children: <Widget>[
@@ -26,21 +27,15 @@ class TopicoListTile extends StatelessWidget {
                   verticalDirection: VerticalDirection.up,
                   children: <Widget>[
                     Text(
-                      'Objetivo: ' + topico.objetivo,
+                      'Descrição: ' + tipoAprendizagem.descricao,
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
                     Text(
-                      'Descrição: ' + topico.descricao,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                    Text(
-                      'Situação: ' + (topico.ativo ? 'Ativo' : 'Inativo'),
+                      'Situação: ' +
+                          (tipoAprendizagem.ativo ? 'Ativo' : 'Inativo'),
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w800,

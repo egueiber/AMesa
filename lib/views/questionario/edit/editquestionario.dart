@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:amesaadm/models/questionario.dart';
 import 'package:amesaadm/models/questionariomanager.dart';
 import 'package:amesaadm/models/topicosmanager.dart';
+import 'package:amesaadm/models/tipoaprendizagemmanager.dart';
 import 'package:amesaadm/views/questionario/edit/componentes/images_questionario.dart';
 import 'package:amesaadm/views/questionario/edit/componentes/questaoform.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +14,8 @@ class EditQuestionarioScreen extends StatelessWidget {
 
   final Questionario questionario;
   final bool editing;
+  //final List<String> aprendizagemTipos = ["E-R","Associação Verbal","Cadeia"];
+
   final utube =
       RegExp(r"^(https?\:\/\/)?((www\.)?youtube\.com|youtu\.?be)\/.+$");
 
@@ -99,30 +102,6 @@ class EditQuestionarioScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: 16),
                       child: Text(
-                        'Categoria',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    TextFormField(
-                      initialValue: questionario.categoria,
-                      decoration: const InputDecoration(
-                        hintText: 'Categoria',
-                        //border: InputBorder.none,
-                      ),
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-                      validator: (categoria) {
-                        if (categoria.length < 3)
-                          return 'Categoria muito curta';
-                        return null;
-                      },
-                      onSaved: (categoria) =>
-                          questionario.categoria = categoria,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16),
-                      child: Text(
                         'Tópico',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
@@ -147,6 +126,37 @@ class EditQuestionarioScreen extends StatelessWidget {
                             questionario.qAtivo = true;
                           },
                           onSaved: (value) => questionario.topico = value));
+                    }),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Text(
+                        'Tipos Aprendizagem',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Consumer<TipoAprendizagemManager>(
+                        builder: (_, tipoaprendizagemmanager, __) {
+                      return (DropdownButtonFormField(
+                          hint: Text('Escolha um tipo aprendizagem'),
+                          value: questionario.tipoaprendizagem == ''
+                              ? 'nd'
+                              : questionario.tipoaprendizagem,
+                          items: tipoaprendizagemmanager.allTipoAprendizagem
+                              .map((dynamic val) {
+                            return DropdownMenuItem<dynamic>(
+                              value: val.descricao,
+                              child: new Text(
+                                val.descricao,
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (newValue) {
+                            questionario.tipoaprendizagem = newValue;
+                            questionario.qAtivo = true;
+                          },
+                          onSaved: (value) =>
+                              questionario.tipoaprendizagem = value));
                     }),
                     Padding(
                       padding: const EdgeInsets.only(top: 16),
@@ -289,6 +299,37 @@ class EditQuestionarioScreen extends StatelessWidget {
                           },
                           onSaved: (value) =>
                               questionario.atividadesubjacente = value));
+                    }),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Text(
+                        'Atividade posterior',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Consumer<QuestionarioManager>(
+                        builder: (_, questionariomanager, __) {
+                      return (DropdownButtonFormField(
+                          hint: Text('Escolha a atividade posterior'),
+                          value: questionario.atividadeposterior == ''
+                              ? 'nd'
+                              : questionario.atividadeposterior,
+                          items: questionariomanager.allQuestionarios
+                              .map((dynamic val) {
+                            return DropdownMenuItem<dynamic>(
+                              value: val.titulo,
+                              child: new Text(
+                                val.titulo,
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (newValue) {
+                            questionario.atividadeposterior = newValue;
+                            questionario.qAtivo = true;
+                          },
+                          onSaved: (value) =>
+                              questionario.atividadeposterior = value));
                     }),
                     Padding(
                       padding: const EdgeInsets.only(top: 16),

@@ -16,7 +16,7 @@ class DrawerTile extends StatelessWidget {
           context.read<PageManager>().setPage(page);
         },
         child: SizedBox(
-            height: 60,
+            height: 50,
             child: Row(
               children: <Widget>[
                 const SizedBox(width: 32),

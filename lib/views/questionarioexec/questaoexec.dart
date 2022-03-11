@@ -1,4 +1,5 @@
 import 'package:amesaadm/helpers/msgtextovoz.dart';
+import 'package:amesaadm/models/avaliacoesmanager.dart';
 import 'package:amesaadm/views/questionarioexec/alternativawidgetexec.dart';
 import 'package:flutter/material.dart';
 //import 'package:amesaadm/models/questao.dart';
@@ -27,7 +28,8 @@ class QuestaoFormExec extends StatelessWidget {
               actions: <Widget>[],
             ),
             backgroundColor: Colors.white,
-            body: Consumer<Questionario>(builder: (_, questionario, __) {
+            body: Consumer2<Questionario, AvaliacoesManager>(
+                builder: (_, questionario, avaliacoesmanager, __) {
               final bool respondida = ((questionario
                       .questoes[questionario.questaocorrente].respondida) ||
                   (!questionario.ativo));
@@ -126,8 +128,8 @@ class QuestaoFormExec extends StatelessWidget {
                           // questionario.questoes[corr].exportRespostaList();
                           questionario.updateQuestoes();
                           questionario.tentativas();
-                          questionariomanager
-                              .aprovaVerificaDependencia(questionario);
+                          questionariomanager.aprovaVerificaDependencia(
+                              questionario, avaliacoesmanager);
                           Navigator.of(context).pushReplacementNamed(
                               '/base_screen',
                               arguments: questionario);
@@ -148,7 +150,6 @@ class QuestaoFormExec extends StatelessWidget {
                                 'Escolha pelo menos uma alternativa', 0.3);
                           }
                         }
-
                         questionario.refresh();
                       },
                       child: Text(msgbt),

@@ -29,10 +29,12 @@ class Questionario extends ChangeNotifier {
       this.nrerrosativanterior,
       this.atividadesubjacente,
       this.atividadeposterior,
-      this.tipoaprendizagem}) {
+      this.tipoaprendizagem,
+     }) {
     images = images ?? [];
     questoes = questoes ?? [];
     ativo = ativo ?? true;
+ 
     usarvideos = usarvideos ?? false;
     gamificar = gamificar ?? false;
     nrerrosrefazer = nrerrosrefazer ?? 0;

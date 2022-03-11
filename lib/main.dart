@@ -1,4 +1,5 @@
 import 'package:amesaadm/models/aluno.dart';
+import 'package:amesaadm/models/avaliacoesmanager.dart';
 import 'package:amesaadm/models/turma.dart';
 import 'package:amesaadm/models/topico.dart';
 import 'package:amesaadm/models/tipoaprendizagem.dart';
@@ -91,6 +92,10 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider(
             create: (_) => TipoAprendizagemManager(),
+            lazy: false,
+          ),
+          ChangeNotifierProvider(
+            create: (_) => AvaliacoesManager(),
             lazy: false,
           ),
         ],

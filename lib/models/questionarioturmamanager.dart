@@ -12,9 +12,7 @@ class QuestionarioTurmaManager extends ChangeNotifier {
 
   void updateUser(UserManager userManager) {
     user = userManager.user;
-
     items.clear();
-
     if (user != null) {
       _loadQuestionarioTurma();
     }
@@ -31,12 +29,11 @@ class QuestionarioTurmaManager extends ChangeNotifier {
     if (allAlunos.isNotEmpty) {
       final QuerySnapshot snapQuestionario =
           await firestore.collection('questionarios').get();
-      //  arrayContains: {'turma': allAlunos.first.turma}).get();
       final List<Questionario> allQuestionarioTurma = snapQuestionario.docs
           .map((d) => Questionario.fromDocument(d))
           .toList();
       List<Questionario> lf = [];
-
+      //adicionar questionarios abertos na lista de avaliacao.
       allQuestionarioTurma.forEach((at) {
         at.questionarioturma.forEach((qt) {
           if ((qt.turma == allAlunos.first.turma) ||
@@ -64,5 +61,9 @@ class QuestionarioTurmaManager extends ChangeNotifier {
       items.clear();
     }
     notifyListeners();
+  }
+
+  void recarregar() {
+    _loadQuestionarioTurma();
   }
 }

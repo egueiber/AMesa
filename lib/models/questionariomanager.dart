@@ -1,3 +1,5 @@
+import 'package:amesaadm/models/avaliacao.dart';
+import 'package:amesaadm/models/avaliacoesmanager.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:amesaadm/models/questionario.dart';
@@ -59,75 +61,93 @@ class QuestionarioManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> aprovaVerificaDependencia(Questionario atividadecorrente) async {
-    // verifica se o número de erros exige que o aluno refaça a atividade
-    // ou faça uma outra atividade subjacente
+  Future<bool> aprovaVerificaDependencia(Questionario atividadecorrente,
+      AvaliacoesManager avaliacoesmanager) async {
+    num qtdetentativas = avaliacoesmanager?.qtdeTentativas(
+            atividadecorrente.id, atividadecorrente.emailUsuario) ??
+        0;
+    Avaliacao avaliacaocorrente;
+    if (qtdetentativas == 0) {
+      // é a primeira tentativa e a atividade estava atribuida somente a turma
+      // cria uma nova avaliacao para registrar o desempenho da avaliacao em curso para o aluno corrente.
+      avaliacaocorrente = Avaliacao();
+      avaliacaocorrente.idQuestionario = atividadecorrente.id;
+      avaliacaocorrente.email = atividadecorrente.emailUsuario;
+      avaliacaocorrente.idUsuario = atividadecorrente.idUsuario;
+      avaliacaocorrente.nracertos = atividadecorrente.totalpontosganhos;
+      avaliacaocorrente.nrerros = atividadecorrente.totalpontosperdidos;
+      avaliacaocorrente.origem = atividadecorrente.titulo;
+      avaliacaocorrente.destino = atividadecorrente.atividadeposterior;
+      avaliacaocorrente.dataexecucao = DateTime.now().toLocal();
+      avaliacaocorrente.nrtentativa = 1;
+    } else {
+      //está executando uma avaliação já atribuida  ao aluno corrente e apenas atualiza a pontução e status;
+      //obtem a última tentativa do questionario corrente.
+      avaliacaocorrente = avaliacoesmanager.ultimaAvaliacaoQuestionarioAluno(
+          atividadecorrente.id, atividadecorrente.emailUsuario);
+      avaliacaocorrente.nracertos = atividadecorrente.totalpontosganhos;
+      avaliacaocorrente.nrerros = atividadecorrente.totalpontosperdidos;
+      avaliacaocorrente.dataexecucao = DateTime.now().toLocal();
+    }
     bool aprovado = false;
     final Questionario atividadesubjacente =
         findQuestionarioBytitulo(atividadecorrente.atividadesubjacente);
+    final Questionario atividadeposterior =
+        findQuestionarioBytitulo(atividadecorrente.atividadeposterior);
     if ((atividadecorrente.totalpontosperdidos >=
             atividadecorrente.nrerrosrefazer) &&
         (atividadecorrente.totalpontosperdidos <
             atividadecorrente.nrerrosativanterior)) {
-      //refazer: atribui mais uma tentativa, caso não existam mais tentativas
-      if (atividadecorrente.nrtentativa >= atividadecorrente.qtdetentativas) {
-        atividadecorrente.qtdetentativas++;
-        await atividadecorrente.save();
-        aprovado = false;
-      }
+      aprovado = false;
+      avaliacaocorrente.situacao =
+          'Necessario Refazer Atividade'; //representa a situação final desta avaliacao
+      await avaliacaocorrente
+          .save(); //salva a avaliacao corrente com a pontuacao estabelecida.
+      //refazer: atribui mais uma tentativa para o aluno refazer a atividade
+      Avaliacao novaAvaliacao = avaliacaocorrente.clone();
+      novaAvaliacao.id =
+          null; //será gravada como uma nova avaliação pendente para o aluno.
+      novaAvaliacao.nracertos = 0;
+      novaAvaliacao.nrerros = 0;
+      novaAvaliacao.situacao = 'Aberta';
+      await novaAvaliacao.save();
     } else {
       if ((atividadecorrente.totalpontosperdidos >=
               atividadecorrente.nrerrosativanterior) &&
           (atividadecorrente.nrtentativa >= atividadecorrente.qtdetentativas) &&
           (atividadesubjacente != null)) {
         //pelo número de erros se faz necessário a realização da atividade subjacente
-        //cria, caso não exista, uma turma  exclusiva para o aluno.
+        //cria a atividade subjacente .
         aprovado = false;
-        if (atividadecorrente.emailUsuario.isNotEmpty) {
-          //cria a turma exclusiva para o aluno caso não exista
-          if (atividadesubjacente
-                  .findQuestionarioTurma(atividadecorrente.emailUsuario) ==
-              null) {
-            /*  TurmaManager turmamanager = TurmaManager();
-            Turma turma = (turmamanager
-                    .findTurmaBySigla(atividadecorrente.emailUsuario)) ??
-                Turma();
-            turma.ano = 0;
-            turma.ativo = true;
-            turma.descricao = atividadecorrente.emailUsuario;
-            turma.sigla = atividadecorrente.emailUsuario;
-            await turma.save(); */
-            //adiciona a turma exclusiva deste aluno a atividade subjacente
-            //desta forma o aluno terá a atividade subjacente para ser feita
-            // localizar a atividade subjacente
+        Avaliacao avaliacaoSubjacente = Avaliacao();
 
-            if (atividadesubjacente != null) {
-              atividadesubjacente
-                      .findQuestionarioTurma(atividadecorrente.emailUsuario) ??
-                  atividadesubjacente
-                      .addQuestionarioTurma(atividadecorrente.emailUsuario);
-            }
-          } else {
-            // a atividade já existe para este usuário (turma)
-            bool comTentativas = false;
-            try {
-              comTentativas = (atividadesubjacente.qtdetentativas <=
-                  atividadesubjacente
-                      .questoes[0].alternativas[0].respostas.length);
-            } catch (e) {
-              comTentativas = false;
-            }
-            if (!comTentativas) {
-              atividadesubjacente.qtdetentativas++;
-              await atividadesubjacente.save();
-            }
-          }
-        }
+        avaliacaoSubjacente.idQuestionario = atividadesubjacente.id;
+        avaliacaoSubjacente.email = atividadecorrente.emailUsuario;
+        avaliacaoSubjacente.idUsuario = atividadecorrente.idUsuario;
+        avaliacaoSubjacente.nracertos = 0;
+        avaliacaoSubjacente.nrerros = 0;
+        avaliacaoSubjacente.origem = atividadecorrente.titulo;
+        avaliacaoSubjacente.destino = atividadesubjacente.atividadeposterior;
+        avaliacaoSubjacente.dataexecucao = DateTime.now().toLocal();
+        avaliacaoSubjacente.nrtentativa = 1;
+        avaliacaoSubjacente.situacao = 'Aberta';
+        await avaliacaoSubjacente.save();
+        //avaliacaocorrente.nrtentativa; //esta comprometido calcular esta informação, fazer um método para calcular quantas tentativas para este mesmo questionario e do mesmo usuario foram feitas
+
       } else {
         //aprovado, habilitar a próxima atividade e pensar se deve encerrar as tentativas restantes
+        if (atividadeposterior != null) {
+          atividadeposterior
+                  .findQuestionarioTurma(atividadecorrente.emailUsuario) ??
+              atividadeposterior
+                  .addQuestionarioTurma(atividadecorrente.emailUsuario);
+        }
         aprovado = true;
+        avaliacaocorrente.situacao = 'Aprovado';
       }
     }
+    await avaliacaocorrente.save();
+    avaliacoesmanager.recarregar();
     return aprovado;
   }
 

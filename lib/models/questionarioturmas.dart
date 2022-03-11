@@ -1,12 +1,16 @@
-//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class QuestionarioTurma extends ChangeNotifier {
-  QuestionarioTurma({this.turma, this.datainicio, this.datafim}) {
+  QuestionarioTurma({
+    this.turma,
+    this.datainicio,
+    this.datafim,
+    this.datarealizacao,
+    this.situacao,
+  }) {
     turma = turma ?? "";
     datainicio ?? DateTime.now().toLocal();
-
     datafim ?? DateTime.now().toLocal();
   }
   QuestionarioTurma.fromMap(Map<String, dynamic> map) {
@@ -19,18 +23,29 @@ class QuestionarioTurma extends ChangeNotifier {
   String turma;
   DateTime datainicio;
   DateTime datafim;
+  DateTime datarealizacao;
+  String situacao;
 
   QuestionarioTurma clone() {
     return QuestionarioTurma(
-        turma: turma, datainicio: datainicio, datafim: datafim);
+      turma: turma,
+      datainicio: datainicio,
+      datafim: datafim,
+      situacao: situacao,
+    );
   }
 
   Map<String, dynamic> toMap() {
-    return {'turma': turma, 'datainicio': datainicio, 'datafim': datafim};
+    return {
+      'turma': turma,
+      'datainicio': datainicio,
+      'datafim': datafim,
+      'situacao': situacao,
+    };
   }
 
   @override
   String toString() {
-    return 'QuestionarioTurma{turma: $turma, datainicio: $datainicio, datafim: $datafim}';
+    return 'QuestionarioTurma{turma: $turma, datainicio: $datainicio, datafim: $datafim, situacao: $situacao}';
   }
 }

@@ -9,32 +9,32 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 class Questionario extends ChangeNotifier {
-  Questionario(
-      {this.id,
-      this.titulo,
-      this.descricao,
-      this.images,
-      this.youtubeLink,
-      this.ativo,
-      this.usarvideos,
-      this.gamificar,
-      this.qtdetentativas,
-      this.questoes,
-      this.questionarioturma,
-      this.idUsuario,
-      this.nrtentativa,
-      this.topico,
-      this.topicoanterior,
-      this.nrerrosrefazer,
-      this.nrerrosativanterior,
-      this.atividadesubjacente,
-      this.atividadeposterior,
-      this.tipoaprendizagem,
-     }) {
+  Questionario({
+    this.id,
+    this.titulo,
+    this.descricao,
+    this.images,
+    this.youtubeLink,
+    this.ativo,
+    this.usarvideos,
+    this.gamificar,
+    this.qtdetentativas,
+    this.questoes,
+    this.questionarioturma,
+    this.idUsuario,
+    this.nrtentativa,
+    this.topico,
+    this.topicoanterior,
+    this.nrerrosrefazer,
+    this.nrerrosativanterior,
+    this.atividadesubjacente,
+    this.atividadeposterior,
+    this.tipoaprendizagem,
+  }) {
     images = images ?? [];
     questoes = questoes ?? [];
     ativo = ativo ?? true;
- 
+
     usarvideos = usarvideos ?? false;
     gamificar = gamificar ?? false;
     nrerrosrefazer = nrerrosrefazer ?? 0;
@@ -175,7 +175,7 @@ class Questionario extends ChangeNotifier {
       });
     }
     nrtentativa = ultima;
-    ativo = (qtdetentativas > nrtentativa);
+    ativo = true; //(qtdetentativas > nrtentativa);
     if (ativo) {
       if (questoes[0].alternativas.isNotEmpty) {
         questoes.forEach((q) {

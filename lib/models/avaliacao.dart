@@ -14,7 +14,8 @@ class Avaliacao extends ChangeNotifier {
       this.nrtentativa,
       this.idUsuario,
       this.email,
-      this.idQuestionario}) {
+      this.idQuestionario,
+      this.titulo}) {
     dataexecucao ?? DateTime.now().toLocal();
   }
   Avaliacao.fromDocument(DocumentSnapshot document) {
@@ -29,6 +30,8 @@ class Avaliacao extends ChangeNotifier {
     nrtentativa = item['nrtentativa'] as num;
     idUsuario = item['idUsuario'] as String;
     idQuestionario = item['idQuestionario'] as String;
+    titulo = item['titulo'] as String;
+    email = item['email'] as String;
   }
 
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -37,6 +40,7 @@ class Avaliacao extends ChangeNotifier {
   String id;
   String idUsuario;
   String idQuestionario;
+  String titulo;
   num nrtentativa;
   String email;
   DateTime dataexecucao;
@@ -58,6 +62,7 @@ class Avaliacao extends ChangeNotifier {
         id: id,
         idUsuario: idUsuario,
         idQuestionario: idQuestionario,
+        titulo: titulo,
         nrtentativa: nrtentativa,
         email: email,
         dataexecucao: dataexecucao,
@@ -72,6 +77,7 @@ class Avaliacao extends ChangeNotifier {
     return {
       'idUsuario': idUsuario,
       'idQuestionario': idQuestionario,
+      'titulo': titulo,
       'nrtentativa': nrtentativa,
       'email': email,
       'dataexecucao': dataexecucao,
@@ -89,6 +95,7 @@ class Avaliacao extends ChangeNotifier {
     final Map<String, dynamic> data = {
       'idUsuario': idUsuario,
       'idQuestionario': idQuestionario,
+      'titulo': titulo,
       'nrtentativa': nrtentativa,
       'email': email,
       'dataexecucao': dataexecucao,
@@ -109,6 +116,6 @@ class Avaliacao extends ChangeNotifier {
 
   @override
   String toString() {
-    return 'Avaliacao{idUsuario: $idUsuario, idQuestionario: $idQuestionario, nrtentativa: $nrtentativa, email: $email, dataexecucao: $dataexecucao,situacao: $situacao,origem: $origem,destino: $destino, nracertos: $nracertos,nrerros: $nrerros}';
+    return 'Avaliacao{idUsuario: $idUsuario, idQuestionario: $idQuestionario, titulo: $titulo, nrtentativa: $nrtentativa, email: $email, dataexecucao: $dataexecucao,situacao: $situacao,origem: $origem,destino: $destino, nracertos: $nracertos,nrerros: $nrerros}';
   }
 }

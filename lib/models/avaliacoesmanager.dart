@@ -1,3 +1,5 @@
+import 'package:amesaadm/models/questionario.dart';
+import 'package:amesaadm/models/questionariomanager.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:amesaadm/models/avaliacao.dart';
@@ -53,15 +55,21 @@ class AvaliacoesManager extends ChangeNotifier {
 
   Avaliacao ultimaAvaliacaoQuestionarioAluno(
       String idquestionario, String email) {
-    List<Avaliacao> avaliacaoQuestionarioAluno;
-    List<Avaliacao> avaliacaoAluno;
+    List<Avaliacao> avaliacaoQuestionarioAluno = [];
+    List<Avaliacao> avaliacaoAluno = [];
     avaliacaoAluno = getAvaliacoesAlunoCorrente(email);
-    avaliacaoAluno.forEach((av) {
-      if (av.idQuestionario == idquestionario) {
-        avaliacaoQuestionarioAluno.add(av);
-      }
-    });
-    return avaliacaoQuestionarioAluno.last;
+    if (avaliacaoAluno != null) {
+      avaliacaoAluno.forEach((av) {
+        if (av.idQuestionario == idquestionario) {
+          avaliacaoQuestionarioAluno.add(av);
+        }
+      });
+    }
+    try {
+      return avaliacaoQuestionarioAluno.last;
+    } catch (e) {
+      return null;
+    }
   }
 
   void recarregar() {
@@ -69,6 +77,7 @@ class AvaliacoesManager extends ChangeNotifier {
   }
 
   List<Avaliacao> getAvaliacoesAlunoCorrente(String email) {
+    avaliacoesAlunoCorrente = [];
     allAvaliacoes.forEach((av) {
       if (av.email == email) {
         avaliacoesAlunoCorrente.add(av);
@@ -77,12 +86,13 @@ class AvaliacoesManager extends ChangeNotifier {
     if (avaliacoesAlunoCorrente.isNotEmpty) {
       avaliacoesAlunoCorrente
           .sort((a, b) => a.nrtentativa.compareTo(b.nrtentativa));
-      getUltimaAvaliacaoAluno();
+      //   getUltimaAvaliacaoAluno(email);
     }
     return avaliacoesAlunoCorrente;
   }
 
   List<Avaliacao> getAvaliacoesAbertaAlunoCorrente(String email) {
+    avaliacoesAlunoCorrente = [];
     allAvaliacoes.forEach((av) {
       if ((av.email == email) && (av.situacao == 'Aberta')) {
         avaliacoesAlunoCorrente.add(av);
@@ -91,13 +101,28 @@ class AvaliacoesManager extends ChangeNotifier {
     if (avaliacoesAlunoCorrente.isNotEmpty) {
       avaliacoesAlunoCorrente
           .sort((a, b) => a.nrtentativa.compareTo(b.nrtentativa));
-      getUltimaAvaliacaoAluno();
+      getUltimaAvaliacaoAluno(email);
     }
     return avaliacoesAlunoCorrente;
   }
 
-  Avaliacao getUltimaAvaliacaoAluno() {
+  List<Questionario> questionarioAbertoAlunoCorrente(
+      String email, QuestionarioManager lQA) {
+    List<Avaliacao> lAval = getAvaliacoesAbertaAlunoCorrente(email);
+    List<Questionario> lQuest = [];
+    Questionario aux;
+    lAval.forEach((l) {
+      aux = lQA.findQuestionarioById(l.idQuestionario);
+      if (aux != null) {
+        lQuest.add(aux);
+      }
+    });
+    return lQuest;
+  }
+
+  Avaliacao getUltimaAvaliacaoAluno(String email) {
     ultimaAvaliacaoAluno = null;
+    avaliacoesAlunoCorrente = getAvaliacoesAbertaAlunoCorrente(email);
     if (avaliacoesAlunoCorrente.isNotEmpty) {
       ultimaAvaliacaoAluno = avaliacoesAlunoCorrente.last;
     }

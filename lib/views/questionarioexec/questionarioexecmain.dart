@@ -22,10 +22,12 @@ class QuestionarioScreenExecMain extends StatelessWidget {
                 .toString() +
             ' tentativas restantes'
         : ' Não há mais tentativas restantes';
-    if (!questionario.usarvideos)
-      setStartHandler(
+    if (!questionario.usarvideos ?? false)
+      /*  setStartHandler(
           questionario.titulo + ' e ' + questionario.descricao + ' ' + msgbt,
-          0.3);
+          0.3); */
+      setStartHandler(
+          questionario.titulo + ' e ' + questionario.descricao, 0.3);
 
     return ChangeNotifierProvider.value(
       value: questionario,
@@ -146,13 +148,13 @@ class QuestionarioScreenExecMain extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  Text(questionario.ativo
+                  /* Text(questionario.ativo
                       ? (questionario.qtdetentativas +
                                   1 -
                                   questionario.nrtentativa)
                               .toString() +
                           ' tentativas restantes'
-                      : ' Não há mais tentativas restantes'),
+                      : ' Não há mais tentativas restantes'), */
                 ],
               ),
             )

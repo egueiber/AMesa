@@ -1,4 +1,5 @@
 import 'package:amesaadm/helpers/msgtextovoz.dart';
+import 'package:amesaadm/models/avaliacoesmanager.dart';
 import 'package:amesaadm/models/questionarioturmamanager.dart';
 import 'package:amesaadm/views/questionarioexec/questionariolisttileexec.dart';
 import 'package:flutter/material.dart';
@@ -85,7 +86,6 @@ class HomeScreen extends StatelessWidget {
                 } else {
                   if (questionarioTurmaManager.items.isNotEmpty) {
                     children = [];
-
                     questionarioTurmaManager.items.forEach((tm) {
                       tm.emailUsuario = usermanager.user.email;
                       tm.idUsuario = usermanager.user.id;
@@ -97,7 +97,7 @@ class HomeScreen extends StatelessWidget {
                   return SliverList(
                       delegate: SliverChildListDelegate(children));
                 }
-              })
+              }) //consumer 2
             ],
           ),
         ],

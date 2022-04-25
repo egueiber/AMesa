@@ -68,8 +68,9 @@ class QuestaoFormExec extends StatelessWidget {
               return ListView(
                 children: <Widget>[
                   (questionario.questoes[questionario.questaocorrente]
-                              .youtubeLink ==
-                          null)
+                                  .youtubeLink ==
+                              null) ||
+                          (!questionario.usarvideos)
                       ? Container(
                           //color: color,
                           padding: const EdgeInsets.symmetric(
@@ -115,7 +116,7 @@ class QuestaoFormExec extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 16, bottom: 8),
-                    child: TextButton(
+                    child: TextButton.icon(
                       style: TextButton.styleFrom(
                           padding: const EdgeInsets.all(16.0),
                           primary: Colors.white,
@@ -152,7 +153,8 @@ class QuestaoFormExec extends StatelessWidget {
                         }
                         questionario.refresh();
                       },
-                      child: Text(msgbt),
+                      label: Text(msgbt),
+                      icon: const Icon(Icons.arrow_forward),
                     ),
                   ),
                   Container(

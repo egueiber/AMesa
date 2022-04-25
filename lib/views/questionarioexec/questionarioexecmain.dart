@@ -121,7 +121,7 @@ class QuestionarioScreenExecMain extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 16, bottom: 8),
-                    child: TextButton(
+                    child: TextButton.icon(
                       style: TextButton.styleFrom(
                           padding: const EdgeInsets.all(16.0),
                           primary: Colors.white,
@@ -133,9 +133,10 @@ class QuestionarioScreenExecMain extends StatelessWidget {
                         Navigator.of(context).pushNamed('/questaoformexec',
                             arguments: questionario);
                       },
-                      child: Text(questionario.ativo
+                      label: Text(questionario.ativo
                           ? 'Participar'
                           : 'Verificar respostas'),
+                      icon: const Icon(Icons.arrow_forward),
                     ),
                   ),
                   /* Wrap(

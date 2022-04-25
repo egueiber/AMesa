@@ -109,6 +109,7 @@ class EditQuestionarioScreen extends StatelessWidget {
                     ),
                     Consumer<TopicosManager>(builder: (_, topicomanager, __) {
                       return (DropdownButtonFormField(
+                          isExpanded: true,
                           hint: Text('Escolha um tópico'),
                           value: questionario.topico == ''
                               ? 'nd'
@@ -169,6 +170,7 @@ class EditQuestionarioScreen extends StatelessWidget {
                     Consumer<TopicosManager>(
                         builder: (_, topicomanagerant, __) {
                       return (DropdownButtonFormField(
+                          isExpanded: true,
                           hint: Text('Escolha o tópico subjacente'),
                           value: questionario.topicoanterior == ""
                               ? 'nd'
@@ -280,6 +282,7 @@ class EditQuestionarioScreen extends StatelessWidget {
                     Consumer<QuestionarioManager>(
                         builder: (_, questionariomanager, __) {
                       return (DropdownButtonFormField(
+                          isExpanded: true,
                           hint: Text('Escolha a atividade subjacente'),
                           value: questionario.atividadesubjacente == ''
                               ? 'nd'
@@ -311,6 +314,7 @@ class EditQuestionarioScreen extends StatelessWidget {
                     Consumer<QuestionarioManager>(
                         builder: (_, questionariomanager, __) {
                       return (DropdownButtonFormField(
+                          isExpanded: true,
                           hint: Text('Escolha a atividade posterior'),
                           value: questionario.atividadeposterior == ''
                               ? 'nd'

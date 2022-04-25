@@ -65,6 +65,12 @@ class AvaliacoesManager extends ChangeNotifier {
         }
       });
     }
+    //ordernar por data avaliacaoQuestionarioAluno
+    if (avaliacaoQuestionarioAluno.isNotEmpty) {
+      avaliacaoQuestionarioAluno.sort((a, b) {
+        return a.dataexecucao.compareTo(b.dataexecucao);
+      });
+    }
     try {
       return avaliacaoQuestionarioAluno.last;
     } catch (e) {

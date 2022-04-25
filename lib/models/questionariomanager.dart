@@ -86,6 +86,7 @@ class QuestionarioManager extends ChangeNotifier {
         qtdetentativas = 1;
       }
     }
+
     if (qtdetentativas == 0) {
       // é a primeira tentativa e a atividade estava atribuida somente a turma
       // cria uma nova avaliacao para registrar o desempenho da avaliacao em curso para o aluno corrente.
@@ -123,19 +124,25 @@ class QuestionarioManager extends ChangeNotifier {
       Avaliacao novaAvaliacao = avaliacaocorrente.clone();
       novaAvaliacao.id =
           null; //será gravada como uma nova avaliação pendente para o aluno.
-      novaAvaliacao.nracertos = 0;
-      novaAvaliacao.nrerros = 0;
+      novaAvaliacao.nracertos = atividadecorrente.totalpontosganhos;
+      novaAvaliacao.nrerros = atividadecorrente.totalpontosperdidos;
       novaAvaliacao.situacao = 'Aberta';
       await novaAvaliacao.save();
     } else {
       if ((atividadecorrente.totalpontosperdidos >=
-              atividadecorrente.nrerrosativanterior) &&
-          (atividadecorrente.nrtentativa >= atividadecorrente.qtdetentativas) &&
-          (atividadesubjacente != null)) {
+              atividadecorrente.nrerrosativanterior)
+          // &&
+          /*   (atividadecorrente.nrtentativa >= atividadecorrente.qtdetentativas) &&
+          (atividadesubjacente != null) */
+          ) {
         //pelo número de erros se faz necessário a realização da atividade subjacente
         //cria a atividade subjacente .
         aprovado = false;
         Avaliacao avaliacaoSubjacente = Avaliacao();
+        if (atividadesubjacente == null) {
+          //não tem atividade subjacente, mas como não foi aprovado vai refazr a própria atividade
+          avaliacaoSubjacente = avaliacaocorrente.clone();
+        }
         avaliacaoSubjacente.idQuestionario = atividadesubjacente.id;
         avaliacaoSubjacente.email = atividadecorrente.emailUsuario;
         avaliacaoSubjacente.idUsuario = atividadecorrente.idUsuario;
@@ -144,16 +151,22 @@ class QuestionarioManager extends ChangeNotifier {
         avaliacaoSubjacente.origem = atividadecorrente.titulo;
         avaliacaoSubjacente.titulo = atividadesubjacente.titulo;
         avaliacaoSubjacente.destino = atividadesubjacente.atividadeposterior;
-        avaliacaoSubjacente.dataexecucao = DateTime.now().toLocal();
+        await Future.delayed(const Duration(seconds: 1), () {
+          avaliacaoSubjacente.dataexecucao = DateTime.now().toLocal();
+        });
         avaliacaoSubjacente.nrtentativa = 1;
-        avaliacaoSubjacente.situacao = 'Aberta';
-        await avaliacaoSubjacente.save();
+
         //avaliacaocorrente.nrtentativa; //esta comprometido calcular esta informação, fazer um método para calcular quantas tentativas para este mesmo questionario e do mesmo usuario foram feitas
         avaliacaocorrente.situacao =
             'Refazer Subjacente'; //representa a situação final desta avaliacao
         await avaliacaocorrente.save();
+        avaliacaoSubjacente.situacao = 'Aberta';
+        await avaliacaoSubjacente.save();
       } else {
         //aprovado, habilitar a próxima atividade e pensar se deve encerrar as tentativas restantes
+        aprovado = true;
+        avaliacaocorrente.situacao = 'Aprovado';
+        await avaliacaocorrente.save();
         if (atividadeposterior != null) {
           Avaliacao avaliacaoPosterior = Avaliacao();
           avaliacaoPosterior.idQuestionario = atividadeposterior.id;
@@ -164,16 +177,16 @@ class QuestionarioManager extends ChangeNotifier {
           avaliacaoPosterior.nrerros = 0;
           avaliacaoPosterior.origem = atividadecorrente.titulo;
           avaliacaoPosterior.destino = atividadeposterior.atividadeposterior;
-          avaliacaoPosterior.dataexecucao = DateTime.now().toLocal();
+          await Future.delayed(const Duration(seconds: 1), () {
+            avaliacaoPosterior.dataexecucao = DateTime.now().toLocal();
+          });
           avaliacaoPosterior.nrtentativa = 1;
           avaliacaoPosterior.situacao = 'Aberta';
           await avaliacaoPosterior.save();
         }
-        aprovado = true;
-        avaliacaocorrente.situacao = 'Aprovado';
       }
     }
-    await avaliacaocorrente.save();
+    // await avaliacaocorrente.save();
     avaliacoesmanager.recarregar();
     return aprovado;
   }

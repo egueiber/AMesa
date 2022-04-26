@@ -50,7 +50,7 @@ class AlternativaWidgetExec extends StatelessWidget {
             ? ((questao.respondida)
                 ? (alternativa.respostaCorreta
                     ? Colors.green[100]
-                    : Colors.red[100])
+                    : Color.fromARGB(255, 233, 224, 225))
                 : Colors.yellow[100])
             : ((questao.respondida)
                 ? (alternativa.correta ? Colors.green[50] : Colors.white)
@@ -60,8 +60,10 @@ class AlternativaWidgetExec extends StatelessWidget {
         elevation: 10,
         shadowColor: selecionada
             ? ((questao.respondida)
-                ? (alternativa.respostaCorreta ? Colors.green : Colors.red[200])
-                : Colors.yellow[200])
+                ? (alternativa.respostaCorreta
+                    ? Color.fromRGBO(76, 175, 80, 1)
+                    : Colors.red[200])
+                : Color.fromRGBO(255, 245, 157, 1))
             : ((questao.respondida)
                 ? (alternativa.correta ? Colors.green[100] : Colors.white)
                 : Colors.grey[200]),
@@ -73,7 +75,21 @@ class AlternativaWidgetExec extends StatelessWidget {
             children: <Widget>[
               AspectRatio(
                 aspectRatio: 2,
-                child: Image.network(alternativa.images.first),
+                child: questao.respondida
+                    ? (alternativa.respostaCorreta
+                        ? Image.network(alternativa.images.first,
+                            color: Color.fromRGBO(188, 236, 190, 1),
+                            colorBlendMode: BlendMode.modulate)
+                        : Image.network(alternativa.images.first,
+                            color: Color.fromRGBO(227, 201, 199, 199),
+                            colorBlendMode: BlendMode.modulate))
+                    : selecionada
+                        ? Image.network(alternativa.images.first,
+                            color: Color.fromRGBO(255, 245, 157, 1),
+                            colorBlendMode: BlendMode.modulate)
+                        : Image.network(alternativa.images.first,
+                            color: Colors.white,
+                            colorBlendMode: BlendMode.modulate),
               ),
               const SizedBox(
                 width: 16,
@@ -88,6 +104,17 @@ class AlternativaWidgetExec extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w800,
+                        color: selecionada
+                            ? ((questao.respondida)
+                                ? (alternativa.respostaCorreta
+                                    ? Colors.black
+                                    : Color.fromARGB(227, 201, 199, 199))
+                                : Colors.black)
+                            : ((questao.respondida)
+                                ? (alternativa.correta
+                                    ? Colors.green[50]
+                                    : Color.fromARGB(227, 201, 199, 199))
+                                : Colors.black),
                       ),
                     ),
                   ],

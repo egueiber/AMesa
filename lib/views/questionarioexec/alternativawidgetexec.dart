@@ -74,23 +74,34 @@ class AlternativaWidgetExec extends StatelessWidget {
           child: Row(
             children: <Widget>[
               AspectRatio(
-                aspectRatio: 2,
-                child: questao.respondida
-                    ? (alternativa.respostaCorreta
-                        ? Image.network(alternativa.images.first,
-                            color: Color.fromRGBO(188, 236, 190, 1),
-                            colorBlendMode: BlendMode.modulate)
-                        : Image.network(alternativa.images.first,
-                            color: Color.fromRGBO(227, 201, 199, 199),
-                            colorBlendMode: BlendMode.modulate))
-                    : selecionada
-                        ? Image.network(alternativa.images.first,
-                            color: Color.fromRGBO(255, 245, 157, 1),
-                            colorBlendMode: BlendMode.modulate)
-                        : Image.network(alternativa.images.first,
-                            color: Colors.white,
-                            colorBlendMode: BlendMode.modulate),
-              ),
+                  aspectRatio: 2,
+                  child: selecionada
+                      ? ((questao.respondida)
+                          ? (alternativa.respostaCorreta
+                              ? Image.network(alternativa.images.first,
+                                  color: Color.fromRGBO(188, 236, 190, 1),
+                                  colorBlendMode: BlendMode.modulate)
+                              : Image.network(alternativa.images.first,
+                                  color: Color.fromARGB(255, 233, 224, 225),
+                                  colorBlendMode: BlendMode.modulate))
+                          : ((questao.respondida)
+                              ? (alternativa.correta
+                                  ? Image.network(alternativa.images.first,
+                                      color: Color.fromRGBO(188, 236, 190, 1),
+                                      colorBlendMode: BlendMode.modulate)
+                                  : Image.network(alternativa.images.first))
+                              : Image.network(alternativa.images.first,
+                                  color: Color.fromRGBO(255, 245, 157, 1),
+                                  colorBlendMode: BlendMode.modulate)))
+                      : ((questao.respondida)
+                          ? (alternativa.correta
+                              ? Image.network(alternativa.images.first,
+                                  color: Color.fromRGBO(188, 236, 190, 1),
+                                  colorBlendMode: BlendMode.modulate)
+                              : Image.network(alternativa.images.first,
+                                  color: Colors.white,
+                                  colorBlendMode: BlendMode.modulate))
+                          : Image.network(alternativa.images.first))),
               const SizedBox(
                 width: 16,
               ),
@@ -112,7 +123,7 @@ class AlternativaWidgetExec extends StatelessWidget {
                                 : Colors.black)
                             : ((questao.respondida)
                                 ? (alternativa.correta
-                                    ? Colors.green[50]
+                                    ? Colors.black
                                     : Color.fromARGB(227, 201, 199, 199))
                                 : Colors.black),
                       ),

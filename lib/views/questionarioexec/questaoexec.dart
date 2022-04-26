@@ -46,25 +46,25 @@ class QuestaoFormExec extends StatelessWidget {
 
                 if (questionario.questoes[corr].pontos > 0) {
                   msgponto = (questionario.questoes[corr].pontos == 1)
-                      ? ' ponto'
-                      : 'pontos';
-                  msgvoz = 'Você conquistou ' +
+                      ? ' acerto'
+                      : 'acertos';
+                  msgvoz = 'Você teve ' +
                       questionario.questoes[corr].pontos.toString() +
                       msgponto;
 
                   if (questionario.questoes[corr].pontosperdidos > 0) {
                     msgponto = (questionario.questoes[corr].pontosperdidos == 1)
-                        ? ' ponto'
-                        : 'pontos';
+                        ? ' erro'
+                        : 'erros';
                     msgvoz = msgvoz +
-                        ' mas perdeu ' +
+                        ' mas teve ' +
                         questionario.questoes[corr].pontosperdidos.toString() +
                         msgponto;
                   }
                   setStartHandler(msgvoz, 0.3);
                 } else
                   setStartHandler(
-                      'Você não conquistou pontos nesta questão, mas mesmo assim aprendeu!',
+                      'Você não teve acertos nesta questão, mas mesmo assim aprendeu!',
                       0.3);
               }
 
@@ -168,7 +168,7 @@ class QuestaoFormExec extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           vertical: 4, horizontal: 8),
                       child: Text(
-                        'Pontos: ' +
+                        'Acertos: ' +
                             questionario.questoes[corr].pontos.toString(),
                         style: TextStyle(
                             fontSize: 28,
@@ -181,7 +181,7 @@ class QuestaoFormExec extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           vertical: 4, horizontal: 8),
                       child: Text(
-                        'Pontos Perdidos: ' +
+                        'Erros: ' +
                             questionario.questoes[corr].pontosperdidos
                                 .toString(),
                         style: TextStyle(

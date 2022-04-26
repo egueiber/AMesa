@@ -1,3 +1,4 @@
+import 'package:amesaadm/models/questionarioturmamanager.dart';
 import 'package:flutter/material.dart';
 import 'package:amesaadm/models/questionario.dart';
 import 'package:amesaadm/models/questionariomanager.dart';
@@ -402,8 +403,8 @@ class EditQuestionarioScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    Consumer<Questionario>(
-                      builder: (_, questionario, __) {
+                    Consumer2<Questionario, QuestionarioTurmaManager>(
+                      builder: (_, questionario, questionarioturmamanager, __) {
                         return SizedBox(
                           height: 44,
                           child: ElevatedButton(
@@ -412,6 +413,8 @@ class EditQuestionarioScreen extends StatelessWidget {
                                     if (formKey.currentState.validate()) {
                                       formKey.currentState.save();
                                       await questionario.save();
+                                      await questionarioturmamanager
+                                          .recarregar();
                                       context
                                           .read<QuestionarioManager>()
                                           .update(questionario);

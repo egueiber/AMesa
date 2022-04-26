@@ -103,7 +103,7 @@ class QuestionarioTurmaManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  void recarregar() {
-    _loadQuestionarioTurma();
+  Future<void> recarregar() async {
+    await _loadQuestionarioTurma();
   }
 }

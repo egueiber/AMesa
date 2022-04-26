@@ -78,7 +78,7 @@ class AvaliacoesManager extends ChangeNotifier {
     }
   }
 
-  void recarregar() {
+  Future<void> recarregar() {
     _loadAllAvaliacoes();
   }
 

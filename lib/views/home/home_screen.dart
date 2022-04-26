@@ -1,5 +1,4 @@
 import 'package:amesaadm/helpers/msgtextovoz.dart';
-import 'package:amesaadm/models/avaliacoesmanager.dart';
 import 'package:amesaadm/models/questionarioturmamanager.dart';
 import 'package:amesaadm/views/questionarioexec/questionariolisttileexec.dart';
 import 'package:flutter/material.dart';

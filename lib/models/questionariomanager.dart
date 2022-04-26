@@ -1,5 +1,6 @@
 import 'package:amesaadm/models/avaliacao.dart';
 import 'package:amesaadm/models/avaliacoesmanager.dart';
+import 'package:amesaadm/models/questionarioturmamanager.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:amesaadm/models/questionario.dart';
@@ -61,8 +62,10 @@ class QuestionarioManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> aprovaVerificaDependencia(Questionario atividadecorrente,
-      AvaliacoesManager avaliacoesmanager) async {
+  Future<bool> aprovaVerificaDependencia(
+      Questionario atividadecorrente,
+      AvaliacoesManager avaliacoesmanager,
+      QuestionarioTurmaManager questionarioTurmaManager) async {
     num qtdetentativas = 0; //= avaliacoesmanager?.qtdeTentativas(
     // atividadecorrente.id, atividadecorrente.emailUsuario) ??      0;
     int nrpganhos = 0;
@@ -187,7 +190,8 @@ class QuestionarioManager extends ChangeNotifier {
       }
     }
     // await avaliacaocorrente.save();
-    avaliacoesmanager.recarregar();
+    await avaliacoesmanager.recarregar();
+    await questionarioTurmaManager.recarregar();
     return aprovado;
   }
 

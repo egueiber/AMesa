@@ -1,5 +1,6 @@
 import 'package:amesaadm/helpers/msgtextovoz.dart';
 import 'package:amesaadm/models/avaliacoesmanager.dart';
+import 'package:amesaadm/models/questionarioturmamanager.dart';
 import 'package:amesaadm/views/questionarioexec/alternativawidgetexec.dart';
 import 'package:flutter/material.dart';
 //import 'package:amesaadm/models/questao.dart';
@@ -28,8 +29,10 @@ class QuestaoFormExec extends StatelessWidget {
               actions: <Widget>[],
             ),
             backgroundColor: Colors.white,
-            body: Consumer2<Questionario, AvaliacoesManager>(
-                builder: (_, questionario, avaliacoesmanager, __) {
+            body: Consumer3<Questionario, AvaliacoesManager,
+                    QuestionarioTurmaManager>(
+                builder: (_, questionario, avaliacoesmanager,
+                    questionarioturmamanager, __) {
               final bool respondida = ((questionario
                       .questoes[questionario.questaocorrente].respondida) ||
                   (!questionario.ativo));
@@ -130,7 +133,10 @@ class QuestaoFormExec extends StatelessWidget {
                           questionario.updateQuestoes();
                           questionario.tentativas();
                           questionariomanager.aprovaVerificaDependencia(
-                              questionario, avaliacoesmanager);
+                              questionario,
+                              avaliacoesmanager,
+                              questionarioturmamanager);
+
                           Navigator.of(context).pushReplacementNamed(
                               '/base_screen',
                               arguments: questionario);

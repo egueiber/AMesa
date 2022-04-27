@@ -1,3 +1,4 @@
+import 'package:amesaadm/models/questionarioturmamanager.dart';
 import 'package:amesaadm/models/turmasalunos.dart';
 import 'package:amesaadm/views/questionario/componentes/questionarioatribuitile.dart';
 import 'package:carousel_pro/carousel_pro.dart';
@@ -123,14 +124,15 @@ class QuestionarioAtribuiScreen extends StatelessWidget {
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  Consumer<TurmasAlunos>(
-                    builder: (_, turmasalunos, __) {
+                  Consumer2<TurmasAlunos, QuestionarioTurmaManager>(
+                    builder: (_, turmasalunos, questionarioturmamanager, __) {
                       context.read<TurmasAlunos>();
                       // turmasalunos.filteredAlunosAtivoByTurma;
                       return Wrap(
                         children: turmasalunos.strTurma.map((at) {
                           context.read<TurmasAlunos>();
-                          return QuestionarioAtribuiTile(at, questionario);
+                          return QuestionarioAtribuiTile(
+                              at, questionario, questionarioturmamanager);
                         }).toList(),
                       );
                     },

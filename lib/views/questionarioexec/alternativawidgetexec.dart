@@ -99,7 +99,7 @@ class AlternativaWidgetExec extends StatelessWidget {
                                   color: Color.fromRGBO(188, 236, 190, 1),
                                   colorBlendMode: BlendMode.modulate)
                               : Image.network(alternativa.images.first,
-                                  color: Colors.white,
+                                  color: Color.fromRGBO(238, 238, 238, 0.425),
                                   colorBlendMode: BlendMode.modulate))
                           : Image.network(alternativa.images.first))),
               const SizedBox(

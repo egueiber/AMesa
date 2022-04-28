@@ -49,11 +49,13 @@ class AlternativaWidgetExec extends StatelessWidget {
         color: selecionada
             ? ((questao.respondida)
                 ? (alternativa.respostaCorreta
-                    ? Colors.green[100]
+                    ? Color.fromRGBO(200, 230, 201, 1)
                     : Color.fromARGB(255, 233, 224, 225))
-                : Colors.yellow[100])
+                : Color.fromRGBO(255, 245, 157, 1))
             : ((questao.respondida)
-                ? (alternativa.correta ? Colors.green[50] : Colors.white)
+                ? (alternativa.correta
+                    ? Color.fromRGBO(123, 218, 126, 1)
+                    : Colors.white)
                 : Colors.white),
         clipBehavior: Clip.none,
         borderOnForeground: false,
@@ -61,7 +63,7 @@ class AlternativaWidgetExec extends StatelessWidget {
         shadowColor: selecionada
             ? ((questao.respondida)
                 ? (alternativa.respostaCorreta
-                    ? Color.fromRGBO(76, 175, 80, 1)
+                    ? Color.fromRGBO(200, 230, 201, 1)
                     : Colors.red[200])
                 : Color.fromRGBO(255, 245, 157, 1))
             : ((questao.respondida)
@@ -79,10 +81,10 @@ class AlternativaWidgetExec extends StatelessWidget {
                       ? ((questao.respondida)
                           ? (alternativa.respostaCorreta
                               ? Image.network(alternativa.images.first,
-                                  color: Color.fromRGBO(188, 236, 190, 1),
+                                  color: Color.fromRGBO(200, 230, 201, 1),
                                   colorBlendMode: BlendMode.modulate)
                               : Image.network(alternativa.images.first,
-                                  color: Color.fromARGB(255, 233, 224, 225),
+                                  color: Color.fromRGBO(233, 224, 225, 0.116),
                                   colorBlendMode: BlendMode.modulate))
                           : ((questao.respondida)
                               ? (alternativa.correta

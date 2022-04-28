@@ -125,10 +125,12 @@ class QuestionarioManager extends ChangeNotifier {
           .save(); //salva a avaliacao corrente com a pontuacao estabelecida.
       //refazer: atribui mais uma tentativa para o aluno refazer a atividade
       Avaliacao novaAvaliacao = avaliacaocorrente.clone();
-      novaAvaliacao.id =
-          null; //será gravada como uma nova avaliação pendente para o aluno.
-      novaAvaliacao.nracertos = atividadecorrente.totalpontosganhos;
-      novaAvaliacao.nrerros = atividadecorrente.totalpontosperdidos;
+      novaAvaliacao.id = null;
+      await Future.delayed(const Duration(seconds: 1), () {
+        novaAvaliacao.dataexecucao = DateTime.now().toLocal();
+      }); //será gravada como uma nova avaliação pendente para o aluno.
+      novaAvaliacao.nracertos = 0;
+      novaAvaliacao.nrerros = 0;
       novaAvaliacao.situacao = 'Aberta';
       await novaAvaliacao.save();
     } else {

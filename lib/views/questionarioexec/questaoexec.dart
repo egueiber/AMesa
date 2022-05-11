@@ -64,7 +64,7 @@ class QuestaoFormExec extends StatelessWidget {
                   setStartHandler(msgvoz, 0.3);
                 } else
                   setStartHandler(
-                      'Você não teve acertos nesta questão, mas mesmo assim aprendeu!',
+                      'Você não teve acertos nesta questão, mas aprendeu!',
                       0.3);
               }
 
@@ -136,10 +136,12 @@ class QuestaoFormExec extends StatelessWidget {
                               questionario,
                               avaliacoesmanager,
                               questionarioturmamanager);
+                          Future.delayed(const Duration(seconds: 1), () {
+                            Navigator.of(context).pushReplacementNamed(
+                                '/base_screen',
+                                arguments: questionario);
+                          });
 
-                          Navigator.of(context).pushReplacementNamed(
-                              '/base_screen',
-                              arguments: questionario);
                           //Navigator.of(context).pop();
                         } else if (msgbt == 'Continuar') {
                           if (questionario.questaocorrente + 1 <

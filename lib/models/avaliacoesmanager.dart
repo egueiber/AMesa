@@ -1,8 +1,10 @@
+import 'package:amesaadm/models/avaliacaoresult.dart';
 import 'package:amesaadm/models/questionario.dart';
 import 'package:amesaadm/models/questionariomanager.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:amesaadm/models/avaliacao.dart';
+import 'package:intl/intl.dart';
 
 class AvaliacoesManager extends ChangeNotifier {
   AvaliacoesManager() {
@@ -10,9 +12,10 @@ class AvaliacoesManager extends ChangeNotifier {
   }
 
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-
+  List<AvaliacaoResult> allAvaliacoesResult = [];
   List<Avaliacao> allAvaliacoes = [];
   List<Avaliacao> avaliacoesAlunoCorrente = [];
+  List<String> acertosAlunoAtividadePeriodo = [];
   Avaliacao ultimaAvaliacaoAluno;
   String _search = '';
 
@@ -84,6 +87,7 @@ class AvaliacoesManager extends ChangeNotifier {
 
   List<Avaliacao> getAvaliacoesAlunoCorrente(String email) {
     avaliacoesAlunoCorrente = [];
+    allAvaliacoesResult = [];
     allAvaliacoes.forEach((av) {
       if (av.email == email) {
         avaliacoesAlunoCorrente.add(av);
@@ -155,5 +159,120 @@ class AvaliacoesManager extends ChangeNotifier {
     allAvaliacoes.removeWhere((p) => p.id == avaliacao.id);
     allAvaliacoes.add(avaliacao);
     notifyListeners();
+  }
+
+  void totalizaAlunoAtividadePeriodo(String titulo, int nrtentativas,
+      nralternativasapresentadas, totalacertos, totalerros, nrsubjacentes) {
+    acertosAlunoAtividadePeriodo.add('Questionario: ' + titulo);
+    acertosAlunoAtividadePeriodo
+        .add('Total Tentativas:' + nrtentativas.toString());
+    /*  acertosAlunoAtividadePeriodo.add('Total alternativas presentes:' +
+        nralternativasapresentadas.toString()); */
+    if (nrtentativas > 0) {
+      num mediaacertos = 0;
+      num mediaerros = 0;
+      mediaacertos = (totalacertos / nrtentativas);
+      mediaerros = (totalerros / nrtentativas);
+      acertosAlunoAtividadePeriodo.add('Média de Acertos: ' +
+          mediaacertos.toString() +
+          ' e Erros: ' +
+          mediaerros.toString());
+      acertosAlunoAtividadePeriodo.add('Total Acertos: ' +
+          totalacertos.toString() +
+          ' e Erros: ' +
+          totalerros.toString());
+      /*  acertosAlunoAtividadePeriodo.add('Melhor resultado: ' +
+          melhorresultado.toString() +
+          ', na tentativa de nr.: ' +
+          nrtentmelhorresult.toString());
+      acertosAlunoAtividadePeriodo.add('Pior resultado: ' +
+          piorresultado.toString() +
+          ', na tentativa de nr.: ' +
+          nrtentpiorresult.toString()); */
+      if (nrsubjacentes > 0) {
+        acertosAlunoAtividadePeriodo.add(
+            'Executou a atividade subjacente por: ' +
+                nrsubjacentes.toString() +
+                ' vez(es)');
+      } else {
+        acertosAlunoAtividadePeriodo
+            .add('Não executou atividade subjacente a esta');
+      }
+    }
+    acertosAlunoAtividadePeriodo.add(
+        '-----------------------------------------------------------------------------------------');
+  }
+
+  List<String> getAcertosAlunoAtividadePeriodo(
+      String nome, email, DateTime datai, DateTime dataf) {
+    print(DateFormat.yMMMd().format(DateTime.now()));
+    acertosAlunoAtividadePeriodo = [];
+    avaliacoesAlunoCorrente.clear();
+    acertosAlunoAtividadePeriodo.clear();
+    allAvaliacoes.forEach((av) {
+      if ((av.email == email) && (av.situacao != 'Aberta')) {
+        //inserir o filtro de datai e dataf
+        avaliacoesAlunoCorrente.add(av);
+      }
+    });
+    if (avaliacoesAlunoCorrente.isNotEmpty) {
+      acertosAlunoAtividadePeriodo.add('Avaliações do aluno: ' + nome);
+      acertosAlunoAtividadePeriodo.add('e-mail: ' + email);
+
+      acertosAlunoAtividadePeriodo.add(
+          'Data emissão: ' + DateFormat('dd/MM/yyyy').format(DateTime.now()));
+      acertosAlunoAtividadePeriodo.add(
+          '-----------------------------------------------------------------------------------------');
+
+      /*Q1: Qual a quantidade de acertos de cada aluno por atividade?
+        A média nas execuções, a maior e a menor
+        ex: 1. Conhecer Kaki, kiwi e mamão
+            Média: 2 acertos, Maior 2 acertos e menor 0	acertos
+            */
+      avaliacoesAlunoCorrente.sort((a, b) => a.titulo.compareTo(b.titulo));
+      String idquestcorr = avaliacoesAlunoCorrente.first.idQuestionario;
+      int totalacertos = 0;
+      int melhorresultado = 0;
+      // int nrtentmelhorresult = 0;
+      // int nrtentpiorresult = 0;
+      int piorresultado = 0;
+      int totalerros = 0;
+      int nrtentativas = 0;
+      int nrsubjacentes = 0;
+      String titulo = '';
+      int nralternativasapresentadas = avaliacoesAlunoCorrente.first.nracertos +
+          avaliacoesAlunoCorrente.first.nrerros;
+
+      avaliacoesAlunoCorrente.forEach((ava) {
+        if (idquestcorr !=
+            ava.idQuestionario) //mudou o questinario efetua as totalizações
+        {
+          totalizaAlunoAtividadePeriodo(
+              titulo,
+              nrtentativas,
+              nralternativasapresentadas,
+              totalacertos,
+              totalerros,
+              nrsubjacentes);
+          idquestcorr = ava.idQuestionario;
+          totalacertos = 0;
+          melhorresultado = 0;
+          piorresultado = 0;
+          totalerros = 0;
+          nrtentativas = 0;
+          nralternativasapresentadas = ava.nracertos + ava.nrerros;
+        }
+        if (ava.situacao == 'Refazer Subjacente') {
+          nrsubjacentes++;
+        }
+        titulo = ava.titulo;
+        totalacertos = totalacertos + ava.nracertos;
+        totalerros = totalerros + ava.nrerros;
+        nrtentativas++;
+      });
+      totalizaAlunoAtividadePeriodo(titulo, nrtentativas,
+          nralternativasapresentadas, totalacertos, totalerros, nrsubjacentes);
+    }
+    return acertosAlunoAtividadePeriodo;
   }
 }

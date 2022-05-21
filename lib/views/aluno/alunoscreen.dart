@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:amesaadm/models/aluno.dart';
 import 'package:amesaadm/models/user_manager.dart';
 import 'package:provider/provider.dart';
+import 'package:amesaadm/models/avaliacoesmanager.dart';
 //import 'edit/componentes/questaowidget.dart';
 
 class AlunoScreen extends StatelessWidget {
@@ -27,6 +28,22 @@ class AlunoScreen extends StatelessWidget {
                     icon: Icon(Icons.edit),
                     onPressed: () {
                       Navigator.of(context).pushReplacementNamed('/edit_aluno',
+                          arguments: aluno);
+                    },
+                  );
+                } else {
+                  return Container();
+                }
+              },
+            ),
+            Consumer2<UserManager, AvaliacoesManager>(
+              builder: (_, userManager, avaliacoesManager, __) {
+                if (userManager.adminEnabled) {
+                  return IconButton(
+                    icon: Icon(Icons.info),
+                    onPressed: () {
+                      Navigator.of(context).pushReplacementNamed(
+                          '/alunoavaliacao',
                           arguments: aluno);
                     },
                   );

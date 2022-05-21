@@ -81,7 +81,7 @@ class AlunosScreen extends StatelessWidget {
                 return Container();
               }
             },
-          )
+          ),
         ],
       ),
       body: Consumer<AlunoManager>(

@@ -3,10 +3,10 @@ import 'package:amesaadm/models/aluno.dart';
 import 'package:amesaadm/models/user_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:amesaadm/models/avaliacoesmanager.dart';
-//import 'edit/componentes/questaowidget.dart';
+import 'package:intl/intl.dart';
 
-class AlunoAvaliacaoScreen extends StatelessWidget {
-  const AlunoAvaliacaoScreen(this.aluno);
+class AlunoAvaliacaoPercursoScreen extends StatelessWidget {
+  const AlunoAvaliacaoPercursoScreen(this.aluno);
 
   final Aluno aluno;
 
@@ -18,7 +18,7 @@ class AlunoAvaliacaoScreen extends StatelessWidget {
       value: aluno,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Avaliação: ' + aluno.nome),
+          title: Text('Percurso: ' + aluno.nome),
           centerTitle: true,
           actions: <Widget>[
             Consumer2<UserManager, AvaliacoesManager>(
@@ -41,7 +41,7 @@ class AlunoAvaliacaoScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         body: Consumer<AvaliacoesManager>(builder: (_, avaliacaoManager, __) {
           final avaliacoesAluno =
-              avaliacaoManager.getAcertosAlunoAtividadePeriodo(
+              avaliacaoManager.getAcertosAlunoAtividadePeriodoTrilha(
                   aluno.nome, aluno.email, DateTime.now(), DateTime.now());
           return ListView.builder(
               padding: const EdgeInsets.all(4),
@@ -60,14 +60,16 @@ class AlunoAvaliacaoScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               verticalDirection: VerticalDirection.up,
                               children: <Widget>[
-                            Text(avaliacoesAluno[index].atividadesubjacente ??
+                            Text('Acertos: ' +
+                                    avaliacoesAluno[index].totalAcertos ??
                                 ' '),
-                            Text(avaliacoesAluno[index].mediaAcertos ?? ' '),
-                            Text(avaliacoesAluno[index].mediaErros ?? ' '),
-                            Text(avaliacoesAluno[index].totalAcertos ?? ' '),
-                            Text(avaliacoesAluno[index].totalErros ?? ' '),
                             Text(
-                                avaliacoesAluno[index].numerotentativas ?? ' '),
+                                'Erros: ' + avaliacoesAluno[index].totalErros ??
+                                    ' '),
+                            Text('Data Execução: ' +
+                                    DateFormat('dd/MM/yyyy HH:mm:ss').format(
+                                        avaliacoesAluno[index].dataExecucao) ??
+                                ' '),
                             Text(avaliacoesAluno[index].titulo ?? ' '),
                           ]))
                     ]));

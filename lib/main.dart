@@ -33,6 +33,7 @@ import 'package:amesaadm/models/questionariomanager.dart';
 import 'package:amesaadm/models/home_manager.dart';
 import 'package:amesaadm/models/admin_users_manager.dart';
 import 'package:amesaadm/views/questionario/edit/editquestionario.dart';
+import 'package:amesaadm/views/avaliacao/avaliacaoalunopercurso.dart';
 //import 'package:amesaadm/views/select_product/select_product_screen.dart';
 import 'package:amesaadm/views/questionario/questionarioscreen.dart';
 
@@ -174,6 +175,11 @@ class MyApp extends StatelessWidget {
                   return MaterialPageRoute(
                       builder: (_) =>
                           AlunoAvaliacaoScreen(settings.arguments as Aluno));
+                case '/alunoavaliacaopercurso':
+                  return MaterialPageRoute(
+                      builder: (_) => AlunoAvaliacaoPercursoScreen(
+                          settings.arguments as Aluno));
+
                 default:
                   return (MaterialPageRoute(builder: (_) => BaseScreen()));
               }

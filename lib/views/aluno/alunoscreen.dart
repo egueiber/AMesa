@@ -51,6 +51,22 @@ class AlunoScreen extends StatelessWidget {
                   return Container();
                 }
               },
+            ),
+            Consumer2<UserManager, AvaliacoesManager>(
+              builder: (_, userManager, avaliacoesManager, __) {
+                if (userManager.adminEnabled) {
+                  return IconButton(
+                    icon: Icon(Icons.event_available),
+                    onPressed: () {
+                      Navigator.of(context).pushReplacementNamed(
+                          '/alunoavaliacaopercurso',
+                          arguments: aluno);
+                    },
+                  );
+                } else {
+                  return Container();
+                }
+              },
             )
           ],
         ),

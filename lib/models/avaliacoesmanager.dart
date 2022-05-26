@@ -15,7 +15,7 @@ class AvaliacoesManager extends ChangeNotifier {
   List<AvaliacaoResult> allAvaliacoesResult = [];
   List<Avaliacao> allAvaliacoes = [];
   List<Avaliacao> avaliacoesAlunoCorrente = [];
-  List<String> acertosAlunoAtividadePeriodo = [];
+  //List<String> acertosAlunoAtividadePeriodo = [];
   Avaliacao ultimaAvaliacaoAluno;
   String _search = '';
 
@@ -161,54 +161,46 @@ class AvaliacoesManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  void totalizaAlunoAtividadePeriodo(String titulo, int nrtentativas,
-      nralternativasapresentadas, totalacertos, totalerros, nrsubjacentes) {
-    acertosAlunoAtividadePeriodo.add('Questionario: ' + titulo);
-    acertosAlunoAtividadePeriodo
-        .add('Total Tentativas:' + nrtentativas.toString());
-    /*  acertosAlunoAtividadePeriodo.add('Total alternativas presentes:' +
-        nralternativasapresentadas.toString()); */
+  void totalizaAlunoAtividadePeriodo(
+      String titulo,
+      int nrtentativas,
+      nralternativasapresentadas,
+      totalacertos,
+      totalerros,
+      nrsubjacentes,
+      AvaliacaoResult avaliacaoResult) {
+    avaliacaoResult.titulo = titulo;
+    avaliacaoResult.numerotentativas =
+        'Nr. Tentativas: ' + nrtentativas.toString();
     if (nrtentativas > 0) {
       num mediaacertos = 0;
       num mediaerros = 0;
       mediaacertos = (totalacertos / nrtentativas);
       mediaerros = (totalerros / nrtentativas);
-      acertosAlunoAtividadePeriodo.add('Média de Acertos: ' +
-          mediaacertos.toString() +
-          ' e Erros: ' +
-          mediaerros.toString());
-      acertosAlunoAtividadePeriodo.add('Total Acertos: ' +
-          totalacertos.toString() +
-          ' e Erros: ' +
-          totalerros.toString());
-      /*  acertosAlunoAtividadePeriodo.add('Melhor resultado: ' +
-          melhorresultado.toString() +
-          ', na tentativa de nr.: ' +
-          nrtentmelhorresult.toString());
-      acertosAlunoAtividadePeriodo.add('Pior resultado: ' +
-          piorresultado.toString() +
-          ', na tentativa de nr.: ' +
-          nrtentpiorresult.toString()); */
+      avaliacaoResult.mediaAcertos =
+          'Média de Acertos: ' + mediaacertos.toString();
+      avaliacaoResult.mediaErros = 'Média de Erros: ' + mediaerros.toString();
+      avaliacaoResult.totalAcertos =
+          'Total Acertos: ' + totalacertos.toString();
+      avaliacaoResult.totalErros = 'Total de Erros: ' + totalerros.toString();
       if (nrsubjacentes > 0) {
-        acertosAlunoAtividadePeriodo.add(
+        avaliacaoResult.atividadesubjacente =
             'Executou a atividade subjacente por: ' +
                 nrsubjacentes.toString() +
-                ' vez(es)');
+                ' vez(es)!';
       } else {
-        acertosAlunoAtividadePeriodo
-            .add('Não executou atividade subjacente a esta');
+        avaliacaoResult.atividadesubjacente =
+            'Não executou atividade subjacente a esta atividade!';
       }
     }
-    acertosAlunoAtividadePeriodo.add(
-        '-----------------------------------------------------------------------------------------');
   }
 
-  List<String> getAcertosAlunoAtividadePeriodo(
+  List<AvaliacaoResult> getAcertosAlunoAtividadePeriodoTrilha(
       String nome, email, DateTime datai, DateTime dataf) {
-    print(DateFormat.yMMMd().format(DateTime.now()));
-    acertosAlunoAtividadePeriodo = [];
+    int i = 0;
     avaliacoesAlunoCorrente.clear();
-    acertosAlunoAtividadePeriodo.clear();
+    allAvaliacoesResult.clear();
+    //  allAvaliacoesResult.add(new AvaliacaoResult());
     allAvaliacoes.forEach((av) {
       if ((av.email == email) && (av.situacao != 'Aberta')) {
         //inserir o filtro de datai e dataf
@@ -216,13 +208,49 @@ class AvaliacoesManager extends ChangeNotifier {
       }
     });
     if (avaliacoesAlunoCorrente.isNotEmpty) {
-      acertosAlunoAtividadePeriodo.add('Avaliações do aluno: ' + nome);
-      acertosAlunoAtividadePeriodo.add('e-mail: ' + email);
+      avaliacoesAlunoCorrente
+          .sort((a, b) => a.dataexecucao.compareTo(b.dataexecucao));
+      int totalacertos = 0;
+      int totalerros = 0;
+      avaliacoesAlunoCorrente.forEach((ava) {
+        allAvaliacoesResult.add(new AvaliacaoResult());
+        allAvaliacoesResult[i].email = ava.titulo;
+        allAvaliacoesResult[i].aluno = 'Avaliação do aluno: ' + nome;
+        allAvaliacoesResult[i].email = email;
+        allAvaliacoesResult[i].periodo =
+            'Data emissão: ' + DateFormat('dd/MM/yyyy').format(DateTime.now());
+        allAvaliacoesResult[i].dataExecucao = ava.dataexecucao;
+        allAvaliacoesResult[i].titulo = ava.titulo;
+        allAvaliacoesResult[i].situacao = ava.situacao;
+        allAvaliacoesResult[i].totalAcertos = ava.nracertos.toString();
+        allAvaliacoesResult[i].totalErros = ava.nrerros.toString();
 
-      acertosAlunoAtividadePeriodo.add(
-          'Data emissão: ' + DateFormat('dd/MM/yyyy').format(DateTime.now()));
-      acertosAlunoAtividadePeriodo.add(
-          '-----------------------------------------------------------------------------------------');
+        i++;
+        totalacertos = totalacertos + ava.nracertos;
+        totalerros = totalerros + ava.nrerros;
+      });
+    }
+    return allAvaliacoesResult;
+  }
+
+  List<AvaliacaoResult> getAcertosAlunoAtividadePeriodo(
+      String nome, email, DateTime datai, DateTime dataf) {
+    int i = 0;
+
+    avaliacoesAlunoCorrente.clear();
+    allAvaliacoesResult.clear();
+    allAvaliacoesResult.add(new AvaliacaoResult());
+    allAvaliacoes.forEach((av) {
+      if ((av.email == email) && (av.situacao != 'Aberta')) {
+        //inserir o filtro de datai e dataf
+        avaliacoesAlunoCorrente.add(av);
+      }
+    });
+    if (avaliacoesAlunoCorrente.isNotEmpty) {
+      allAvaliacoesResult[i].aluno = 'Avaliações do aluno: ' + nome;
+      allAvaliacoesResult[i].email = email;
+      allAvaliacoesResult[i].periodo =
+          'Data emissão: ' + DateFormat('dd/MM/yyyy').format(DateTime.now());
 
       /*Q1: Qual a quantidade de acertos de cada aluno por atividade?
         A média nas execuções, a maior e a menor
@@ -253,7 +281,8 @@ class AvaliacoesManager extends ChangeNotifier {
               nralternativasapresentadas,
               totalacertos,
               totalerros,
-              nrsubjacentes);
+              nrsubjacentes,
+              allAvaliacoesResult[i]);
           idquestcorr = ava.idQuestionario;
           totalacertos = 0;
           melhorresultado = 0;
@@ -261,6 +290,8 @@ class AvaliacoesManager extends ChangeNotifier {
           totalerros = 0;
           nrtentativas = 0;
           nralternativasapresentadas = ava.nracertos + ava.nrerros;
+          i++;
+          allAvaliacoesResult.add(new AvaliacaoResult());
         }
         if (ava.situacao == 'Refazer Subjacente') {
           nrsubjacentes++;
@@ -270,9 +301,15 @@ class AvaliacoesManager extends ChangeNotifier {
         totalerros = totalerros + ava.nrerros;
         nrtentativas++;
       });
-      totalizaAlunoAtividadePeriodo(titulo, nrtentativas,
-          nralternativasapresentadas, totalacertos, totalerros, nrsubjacentes);
+      totalizaAlunoAtividadePeriodo(
+          titulo,
+          nrtentativas,
+          nralternativasapresentadas,
+          totalacertos,
+          totalerros,
+          nrsubjacentes,
+          allAvaliacoesResult[i]);
     }
-    return acertosAlunoAtividadePeriodo;
+    return allAvaliacoesResult;
   }
 }

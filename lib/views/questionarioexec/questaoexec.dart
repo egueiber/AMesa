@@ -8,12 +8,14 @@ import 'package:amesaadm/models/questionario.dart';
 import 'package:amesaadm/models/questionariomanager.dart';
 import 'package:provider/provider.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class QuestaoFormExec extends StatelessWidget {
   QuestaoFormExec(this.questionario);
   final Questionario questionario;
   final QuestionarioManager questionariomanager = QuestionarioManager();
   final ScrollController controller = ScrollController();
+  final AudioCache audioCache = AudioCache();
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,7 @@ class QuestaoFormExec extends StatelessWidget {
                   msgponto = (questionario.questoes[corr].pontos == 1)
                       ? ' acerto'
                       : 'acertos';
-                  msgvoz = 'Você teve ' +
+                  msgvoz = 'Parabéns! Você teve ' +
                       questionario.questoes[corr].pontos.toString() +
                       msgponto;
 
@@ -62,6 +64,8 @@ class QuestaoFormExec extends StatelessWidget {
                         msgponto;
                   }
                   setStartHandler(msgvoz, 0.3);
+
+                  audioCache.play("aplausos.mp3");
                 } else
                   setStartHandler(
                       'Você não teve acertos nesta questão, mas aprendeu!',
@@ -78,13 +82,29 @@ class QuestaoFormExec extends StatelessWidget {
                           //color: color,
                           padding: const EdgeInsets.symmetric(
                               vertical: 4, horizontal: 8),
-                          child: Text(
-                            questionario.questoes[questionario.questaocorrente]
-                                .descricao,
-                            style: TextStyle(
-                                fontSize: 28, fontWeight: FontWeight.w600),
-                          ),
-                        )
+                          child: TextButton.icon(
+                              style: TextButton.styleFrom(
+                                  padding: const EdgeInsets.all(16.0),
+                                  primary: Colors.black,
+                                  textStyle: const TextStyle(fontSize: 20),
+                                  backgroundColor: Colors.white70,
+                                  elevation: 5,
+                                  shadowColor: Colors.yellow),
+                              label: Text(
+                                questionario
+                                    .questoes[questionario.questaocorrente]
+                                    .descricao,
+                                style: TextStyle(
+                                    fontSize: 28, fontWeight: FontWeight.w600),
+                              ),
+                              onPressed: () {
+                                setStartHandler(
+                                    questionario
+                                        .questoes[questionario.questaocorrente]
+                                        .descricao,
+                                    0.3);
+                              },
+                              icon: const Icon(Icons.surround_sound_sharp)))
                       : Container(
                           height: 180,
                           padding: const EdgeInsets.only(top: 8, bottom: 2),

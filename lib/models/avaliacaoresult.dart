@@ -26,16 +26,39 @@ class AvaliacaoResult extends ChangeNotifier {
     atividadesubjacente = atividadesubjacente;
   }
 
-  String titulo;
-  String situacao;
-  String aluno;
-  String email;
-  String periodo;
-  String numerotentativas;
-  String mediaAcertos;
-  String mediaErros;
-  String totalAcertos;
-  String totalErros;
-  String atividadesubjacente;
+  String titulo = 'Titulo';
+  String situacao = 'Situação';
+  String aluno = 'Aluno';
+  String email = 'email';
+  String periodo = 'Periodo';
+  String numerotentativas = 'Tentativas';
+  String mediaAcertos = 'Media Acertos';
+  String mediaErros = 'Media Erros';
+  String totalAcertos = 'Acertos';
+  String totalErros = 'Erros';
+  String atividadesubjacente = 'Atividade Subjacente';
+  String dataexecucaoStr = 'Execução';
   DateTime dataExecucao;
+  List<String> getFields() => [
+        dataexecucaoStr,
+        titulo,
+        situacao,
+        aluno,
+        email,
+        periodo,
+        totalAcertos,
+        totalErros
+      ];
+  Map<String, dynamic> toMap() {
+    return {
+      'dataexecucaoStr': dataexecucaoStr,
+      'titulo': titulo,
+      'situacao': situacao,
+      'aluno': aluno,
+      'email': email,
+      'periodo': periodo,
+      'totalAcertos': totalAcertos,
+      'totalErros': totalErros
+    };
+  }
 }

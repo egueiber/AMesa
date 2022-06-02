@@ -22,8 +22,9 @@ class AvaliacaoResult extends ChangeNotifier {
     mediaErros = mediaErros ?? '';
     totalErros = totalErros ?? '';
     situacao = situacao ?? '';
-    dataExecucao = dataExecucao ?? DateTime.now();
+    dataExecucao = dataExecucao ?? DateTime.now().toString();
     atividadesubjacente = atividadesubjacente;
+    idAvaliacao = idAvaliacao ?? '';
   }
 
   String titulo = 'Titulo';
@@ -38,27 +39,33 @@ class AvaliacaoResult extends ChangeNotifier {
   String totalErros = 'Erros';
   String atividadesubjacente = 'Atividade Subjacente';
   String dataexecucaoStr = 'Execução';
-  DateTime dataExecucao;
+  String dataExecucao = DateTime.now().toString();
+  String idAvaliacao = ' ';
   List<String> getFields() => [
-        dataexecucaoStr,
-        titulo,
-        situacao,
-        aluno,
-        email,
-        periodo,
-        totalAcertos,
-        totalErros
+        'dataexecucaoStr',
+        'dataExecucao',
+        'titulo',
+        'situacao',
+        'aluno',
+        'email',
+        'periodo',
+        'mediaAcertos',
+        'mediaErros',
+        'totalAcertos',
+        'totalErros',
+        'idAvaliacao'
       ];
   Map<String, dynamic> toMap() {
     return {
-      'dataexecucaoStr': dataexecucaoStr,
+      'dataexecucaoStr': dataExecucao,
       'titulo': titulo,
       'situacao': situacao,
       'aluno': aluno,
       'email': email,
       'periodo': periodo,
       'totalAcertos': totalAcertos,
-      'totalErros': totalErros
+      'totalErros': totalErros,
+      'idAvaliacao': idAvaliacao
     };
   }
 }

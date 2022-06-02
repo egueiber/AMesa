@@ -12,6 +12,7 @@ class AvaliacoesManager extends ChangeNotifier {
   }
 
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  List<AvaliacaoResult> allAlunoAvaliacoesResult = [];
   List<AvaliacaoResult> allAvaliacoesResult = [];
   List<Avaliacao> allAvaliacoes = [];
   List<Avaliacao> avaliacoesAlunoCorrente = [];
@@ -87,7 +88,7 @@ class AvaliacoesManager extends ChangeNotifier {
 
   List<Avaliacao> getAvaliacoesAlunoCorrente(String email) {
     avaliacoesAlunoCorrente = [];
-    allAvaliacoesResult = [];
+    allAlunoAvaliacoesResult = [];
     allAvaliacoes.forEach((av) {
       if (av.email == email) {
         avaliacoesAlunoCorrente.add(av);
@@ -195,12 +196,41 @@ class AvaliacoesManager extends ChangeNotifier {
     }
   }
 
+  List<AvaliacaoResult> getAllAtividadePeriodoTrilha(List alunos) {
+    //avaliacoesAlunoCorrente.clear();
+    allAvaliacoesResult.clear();
+    if ((allAvaliacoes.isEmpty) || (alunos.isEmpty)) {
+      return [];
+    }
+    allAvaliacoes.sort((a, b) => a.email.compareTo(b.email));
+    alunos.sort((a, b) => a.nome.compareTo(b.nome));
+    String email = allAvaliacoes.first.email;
+    //  allAlunoAvaliacoesResult.add(new AvaliacaoResult());
+    List<AvaliacaoResult> lAluno = getAcertosAlunoAtividadePeriodoTrilha(
+        alunos.first.nome, alunos.first.email, DateTime.now(), DateTime.now());
+    if (lAluno.isNotEmpty) {
+      allAvaliacoesResult.addAll(lAluno);
+    }
+    alunos.forEach((av) {
+      if ((av.email != email)) {
+        email = av.email;
+        //inserir o filtro de datai e dataf
+        lAluno = getAcertosAlunoAtividadePeriodoTrilha(
+            av.nome, av.email, DateTime.now(), DateTime.now());
+        if (lAluno.isNotEmpty) {
+          allAvaliacoesResult.addAll(lAluno);
+        }
+      }
+    });
+    return allAvaliacoesResult;
+  }
+
   List<AvaliacaoResult> getAcertosAlunoAtividadePeriodoTrilha(
       String nome, email, DateTime datai, DateTime dataf) {
     int i = 0;
     avaliacoesAlunoCorrente.clear();
-    allAvaliacoesResult.clear();
-    //  allAvaliacoesResult.add(new AvaliacaoResult());
+    allAlunoAvaliacoesResult.clear();
+    //  allAlunoAvaliacoesResult.add(new AvaliacaoResult());
     allAvaliacoes.forEach((av) {
       if ((av.email == email) && (av.situacao != 'Aberta')) {
         //inserir o filtro de datai e dataf
@@ -213,24 +243,25 @@ class AvaliacoesManager extends ChangeNotifier {
       int totalacertos = 0;
       int totalerros = 0;
       avaliacoesAlunoCorrente.forEach((ava) {
-        allAvaliacoesResult.add(new AvaliacaoResult());
-        allAvaliacoesResult[i].email = ava.titulo;
-        allAvaliacoesResult[i].aluno = 'Avaliação do aluno: ' + nome;
-        allAvaliacoesResult[i].email = email;
-        allAvaliacoesResult[i].periodo =
-            'Data emissão: ' + DateFormat('dd/MM/yyyy').format(DateTime.now());
-        allAvaliacoesResult[i].dataExecucao = ava.dataexecucao;
-        allAvaliacoesResult[i].titulo = ava.titulo;
-        allAvaliacoesResult[i].situacao = ava.situacao;
-        allAvaliacoesResult[i].totalAcertos = ava.nracertos.toString();
-        allAvaliacoesResult[i].totalErros = ava.nrerros.toString();
+        allAlunoAvaliacoesResult.add(new AvaliacaoResult());
+        allAlunoAvaliacoesResult[i].email = ava.titulo;
+        allAlunoAvaliacoesResult[i].aluno = nome;
+        allAlunoAvaliacoesResult[i].email = email;
+        allAlunoAvaliacoesResult[i].periodo =
+            DateFormat('dd/MM/yyyy HH:mm:ss').format(DateTime.now());
+        allAlunoAvaliacoesResult[i].dataExecucao =
+            DateFormat('dd/MM/yyyy HH:mm:ss').format(ava.dataexecucao);
+        allAlunoAvaliacoesResult[i].titulo = ava.titulo;
+        allAlunoAvaliacoesResult[i].situacao = ava.situacao;
+        allAlunoAvaliacoesResult[i].totalAcertos = ava.nracertos.toString();
+        allAlunoAvaliacoesResult[i].totalErros = ava.nrerros.toString();
 
         i++;
         totalacertos = totalacertos + ava.nracertos;
         totalerros = totalerros + ava.nrerros;
       });
     }
-    return allAvaliacoesResult;
+    return allAlunoAvaliacoesResult;
   }
 
   List<AvaliacaoResult> getAcertosAlunoAtividadePeriodo(
@@ -238,8 +269,8 @@ class AvaliacoesManager extends ChangeNotifier {
     int i = 0;
 
     avaliacoesAlunoCorrente.clear();
-    allAvaliacoesResult.clear();
-    allAvaliacoesResult.add(new AvaliacaoResult());
+    allAlunoAvaliacoesResult.clear();
+    allAlunoAvaliacoesResult.add(new AvaliacaoResult());
     allAvaliacoes.forEach((av) {
       if ((av.email == email) && (av.situacao != 'Aberta')) {
         //inserir o filtro de datai e dataf
@@ -247,9 +278,9 @@ class AvaliacoesManager extends ChangeNotifier {
       }
     });
     if (avaliacoesAlunoCorrente.isNotEmpty) {
-      allAvaliacoesResult[i].aluno = 'Avaliações do aluno: ' + nome;
-      allAvaliacoesResult[i].email = email;
-      allAvaliacoesResult[i].periodo =
+      allAlunoAvaliacoesResult[i].aluno = 'Avaliações do aluno: ' + nome;
+      allAlunoAvaliacoesResult[i].email = email;
+      allAlunoAvaliacoesResult[i].periodo =
           'Data emissão: ' + DateFormat('dd/MM/yyyy').format(DateTime.now());
 
       /*Q1: Qual a quantidade de acertos de cada aluno por atividade?
@@ -282,7 +313,7 @@ class AvaliacoesManager extends ChangeNotifier {
               totalacertos,
               totalerros,
               nrsubjacentes,
-              allAvaliacoesResult[i]);
+              allAlunoAvaliacoesResult[i]);
           idquestcorr = ava.idQuestionario;
           totalacertos = 0;
           melhorresultado = 0;
@@ -291,7 +322,7 @@ class AvaliacoesManager extends ChangeNotifier {
           nrtentativas = 0;
           nralternativasapresentadas = ava.nracertos + ava.nrerros;
           i++;
-          allAvaliacoesResult.add(new AvaliacaoResult());
+          allAlunoAvaliacoesResult.add(new AvaliacaoResult());
         }
         if (ava.situacao == 'Refazer Subjacente') {
           nrsubjacentes++;
@@ -308,8 +339,8 @@ class AvaliacoesManager extends ChangeNotifier {
           totalacertos,
           totalerros,
           nrsubjacentes,
-          allAvaliacoesResult[i]);
+          allAlunoAvaliacoesResult[i]);
     }
-    return allAvaliacoesResult;
+    return allAlunoAvaliacoesResult;
   }
 }

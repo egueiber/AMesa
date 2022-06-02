@@ -1,10 +1,13 @@
 import 'package:amesaadm/common/custom_drawer/custom_drawer.dart';
+import 'package:amesaadm/models/avaliacoesmanager.dart';
 import 'package:flutter/material.dart';
 import 'package:amesaadm/models/alunosmanager.dart';
 import 'package:amesaadm/views/aluno_lista/componentes/aluno_list_tile.dart';
 import 'package:provider/provider.dart';
 import 'package:amesaadm/views/questionariomanager/componentes/pesquisa.dart';
 import 'package:amesaadm/models/user_manager.dart';
+
+import '../../models/exportacaminho.dart';
 
 class AlunosScreen extends StatelessWidget {
   @override
@@ -75,6 +78,25 @@ class AlunosScreen extends StatelessWidget {
                     Navigator.of(context).pushNamed(
                       '/edit_aluno',
                     );
+                  },
+                );
+              } else {
+                return Container();
+              }
+            },
+          ),
+          Consumer3<UserManager, AvaliacoesManager, AlunoManager>(
+            builder: (_, userManager, avaliacoesManager, alunoManager, __) {
+              if (userManager.adminEnabled) {
+                return IconButton(
+                  icon: Icon(Icons.cloud_upload),
+                  onPressed: () {
+                    final avaliacoesAluno = avaliacoesManager
+                        .getAllAtividadePeriodoTrilha(alunoManager.allAlunos);
+                    if (avaliacoesAluno.isNotEmpty) {
+                      ExportaCaminho(avaliacoesAluno);
+                    }
+                    return Container();
                   },
                 );
               } else {

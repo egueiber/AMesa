@@ -4,8 +4,6 @@ import 'avaliacaoresult.dart';
 //import 'package:flutter/cupertino.dart';
 class ManipulaPlanilha {
   ManipulaPlanilha();
-  static final _planilhaId =
-      'AKfycbzHERpiwDlXU0FjkEWSve9QM9jECj-HPV42vjd78KQ2lLPFUr_XYws7zWzZVNA4fS4c8Q';
   static final _credenciais = r'''{
     "type": "service_account",
     "project_id": "pramesa",
@@ -20,6 +18,9 @@ class ManipulaPlanilha {
     "client_x509_cert_url":
         "https://www.googleapis.com/robot/v1/metadata/x509/pramesa%40pramesa.iam.gserviceaccount.com"
   }''';
+  static final _planilhaId = '1GfLxsGWd3c1kHsz7E8reyunBHNOttQ8MXTJ0lCvg1GQ';
+  // 'AKfycbzHERpiwDlXU0FjkEWSve9QM9jECj-HPV42vjd78KQ2lLPFUr_XYws7zWzZVNA4fS4c8Q';
+
   static final _amesacoleta = GSheets(_credenciais);
   static Worksheet _percurso;
 
@@ -27,8 +28,8 @@ class ManipulaPlanilha {
     try {
       final planilha = await _amesacoleta.spreadsheet(_planilhaId);
       _percurso = await _getWorkSheet(planilha, title: 'Percurso');
-      final primeiraLinha = AvaliacaoResult().getFields();
-      _percurso.values.insertRow(1, primeiraLinha);
+      final cabecalho = AvaliacaoResult().getFields();
+      _percurso.values.insertRow(1, cabecalho);
     } catch (e) {
       print('Erro:$e');
     }
@@ -43,7 +44,7 @@ class ManipulaPlanilha {
     }
   }
 
-  static Future insert(List<Map<String, dynamic>> rowList) async {
+  static Future insert(List rowList) async {
     if (_percurso == null) return;
     _percurso.values.map.appendRows(rowList);
   }
@@ -52,9 +53,14 @@ class ManipulaPlanilha {
 class ExportaCaminho {
   ExportaCaminho(List<AvaliacaoResult> avaliacaoresultcolection) {
     //WidgetsFlutterBinding.ensureInitialized();
-    final planilha = ManipulaPlanilha.init();
+    //await ManipulaPlanilha.init();
+    List<Map<String, dynamic>> linhas = [];
     avaliacaoresultcolection.forEach((av) {
-      ManipulaPlanilha.insert([av.toMap()]);
+      Map linha = av.toMap();
+      if (linha.isNotEmpty) {
+        linhas.add(linha);
+      }
     });
+    ManipulaPlanilha.insert(linhas);
   }
 }

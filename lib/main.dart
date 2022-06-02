@@ -36,10 +36,12 @@ import 'package:amesaadm/views/questionario/edit/editquestionario.dart';
 import 'package:amesaadm/views/avaliacao/avaliacaoalunopercurso.dart';
 //import 'package:amesaadm/views/select_product/select_product_screen.dart';
 import 'package:amesaadm/views/questionario/questionarioscreen.dart';
+import 'package:amesaadm/models/exportacaminho.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await ManipulaPlanilha.init();
   runApp(MyApp());
 }
 

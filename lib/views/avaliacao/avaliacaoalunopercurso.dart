@@ -3,7 +3,8 @@ import 'package:amesaadm/models/aluno.dart';
 import 'package:amesaadm/models/user_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:amesaadm/models/avaliacoesmanager.dart';
-import 'package:intl/intl.dart';
+
+import '../../models/exportacaminho.dart';
 
 class AlunoAvaliacaoPercursoScreen extends StatelessWidget {
   const AlunoAvaliacaoPercursoScreen(this.aluno);
@@ -25,10 +26,19 @@ class AlunoAvaliacaoPercursoScreen extends StatelessWidget {
               builder: (_, userManager, avaliacoesManager, __) {
                 if (userManager.adminEnabled) {
                   return IconButton(
-                    icon: Icon(Icons.email),
+                    icon: Icon(Icons.cloud_upload),
                     onPressed: () {
-                      Navigator.of(context).pushReplacementNamed('/edit_aluno',
-                          arguments: aluno);
+                      final avaliacoesAluno = avaliacoesManager
+                          .getAcertosAlunoAtividadePeriodoTrilha(aluno.nome,
+                              aluno.email, DateTime.now(), DateTime.now());
+                      if (avaliacoesAluno.isNotEmpty) {
+                        ExportaCaminho(avaliacoesAluno); //em teste aqui
+
+                      }
+                      return Container();
+
+                      /*  Navigator.of(context).pushReplacementNamed('/edit_aluno',
+                          arguments: aluno); */
                     },
                   );
                 } else {
@@ -67,8 +77,7 @@ class AlunoAvaliacaoPercursoScreen extends StatelessWidget {
                                 'Erros: ' + avaliacoesAluno[index].totalErros ??
                                     ' '),
                             Text('Data Execução: ' +
-                                    DateFormat('dd/MM/yyyy HH:mm:ss').format(
-                                        avaliacoesAluno[index].dataExecucao) ??
+                                    avaliacoesAluno[index].dataExecucao ??
                                 ' '),
                             Text(avaliacoesAluno[index].titulo ?? ' '),
                           ]))

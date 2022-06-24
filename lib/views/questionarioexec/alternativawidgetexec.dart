@@ -71,12 +71,12 @@ class AlternativaWidgetExec extends StatelessWidget {
                 : Colors.grey[200]),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         child: Container(
-          height: 80,
+          height: 140,
           padding: const EdgeInsets.all(8),
           child: Row(
             children: <Widget>[
               AspectRatio(
-                  aspectRatio: 2,
+                  aspectRatio: 1,
                   child: selecionada
                       ? ((questao.respondida)
                           ? (alternativa.respostaCorreta

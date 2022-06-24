@@ -91,7 +91,7 @@ class HomeScreen extends StatelessWidget {
                       children.add(QuestionarioListTileExec(tm));
                     });
                   } else {
-                    children = {Text('Carregando..')}.toList();
+                    children = {Text('Aguardando por atividades!')}.toList();
                   }
                   return SliverList(
                       delegate: SliverChildListDelegate(children));

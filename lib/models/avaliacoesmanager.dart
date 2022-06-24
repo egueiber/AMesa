@@ -244,6 +244,7 @@ class AvaliacoesManager extends ChangeNotifier {
       int totalerros = 0;
       avaliacoesAlunoCorrente.forEach((ava) {
         allAlunoAvaliacoesResult.add(new AvaliacaoResult());
+        allAlunoAvaliacoesResult[i].idAvaliacao = ava.id;
         allAlunoAvaliacoesResult[i].email = ava.titulo;
         allAlunoAvaliacoesResult[i].aluno = nome;
         allAlunoAvaliacoesResult[i].email = email;

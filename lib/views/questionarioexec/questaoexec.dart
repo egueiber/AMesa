@@ -95,7 +95,7 @@ class QuestaoFormExec extends StatelessWidget {
                                     .questoes[questionario.questaocorrente]
                                     .descricao,
                                 style: TextStyle(
-                                    fontSize: 28, fontWeight: FontWeight.w600),
+                                    fontSize: 25, fontWeight: FontWeight.w600),
                               ),
                               onPressed: () {
                                 setStartHandler(
@@ -143,7 +143,7 @@ class QuestaoFormExec extends StatelessWidget {
                       style: TextButton.styleFrom(
                           padding: const EdgeInsets.all(16.0),
                           primary: Colors.white,
-                          textStyle: const TextStyle(fontSize: 20),
+                          textStyle: const TextStyle(fontSize: 17),
                           backgroundColor: Colors.blueGrey,
                           elevation: 5,
                           shadowColor: Colors.yellow),
